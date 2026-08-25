@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Medication Safety Game Master</title>
+
+  <meta name="description" content="Medication Safety Game Master is an interactive educational and assessment platform designed to strengthen safe medication practices among healthcare professionals.">
+
+  <style>
+    :root {
+      --navy: #07162f;
+      --blue: #123f7a;
+      --blue-light: #eaf2ff;
+      --gold: #d4af37;
+      --gold-light: #f6e7a8;
+      --white: #ffffff;
+      --text: #172033;
+      --muted: #58657a;
+      --border: #dce3ed;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(212,175,55,.12), transparent 30%),
+        linear-gradient(180deg, #07162f 0, #0d2b55 420px, #f4f7fb 420px);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .site-header {
+      padding: 18px 20px;
+      border-bottom: 1px solid rgba(255,255,255,.15);
+    }
+
+    .header-inner {
+      width: min(1100px, 100%);
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      color: white;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-decoration: none;
+    }
+
+    .mercy-link {
+      color: #e9eef8;
+      text-decoration: none;
+      font-size: .95rem;
+    }
+
+    .mercy-link:hover,
+    .mercy-link:focus {
+      color: var(--gold-light);
+    }
+
+    main {
+      width: min(1000px, calc(100% - 32px));
+      margin: 54px auto 70px;
+    }
+
+    .hero {
+      text-align: center;
+      color: white;
+      padding: 20px 12px 60px;
+    }
+
+    .eyebrow {
+      color: var(--gold-light);
+      font-size: .85rem;
+      font-weight: 800;
+      letter-spacing: .2em;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.2rem, 7vw, 4.7rem);
+      line-height: .98;
+      letter-spacing: -.035em;
+    }
+
+    .gold {
+      color: var(--gold);
+    }
+
+    .hero p {
+      max-width: 760px;
+      margin: 25px auto 0;
+      color: #e6edf8;
+      font-size: 1.08rem;
+    }
+
+    .content {
+      background: var(--white);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 22px 60px rgba(4, 16, 38, .22);
+      border: 1px solid rgba(212,175,55,.45);
+    }
+
+    section {
+      padding: 42px 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    section:last-child {
+      border-bottom: 0;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      color: var(--navy);
+      font-size: 1.35rem;
+      letter-spacing: .04em;
+    }
+
+    h2::before {
+      content: "";
+      display: inline-block;
+      width: 5px;
+      height: 22px;
+      background: var(--gold);
+      border-radius: 4px;
+      margin-right: 11px;
+      vertical-align: -4px;
+    }
+
+    p {
+      margin: 0 0 16px;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    .topics {
+      background: var(--blue-light);
+    }
+
+    .topic-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .topic {
+      background: white;
+      border: 1px solid #cfdbed;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-weight: 600;
+      color: #233653;
+    }
+
+    .disclaimer {
+      background: #fffaf0;
+    }
+
+    .actions {
+      padding: 36px 48px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 13px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 800;
+      letter-spacing: .02em;
+      transition: transform .15s ease;
+    }
+
+    .button:hover,
+    .button:focus {
+      transform: translateY(-1px);
+    }
+
+    .primary {
+      background: var(--navy);
+      color: white;
+      border: 2px solid var(--navy);
+    }
+
+    .secondary {
+      background: white;
+      color: var(--navy);
+      border: 2px solid var(--gold);
+    }
+
+    footer {
+      text-align: center;
+      color: #cbd6e7;
+      padding: 0 20px 40px;
+      font-size: .88rem;
+    }
+
+    footer a {
+      color: var(--gold-light);
+    }
+
+    @media (max-width: 650px) {
+      .site-header {
+        padding: 15px 16px;
+      }
+
+      .header-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      main {
+        width: min(100% - 20px, 1000px);
+        margin-top: 32px;
+      }
+
+      .hero {
+        padding: 15px 10px 45px;
+      }
+
+      section,
+      .actions {
+        padding: 30px 22px;
+      }
+
+      .topic-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .button {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="/connect/medication-safety/">
+      MEDICATION SAFETY
+    </a>
+
+    <a class="mercy-link" href="/">
+      MERCY Series
+    </a>
+  </div>
+</header>
+
+<main>
+
+  <div class="hero">
+    <div class="eyebrow">INTERACTIVE CLINICAL EDUCATION</div>
+
+    <h1>
+      MEDICATION SAFETY<br>
+      <span class="gold">GAME MASTER</span>
+    </h1>
+
+    <p>
+      An interactive educational and assessment platform designed to
+      strengthen safe medication practices among healthcare professionals.
+    </p>
+  </div>
+
+  <article class="content">
+
+    <section aria-labelledby="about-title">
+      <h2 id="about-title">ABOUT THE PROGRAMME</h2>
+
+      <p>
+        Medication Safety Game Master is an interactive educational and
+        assessment platform designed to strengthen safe medication practices
+        among healthcare professionals.
+      </p>
+
+      <p>
+        The programme uses structured clinical scenarios covering the
+        medication-use process, including prescribing, dispensing,
+        administration, monitoring, communication, error prevention and
+        systems-based learning.
+      </p>
+
+      <p>
+        Participants progress through seven learning topics and 28 clinical
+        scenarios. Their responses are scored using predefined clinical
+        decision rules, followed by educational feedback and reflective
+        learning.
+      </p>
+    </section>
+
+    <section class="topics" aria-labelledby="scope-title">
+      <h2 id="scope-title">LEARNING SCOPE</h2>
+
+      <div class="topic-grid">
+        <div class="topic">Prescribing</div>
+        <div class="topic">Dispensing</div>
+        <div class="topic">Administration</div>
+        <div class="topic">Monitoring</div>
+        <div class="topic">Communication</div>
+        <div class="topic">Error Prevention</div>
+        <div class="topic">Systems-Based Learning</div>
+      </div>
+    </section>
+
+    <section aria-labelledby="signin-title">
+      <h2 id="signin-title">GOOGLE SIGN-IN</h2>
+
+      <p>
+        Google Sign-In is used to identify participants securely, save
+        learning progress, and associate assessment results with the correct
+        participant account.
+      </p>
+
+      <p>
+        The application does not request access to Gmail, Google Drive,
+        Google Calendar, Google Contacts, or other unrelated Google services.
+      </p>
+    </section>
+
+    <section aria-labelledby="research-title">
+      <h2 id="research-title">RESEARCH AND LEARNING</h2>
+
+      <p>
+        Participant profession and learning results may be used to evaluate
+        educational outcomes and identify areas where medication-safety
+        knowledge can be strengthened.
+      </p>
+
+      <p>
+        Results are intended to be handled in accordance with applicable
+        study, institutional, ethical and data-protection requirements.
+      </p>
+    </section>
+
+    <section class="disclaimer" aria-labelledby="disclaimer-title">
+      <h2 id="disclaimer-title">EDUCATIONAL DISCLAIMER</h2>
+
+      <p>
+        Medication Safety Game Master is an educational simulation. It does
+        not replace professional clinical judgement, institutional
+        procedures, medication references or patient-specific clinical
+        assessment.
+      </p>
+    </section>
+
+    <nav class="actions" aria-label="Medication Safety information links">
+      <a class="button primary"
+         href="/connect/medication-safety/privacy/">
+        PRIVACY POLICY
+      </a>
+
+      <a class="button secondary"
+         href="/">
+        MERCY SERIES WEBSITE
+      </a>
+    </nav>
+
+  </article>
+
+</main>
+
+<footer>
+  Medication Safety Game Master &nbsp;•&nbsp;
+  <a href="/">mercyseries.com</a>
+</footer>
+
+</body>
+</html>
