@@ -3,93 +3,547 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#061a43">
-  <meta name="description" content="MERCY — an illustrated story of faith, dignity, struggle and compassion.">
-  <title>MERCY — Official Site</title>
+  <meta name="theme-color" content="#071f48">
+  <meta name="description" content="MERCY by Shahir Anuar — an illustrated story of faith, dignity, struggle, hope and compassion.">
+  <meta property="og:title" content="MERCY — A Story About Falling, Returning, and Beginning Again">
+  <meta property="og:description" content="An illustrated story of faith, family, dignity and the mercy we owe one another.">
+  <meta property="og:image" content="https://mercyseries.com/page_001.webp">
+  <meta property="og:url" content="https://mercyseries.com/">
+  <meta property="og:type" content="book">
+  <title>MERCY by Shahir Anuar — Official Site</title>
+
   <style>
-    :root{--navy:#061a43;--navy2:#0b2a66;--gold:#d7ae46;--paper:#fffaf0;--ink:#172238;--muted:#65708a}
+    :root{
+      --navy-950:#03132f;
+      --navy-900:#071f48;
+      --navy-800:#0c326d;
+      --gold-700:#9a6a16;
+      --gold-500:#d5a63d;
+      --gold-300:#efd587;
+      --cream-50:#fffdf7;
+      --cream-100:#fff8e8;
+      --cream-200:#f4e7c8;
+      --ink:#18243a;
+      --muted:#59657a;
+      --shadow:0 24px 70px rgba(3,19,47,.18);
+      --serif:"Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;
+      --sans:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+    }
+
     *{box-sizing:border-box}
-    body{margin:0;min-width:320px;color:var(--ink);font-family:Georgia,"Times New Roman",serif;background:radial-gradient(circle at top,#fff9e9,#e9dcc0 55%,#cdbb91)}
-    .top{background:linear-gradient(115deg,var(--navy),var(--navy2));border-bottom:3px solid var(--gold);color:#fff}
-    .top-inner{max-width:1100px;margin:auto;padding:1rem 1.2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
-    .brand{font-weight:700;letter-spacing:.15em;color:#f6d878;font-size:1.2rem}
-    .nav{display:flex;gap:.55rem;flex-wrap:wrap;font-family:system-ui,sans-serif}
-    .nav a{color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.35);padding:.55rem .8rem;border-radius:.55rem;font-size:.82rem;font-weight:700}
-    main{max-width:950px;margin:auto;padding:clamp(1rem,4vw,3rem)}
-    .hero{text-align:center;padding:clamp(2rem,8vw,5rem) 0 2rem}
-    .eyebrow{font-family:system-ui,sans-serif;text-transform:uppercase;letter-spacing:.18em;color:#97711f;font-weight:800;font-size:.76rem}
-    h1{margin:.4rem 0 .8rem;color:var(--navy);font-size:clamp(3rem,12vw,7rem);line-height:.9}
-    .tagline{font-size:clamp(1.15rem,3vw,1.65rem);line-height:1.55;color:#31405c;max-width:42rem;margin:0 auto}
-    .status-card{margin:2rem auto 1rem;padding:1.25rem 1.3rem;max-width:44rem;border:1px solid rgba(215,174,70,.75);border-left:5px solid var(--gold);border-radius:.7rem;background:rgba(255,250,240,.92);text-align:left}
-    .status-card strong{display:block;color:var(--navy);font-size:1.15rem;margin-bottom:.4rem}
-    .cta-row{display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;margin-top:1.4rem}
-    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:3rem;padding:.75rem 1rem;border-radius:.6rem;text-decoration:none;font-family:system-ui,sans-serif;font-weight:800}
-    .btn-secondary{background:#fffaf0;color:var(--navy);border:2px solid var(--gold)}
-    .btn-disabled{background:#d7d9df;color:#636979;border:2px solid #c3c6ce;cursor:not-allowed}
-    .section{margin:1.4rem 0;padding:clamp(1.2rem,4vw,2.2rem);background:rgba(255,253,247,.94);border:1px solid rgba(215,174,70,.48);border-radius:.9rem;box-shadow:0 10px 28px rgba(48,36,13,.08)}
-    .section h2{margin:.1rem 0 .8rem;color:var(--navy);font-size:clamp(1.45rem,3vw,2rem)}
-    .section p{font-size:1.05rem;line-height:1.75;color:#35415a}
-    footer{margin-top:2.5rem;background:#061a43;color:#e9edf6;border-top:3px solid var(--gold)}
-    footer .inner{max-width:950px;margin:auto;padding:1.3rem 1.2rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-family:system-ui,sans-serif;font-size:.82rem}
-    footer a{color:#f3d77e}
-    @media(max-width:650px){.top-inner{display:block}.brand{margin-bottom:.7rem}.hero{padding-top:2.8rem}}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      min-width:320px;
+      color:var(--ink);
+      font-family:var(--serif);
+      background:
+        radial-gradient(circle at 10% 5%,rgba(239,213,135,.28),transparent 28rem),
+        radial-gradient(circle at 92% 22%,rgba(7,31,72,.08),transparent 34rem),
+        linear-gradient(180deg,#fffdf8 0%,#f8edda 52%,#eee0c1 100%);
+    }
+
+    img{display:block;max-width:100%}
+    a{color:inherit}
+    button,a{-webkit-tap-highlight-color:transparent}
+    :focus-visible{outline:3px solid var(--gold-500);outline-offset:4px}
+
+    .skip-link{
+      position:fixed;
+      top:.6rem;
+      left:.6rem;
+      z-index:100;
+      transform:translateY(-160%);
+      padding:.7rem 1rem;
+      border-radius:.45rem;
+      background:#fff;
+      color:var(--navy-950);
+      font-family:var(--sans);
+      font-weight:800;
+    }
+    .skip-link:focus{transform:none}
+
+    .site-header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      border-bottom:1px solid rgba(239,213,135,.58);
+      background:rgba(3,19,47,.94);
+      color:#fff;
+      backdrop-filter:blur(14px);
+    }
+    .header-inner{
+      width:min(1180px,calc(100% - 2rem));
+      min-height:4.4rem;
+      margin:auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1.2rem;
+    }
+    .brand{
+      text-decoration:none;
+      color:var(--gold-300);
+      font-size:1.23rem;
+      font-weight:700;
+      letter-spacing:.24em;
+      white-space:nowrap;
+    }
+    .nav{display:flex;align-items:center;justify-content:flex-end;gap:.25rem;flex-wrap:wrap;font-family:var(--sans)}
+    .nav a{
+      padding:.62rem .72rem;
+      border-radius:999px;
+      color:#f9f3e6;
+      text-decoration:none;
+      font-size:.79rem;
+      font-weight:750;
+      letter-spacing:.015em;
+      transition:background .2s ease,color .2s ease;
+    }
+    .nav a:hover{background:rgba(255,255,255,.1);color:var(--gold-300)}
+    .nav .nav-cta{border:1px solid rgba(239,213,135,.7);color:var(--gold-300)}
+
+    main{overflow:hidden}
+    .hero-wrap{padding:clamp(1.1rem,4vw,3.5rem) 1rem 0}
+    .ornate-frame{
+      width:min(1220px,100%);
+      margin:auto;
+      border:30px solid var(--gold-500);
+      border-image-source:url("page_002.webp");
+      border-image-slice:105;
+      border-image-width:30px;
+      border-image-repeat:stretch;
+      border-radius:1rem;
+      background:linear-gradient(135deg,rgba(255,253,247,.98),rgba(255,247,226,.96));
+      box-shadow:var(--shadow),inset 0 0 0 1px rgba(154,106,22,.28);
+    }
+    .hero{
+      min-height:690px;
+      padding:clamp(1.5rem,5vw,4.5rem);
+      display:grid;
+      grid-template-columns:minmax(260px,.84fr) minmax(300px,1.16fr);
+      align-items:center;
+      gap:clamp(2rem,6vw,5rem);
+    }
+    .cover-stage{position:relative;isolation:isolate;max-width:410px;margin:auto}
+    .cover-stage::before{
+      content:"";
+      position:absolute;
+      z-index:-1;
+      inset:8% -10% -5%;
+      border-radius:50%;
+      background:radial-gradient(ellipse,rgba(213,166,61,.34),transparent 68%);
+      filter:blur(8px);
+    }
+    .front-cover{
+      width:100%;
+      border-radius:.35rem;
+      box-shadow:0 28px 45px rgba(3,19,47,.32),0 5px 12px rgba(3,19,47,.18);
+      transform:rotate(-1.2deg);
+      transition:transform .35s ease,box-shadow .35s ease;
+    }
+    .front-cover:hover{transform:rotate(0) translateY(-5px);box-shadow:0 34px 60px rgba(3,19,47,.36)}
+    .edition-badge{
+      position:absolute;
+      right:-1.1rem;
+      bottom:1.7rem;
+      display:grid;
+      place-items:center;
+      width:6.1rem;
+      aspect-ratio:1;
+      border:1px solid var(--gold-300);
+      border-radius:50%;
+      background:var(--navy-900);
+      color:#fff3cb;
+      box-shadow:0 10px 25px rgba(3,19,47,.3);
+      font-family:var(--sans);
+      font-size:.7rem;
+      font-weight:800;
+      line-height:1.25;
+      text-align:center;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+    .hero-copy{max-width:640px}
+    .eyebrow{
+      margin:0 0 .9rem;
+      color:var(--gold-700);
+      font-family:var(--sans);
+      font-size:.76rem;
+      font-weight:850;
+      letter-spacing:.19em;
+      text-transform:uppercase;
+    }
+    h1,h2,h3,p{margin-top:0}
+    h1{
+      margin-bottom:1rem;
+      color:var(--navy-950);
+      font-size:clamp(2.75rem,6vw,5.4rem);
+      font-weight:500;
+      letter-spacing:-.035em;
+      line-height:.99;
+      text-wrap:balance;
+    }
+    .lead{
+      max-width:39rem;
+      margin-bottom:1.1rem;
+      color:#34445e;
+      font-size:clamp(1.13rem,2.2vw,1.45rem);
+      line-height:1.55;
+    }
+    .hero-note{max-width:39rem;color:var(--muted);font-family:var(--sans);font-size:.95rem;line-height:1.7}
+    .cta-row{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.65rem}
+    .btn{
+      min-height:3.2rem;
+      padding:.78rem 1.15rem;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:.45rem;
+      border:2px solid transparent;
+      border-radius:999px;
+      text-decoration:none;
+      font-family:var(--sans);
+      font-size:.9rem;
+      font-weight:850;
+      transition:transform .2s ease,background .2s ease,box-shadow .2s ease;
+    }
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{background:var(--navy-900);color:#fff7df;box-shadow:0 10px 24px rgba(7,31,72,.22)}
+    .btn-primary:hover{background:var(--navy-800);box-shadow:0 14px 28px rgba(7,31,72,.28)}
+    .btn-secondary{border-color:var(--gold-500);background:rgba(255,255,255,.58);color:var(--navy-900)}
+    .btn-secondary:hover{background:#fff}
+
+    .theme-ribbon{
+      width:min(1120px,calc(100% - 2rem));
+      margin:2.4rem auto 0;
+      padding:1.05rem 1.2rem;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      border-block:1px solid rgba(154,106,22,.32);
+      color:var(--navy-900);
+      font-family:var(--sans);
+      font-size:.78rem;
+      font-weight:850;
+      letter-spacing:.11em;
+      text-align:center;
+      text-transform:uppercase;
+    }
+    .theme-ribbon span+span{border-left:1px solid rgba(154,106,22,.3)}
+
+    .content{width:min(1100px,calc(100% - 2rem));margin:auto;padding:clamp(4rem,8vw,7rem) 0}
+    .section-heading{max-width:720px;margin:0 auto 2.7rem;text-align:center}
+    .kicker{margin-bottom:.65rem;color:var(--gold-700);font-family:var(--sans);font-size:.73rem;font-weight:850;letter-spacing:.18em;text-transform:uppercase}
+    h2{color:var(--navy-950);font-size:clamp(2rem,4vw,3.35rem);font-weight:500;line-height:1.08;text-wrap:balance}
+    .section-heading p{color:var(--muted);font-size:1.08rem;line-height:1.75}
+    .ornament{display:flex;align-items:center;justify-content:center;gap:.75rem;margin:1rem auto;color:var(--gold-500)}
+    .ornament::before,.ornament::after{content:"";width:min(110px,18vw);height:1px;background:linear-gradient(90deg,transparent,var(--gold-500))}
+    .ornament::after{transform:scaleX(-1)}
+
+    .story-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:clamp(1.5rem,5vw,4rem);align-items:stretch}
+    .story-copy,.quote-card{
+      border:1px solid rgba(154,106,22,.25);
+      border-radius:1.25rem;
+      background:rgba(255,253,247,.78);
+      box-shadow:0 16px 45px rgba(45,36,20,.08);
+    }
+    .story-copy{padding:clamp(1.5rem,4vw,2.7rem)}
+    .story-copy p{color:#3c4960;font-size:1.06rem;line-height:1.83}
+    .story-copy p:last-child{margin-bottom:0}
+    .quote-card{
+      padding:clamp(2rem,5vw,3.4rem);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      border-color:rgba(239,213,135,.48);
+      background:
+        linear-gradient(rgba(3,19,47,.89),rgba(7,31,72,.92)),
+        url("page_001.webp") center 34%/cover;
+      color:#fff8e5;
+    }
+    blockquote{margin:0;font-size:clamp(1.55rem,3vw,2.25rem);font-style:italic;line-height:1.45;text-wrap:balance}
+    blockquote::before{content:"“";display:block;height:2.4rem;color:var(--gold-300);font-size:4.5rem;line-height:1}
+    .quote-card cite{margin-top:1.2rem;color:var(--gold-300);font-family:var(--sans);font-size:.76rem;font-style:normal;font-weight:800;letter-spacing:.13em;text-transform:uppercase}
+
+    .values-section{padding-block:clamp(4rem,8vw,7rem);background:linear-gradient(180deg,rgba(7,31,72,.97),var(--navy-950));color:#fff}
+    .values-section .content{padding:0}
+    .values-section h2{color:#fff9e8}
+    .values-section .section-heading p{color:#cdd7e8}
+    .values{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+    .value-card{
+      min-height:225px;
+      padding:1.55rem;
+      border:1px solid rgba(239,213,135,.32);
+      border-radius:1rem;
+      background:linear-gradient(150deg,rgba(255,255,255,.08),rgba(255,255,255,.025));
+    }
+    .value-icon{width:3.1rem;height:3.1rem;margin-bottom:1.1rem;display:grid;place-items:center;border:1px solid rgba(239,213,135,.48);border-radius:50%;color:var(--gold-300);font-size:1.35rem}
+    .value-card h3{margin-bottom:.65rem;color:#fff3cb;font-size:1.18rem;font-weight:600}
+    .value-card p{margin-bottom:0;color:#cbd4e3;font-family:var(--sans);font-size:.9rem;line-height:1.65}
+
+    .book-section{display:grid;grid-template-columns:minmax(260px,.78fr) minmax(300px,1.22fr);gap:clamp(2rem,7vw,5rem);align-items:center}
+    .back-cover-link{position:relative;max-width:430px;margin:auto;text-decoration:none}
+    .back-cover{
+      width:100%;
+      border-radius:.45rem;
+      box-shadow:0 24px 55px rgba(3,19,47,.28);
+      transition:transform .3s ease,box-shadow .3s ease;
+    }
+    .back-cover-link:hover .back-cover{transform:translateY(-5px);box-shadow:0 30px 70px rgba(3,19,47,.34)}
+    .zoom-label{
+      position:absolute;
+      right:.8rem;
+      bottom:.8rem;
+      padding:.62rem .85rem;
+      border:1px solid rgba(239,213,135,.65);
+      border-radius:999px;
+      background:rgba(3,19,47,.88);
+      color:#fff4d2;
+      font-family:var(--sans);
+      font-size:.75rem;
+      font-weight:800;
+    }
+    .book-copy h2{margin-bottom:1rem}
+    .book-copy>p{color:#46536a;font-size:1.05rem;line-height:1.78}
+    .details{
+      margin:1.55rem 0 1.75rem;
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      border-block:1px solid rgba(154,106,22,.28);
+    }
+    .detail{padding:1rem 0}
+    .detail:nth-child(even){padding-left:1rem;border-left:1px solid rgba(154,106,22,.28)}
+    .detail strong{display:block;margin-bottom:.2rem;color:var(--navy-900);font-family:var(--sans);font-size:.72rem;letter-spacing:.09em;text-transform:uppercase}
+    .detail span{color:#4f5b70;font-size:.98rem}
+
+    .closing{padding:clamp(4rem,9vw,7rem) 1rem;background:linear-gradient(180deg,rgba(255,250,237,.72),rgba(236,221,188,.95));text-align:center}
+    .closing-inner{width:min(820px,100%);margin:auto}
+    .closing h2{margin-bottom:1rem}
+    .closing p{color:#48556b;font-size:1.08rem;line-height:1.75}
+    .closing .cta-row{justify-content:center}
+
+    footer{border-top:3px solid var(--gold-500);background:var(--navy-950);color:#d7deea}
+    .footer-inner{
+      width:min(1100px,calc(100% - 2rem));
+      margin:auto;
+      padding:1.5rem 0;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1rem;
+      flex-wrap:wrap;
+      font-family:var(--sans);
+      font-size:.8rem;
+    }
+    .footer-line{color:var(--gold-300);font-family:var(--serif);font-size:.98rem;font-style:italic}
+    footer a{color:#fff3c8;text-decoration-thickness:1px;text-underline-offset:3px}
+
+    @media(max-width:900px){
+      .header-inner{align-items:flex-start;padding:.8rem 0;flex-direction:column}
+      .nav{justify-content:flex-start}
+      .nav a{padding:.5rem .55rem}
+      .hero{grid-template-columns:1fr;min-height:0;text-align:center}
+      .hero-copy{margin:auto}
+      .cover-stage{max-width:350px}
+      .cta-row{justify-content:center}
+      .theme-ribbon{grid-template-columns:repeat(2,1fr);row-gap:.8rem}
+      .theme-ribbon span:nth-child(3){border-left:0}
+      .story-grid,.book-section{grid-template-columns:1fr}
+      .values{grid-template-columns:repeat(2,1fr)}
+      .book-copy{text-align:center}
+      .details{text-align:left}
+      .book-copy .cta-row{justify-content:center}
+    }
+
+    @media(max-width:560px){
+      .site-header{position:relative}
+      .header-inner{width:min(100% - 1.25rem,1180px)}
+      .brand{font-size:1.05rem}
+      .nav{gap:.1rem}
+      .nav a{font-size:.72rem}
+      .hero-wrap{padding:.65rem .5rem 0}
+      .ornate-frame{border-width:18px;border-image-width:18px;border-image-slice:105}
+      .hero{padding:1.35rem .75rem 2rem;gap:2.2rem}
+      .cover-stage{max-width:260px}
+      .edition-badge{right:-.45rem;bottom:1rem;width:5rem;font-size:.58rem}
+      h1{font-size:clamp(2.5rem,13vw,3.65rem)}
+      .lead{font-size:1.08rem}
+      .cta-row{flex-direction:column}
+      .btn{width:100%}
+      .theme-ribbon{width:calc(100% - 1rem);font-size:.68rem;letter-spacing:.08em}
+      .content{width:min(100% - 1.25rem,1100px)}
+      .values{grid-template-columns:1fr}
+      .value-card{min-height:0}
+      .details{grid-template-columns:1fr}
+      .detail:nth-child(even){padding-left:0;border-left:0;border-top:1px solid rgba(154,106,22,.2)}
+      .footer-inner{justify-content:center;text-align:center}
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+      *,*::before,*::after{transition:none!important}
+    }
   </style>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Book",
+    "name":"MERCY",
+    "author":{"@type":"Person","name":"Shahir Anuar"},
+    "datePublished":"2026",
+    "bookEdition":"First Edition",
+    "isbn":"978-629-92740-0-1",
+    "url":"https://mercyseries.com/",
+    "image":"https://mercyseries.com/page_001.webp",
+    "description":"An illustrated story of faith, dignity, struggle, hope and compassion."
+  }
+  </script>
 </head>
+
 <body>
-  <header class="top">
-    <div class="top-inner">
-      <div class="brand">MERCY</div>
-      <nav class="nav" aria-label="Site links">
-        <a href="#about">About</a>
-        <a href="/connect/">Contact the Author</a>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="/" aria-label="MERCY home">MERCY</a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#story">The Story</a>
+        <a href="#why">Why It Matters</a>
+        <a href="#book">Book Details</a>
         <a href="https://learn.mercyseries.com/">Learn</a>
+        <a class="nav-cta" href="/connect/">Contact the Author</a>
       </nav>
     </div>
   </header>
 
-  <main>
-    <section class="hero">
-      <div class="eyebrow">The MERCY Series</div>
-      <h1>MERCY</h1>
-      <p class="tagline">An illustrated story of faith, dignity, struggle and compassion.</p>
+  <main id="main">
+    <div class="hero-wrap">
+      <section class="ornate-frame" aria-labelledby="hero-title">
+        <div class="hero">
+          <div class="cover-stage">
+            <img class="front-cover" src="page_001.webp" alt="Front cover of MERCY by Shahir Anuar" width="1365" height="2048">
+            <div class="edition-badge">First<br>Edition<br>2026</div>
+          </div>
 
-      <div class="status-card">
-        <strong>MERCY is now available on Kindle.</strong>
-        The complete digital edition of MERCY is now available on Amazon Kindle.
-  Thank you for supporting this story and helping it reach families who may need it.
-      </div>
+          <div class="hero-copy">
+            <p class="eyebrow">The MERCY Series</p>
+            <h1 id="hero-title">Falling is not failure.</h1>
+            <p class="lead">A story about falling, returning, and beginning again — told through faith, family, dignity and the mercy we owe one another.</p>
+            <p class="hero-note">Follow Khalid and his son Zayd as they learn that worth is not measured by perfection, but by humility, perseverance, gratitude and the courage to rise again.</p>
+            <div class="cta-row">
+              <a class="btn btn-primary" href="https://a.co/d/0axe13wI" target="_blank" rel="noopener">Read MERCY on Kindle <span aria-hidden="true">→</span></a>
+              <a class="btn btn-secondary" href="#story">Discover the story</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
 
-      <div class="cta-row">
-        <a class="btn btn-secondary"    href="https://a.co/d/0axe13wI"    target="_blank"    rel="noopener">   Read MERCY on Kindle </a>
-        <a class="btn btn-secondary" href="/connect/">Contact the Author</a>
+    <div class="theme-ribbon" aria-label="MERCY themes">
+      <span>Faith</span>
+      <span>Dignity</span>
+      <span>Compassion</span>
+      <span>Hope</span>
+    </div>
+
+    <section class="content" id="story" aria-labelledby="story-title">
+      <header class="section-heading">
+        <p class="kicker">About MERCY</p>
+        <h2 id="story-title">A father and son learning from one another</h2>
+        <div class="ornament" aria-hidden="true">✦</div>
+      </header>
+
+      <div class="story-grid">
+        <div class="story-copy">
+          <p><strong>MERCY</strong> is a heartfelt illustrated story about faith, family, questions, struggle and compassion. It was created for young readers and families who may see parts of themselves in a child who experiences the world differently.</p>
+          <p>Through the guidance of his father, Khalid, young Zayd discovers that falling is not failure. True balance is found in rising again with repentance, hope and faith — and in remembering that our gifts, effort and strength to continue are all acts of mercy.</p>
+        </div>
+
+        <aside class="quote-card" aria-label="A message from MERCY">
+          <blockquote>Everything that we have is an act of mercy from our Lord. So be merciful to others, and be merciful to ourselves.</blockquote>
+          <cite>A message from MERCY</cite>
+        </aside>
       </div>
     </section>
 
-    <section class="section" id="about">
-      <h2>About MERCY</h2>
-      <p>MERCY is a story about faith, family, questions, struggle, dignity and the compassion we owe one another. It was created for young readers and families who may see parts of themselves in a child who experiences the world differently.</p>
+    <section class="values-section" id="why" aria-labelledby="why-title">
+      <div class="content">
+        <header class="section-heading">
+          <p class="kicker">Why this story matters</p>
+          <h2 id="why-title">Stories that heal. Values that stay.</h2>
+          <p>A gentle story designed to stay with children, parents and educators long after the final page.</p>
+        </header>
+
+        <div class="values">
+          <article class="value-card">
+            <div class="value-icon" aria-hidden="true">♡</div>
+            <h3>Rooted in Islamic values</h3>
+            <p>Built on hope, tawbah, perseverance and the continual purification of the soul.</p>
+          </article>
+          <article class="value-card">
+            <div class="value-icon" aria-hidden="true">❧</div>
+            <h3>Opens conversations</h3>
+            <p>Encourages meaningful, compassionate discussions between parents and children.</p>
+          </article>
+          <article class="value-card">
+            <div class="value-icon" aria-hidden="true">✦</div>
+            <h3>Nurtures resilience</h3>
+            <p>A gentle reminder that struggle does not erase dignity, faith or the possibility of beginning again.</p>
+          </article>
+          <article class="value-card">
+            <div class="value-icon" aria-hidden="true">▤</div>
+            <h3>Made to be shared</h3>
+            <p>Suitable for bedtime, family reading, reflective learning and classroom discussion.</p>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <section class="section">
-  <h2>Where to read</h2>
+    <section class="content book-section" id="book" aria-labelledby="book-title">
+      <a class="back-cover-link" href="page_090.webp" target="_blank" rel="noopener" aria-label="Open the MERCY back cover at full size">
+        <img class="back-cover" src="page_090.webp" alt="Back cover of MERCY" width="1529" height="2048" loading="lazy">
+        <span class="zoom-label">View full back cover ↗</span>
+      </a>
 
-  <p>
-    The complete digital edition of MERCY is now available on Amazon Kindle.
-  </p>
+      <div class="book-copy">
+        <p class="kicker">The book</p>
+        <h2 id="book-title">A keepsake story for families and classrooms</h2>
+        <p>The complete digital edition of <em>MERCY</em> is available on Amazon Kindle. The back cover brings together the heart of the story, its themes and the conversations it hopes to begin.</p>
 
-  <a class="btn btn-secondary"
-     href="https://a.co/d/0axe13wI"
-     target="_blank"
-     rel="noopener">
-    Get MERCY on Kindle
-  </a>
-</section>
+        <div class="details" aria-label="Book details">
+          <div class="detail"><strong>Author</strong><span>Shahir Anuar</span></div>
+          <div class="detail"><strong>Edition</strong><span>First Edition · 2026</span></div>
+          <div class="detail"><strong>Format</strong><span>Illustrated digital edition</span></div>
+          <div class="detail"><strong>eISBN</strong><span>978-629-92740-0-1</span></div>
+        </div>
+
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://a.co/d/0axe13wI" target="_blank" rel="noopener">Get MERCY on Kindle <span aria-hidden="true">→</span></a>
+          <a class="btn btn-secondary" href="/connect/">Contact the Author</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing" aria-labelledby="closing-title">
+      <div class="closing-inner">
+        <p class="kicker">Continue the journey</p>
+        <h2 id="closing-title">Help MERCY reach a family who may need it.</h2>
+        <div class="ornament" aria-hidden="true">✦</div>
+        <p>Read the story, explore the learning experience, or get in touch about schools, organizations and meaningful ways to share MERCY.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://learn.mercyseries.com/">Explore MERCY Learn</a>
+          <a class="btn btn-secondary" href="/connect/">Contact the Author</a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
-    <div class="inner">
-      <span>© 2026 MERCY Series</span>
-      <span><a href="/connect/">Contact the Author</a> · <a href="https://learn.mercyseries.com/">Learn</a></span>
+    <div class="footer-inner">
+      <span>© 2026 MERCY Series · Shahir Anuar</span>
+      <span class="footer-line">Stories that heal. Values that stay.</span>
+      <span><a href="/connect/">Contact</a> · <a href="https://learn.mercyseries.com/">Learn</a></span>
     </div>
   </footer>
 </body>
