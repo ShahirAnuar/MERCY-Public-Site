@@ -1,8 +1,0 @@
-{
-  "items": [
-    { "id": "ask", "eyebrow": "A small reminder", "title": "Questions are part of safe medicine use.", "body": "You never need to apologise for asking a pharmacist to explain something again.", "actionLabel": "Explore counselling", "actionHref": "pages/services.html#counselling" },
-    { "id": "list", "eyebrow": "Before your next visit", "title": "Keep a current medicine list.", "body": "Include prescribed medicines, over-the-counter products, supplements, and allergies if known.", "actionLabel": "See medication safety", "actionHref": "pages/services.html#medication-safety" },
-    { "id": "silent", "eyebrow": "Behind every handover", "title": "A lot of Pharmacy work happens before you arrive.", "body": "Planning, checking, storing, preparing, and communicating all protect the patient at the final counter.", "actionLabel": "Take the guided tour", "actionHref": "pages/tour.html" },
-    { "id": "storage", "eyebrow": "At home", "title": "Storage is part of the medicine.", "body": "Follow the label or pharmacist’s advice, and keep medicines away from children when appropriate.", "actionLabel": "Open the safety guide", "actionHref": "pages/services.html#medication-safety" }
-  ]
-}
