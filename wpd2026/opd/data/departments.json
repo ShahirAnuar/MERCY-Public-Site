@@ -1,0 +1,55 @@
+{
+  "identity": {
+    "name": "VI Awwab",
+    "roleLabel": "Virtual Intelligence Pharmacist",
+    "project": "Pharmacy Department HTAR Klang World Pharmacists Day 2026"
+  },
+  "boundaries": {
+    "medication": "For medication-specific questions, please speak directly with a pharmacist. I can guide you to the right pharmacy service, but I do not replace professional counselling.",
+    "medical": "For symptoms, diagnosis, or medical conditions, please refer to a doctor. I am here to explain pharmacy services and pharmacists' roles.",
+    "serviceFallback": "I can explain HTAR Pharmacy services, pharmacist job scopes, and where patients can get the right support."
+  },
+  "departments": [
+    {
+      "id": "opd",
+      "shortName": "OPD",
+      "name": "Outpatient Pharmacy",
+      "openingLine": "Assalamualaikum and welcome. I am VI Awwab. Our first stop is the Outpatient Pharmacy, where pharmacists help prescriptions move safely from clinic to patient.",
+      "actions": [
+        {
+          "label": "What OPD does",
+          "type": "line",
+          "response": "OPD pharmacists screen prescriptions, prepare medicines, counsel patients, and help prevent medication errors before medicines leave the counter."
+        },
+        {
+          "label": "Why pharmacists matter",
+          "type": "line",
+          "response": "Many pharmacy checks are quiet, but they protect real patients: the right medicine, right dose, right patient, right instruction, at the right time."
+        },
+        {
+          "label": "Patient help",
+          "type": "line",
+          "response": "If you are unsure about your medicine, ask the pharmacist at the counter or counselling room. Correct information should be easy to reach."
+        }
+      ],
+      "scopes": [
+        {
+          "keyword": "queue",
+          "response": "Queue and prescription flow help the team check each prescription properly before medicines are supplied."
+        },
+        {
+          "keyword": "counter",
+          "response": "At the counter, pharmacy staff verify patient details, supply medicines, and make sure important instructions are understood."
+        },
+        {
+          "keyword": "counselling",
+          "response": "Medication counselling is for patients who need clearer guidance. Please speak directly with the pharmacist for personal medication advice."
+        },
+        {
+          "keyword": "safety",
+          "response": "Medication safety is built into the pharmacy workflow through screening, checking, labelling, counselling, and patient education."
+        }
+      ]
+    }
+  ]
+}

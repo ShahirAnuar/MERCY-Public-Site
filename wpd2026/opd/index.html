@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta
+      name="description"
+      content="VI Awwab, Virtual Intelligence Pharmacist for Pharmacy Department HTAR Klang, World Pharmacists Day 2026."
+    />
+    <title>VI Awwab | Pharmacy HTAR WPD 2026</title>
+    <link rel="icon" href="./assets/icons/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell" aria-label="VI Awwab">
+      <section class="vi-stage" aria-label="Mr Awwab">
+        <div class="visual-layer">
+          <video
+            id="awwabVideo"
+            class="awwab-media"
+            poster="./assets/images/awwab-poster.svg"
+            muted
+            loop
+            playsinline
+            autoplay
+          >
+            <source src="./assets/video/awwab-idle.mp4" type="video/mp4" />
+          </video>
+          <img id="awwabFallback" class="awwab-fallback" src="./assets/images/awwab-poster.svg" alt="Mr Awwab" />
+        </div>
+
+        <div class="top-bar">
+          <div>
+            <p class="eyebrow">World Pharmacists Day 2026</p>
+            <h1>VI Awwab</h1>
+          </div>
+          <button id="musicToggle" class="icon-button" type="button" aria-label="Play music" aria-pressed="false">
+            <span aria-hidden="true">♪</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="dialog-panel" aria-label="Awwab dialogue">
+        <div class="dialog-card">
+          <div class="status-row">
+            <span id="departmentBadge">OPD</span>
+            <span id="boundaryBadge">Virtual Intelligence Pharmacist</span>
+          </div>
+          <p id="awwabLine" class="dialog-text"></p>
+          <div id="quickActions" class="quick-actions" aria-label="Quick choices"></div>
+          <form id="questionForm" class="question-form">
+            <label class="sr-only" for="questionInput">Ask Awwab</label>
+            <input
+              id="questionInput"
+              autocomplete="off"
+              placeholder="Ask about HTAR Pharmacy services"
+              type="text"
+            />
+            <button type="submit">Ask</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <audio id="bgMusic" src="./assets/audio/head-in-the-clouds.mp3" preload="none" loop></audio>
+    <script type="module" src="./src/app.js"></script>
+  </body>
+</html>
