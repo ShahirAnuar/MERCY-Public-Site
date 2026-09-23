@@ -1,0 +1,9 @@
+{
+  "name": "Shahir VI Pharmacy Store",
+  "short_name": "Shahir Store",
+  "start_url": "/wpd2026/store/",
+  "display": "standalone",
+  "background_color": "#071c2b",
+  "theme_color": "#071c2b",
+  "icons": []
+}
