@@ -17,6 +17,8 @@ Shahir VI is not an AI pharmacist and not a medication chatbot. Medication-speci
 - First department: OPD.
 - Music slot: `assets/audio/head-in-the-clouds.mp3`.
 
+The current live unit is the Shahir VI OPD experience. The former Store prototype was removed while the integrated Store experience is rebuilt against the approved VI direction.
+
 ## Run Locally
 
 ```bash

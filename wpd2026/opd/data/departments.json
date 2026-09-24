@@ -17,11 +17,6 @@
       "openingLine": "Assalamualaikum and welcome. I am Shahir VI. Our first stop is the Outpatient Pharmacy, where pharmacists help prescriptions move safely from clinic to patient.",
       "actions": [
         {
-          "label": "Explore Pharmacy Store",
-          "type": "link",
-          "target": "../store/"
-        },
-        {
           "label": "What OPD does",
           "type": "line",
           "response": "OPD pharmacists screen prescriptions, prepare medicines, counsel patients, and help prevent medication errors before medicines leave the counter."

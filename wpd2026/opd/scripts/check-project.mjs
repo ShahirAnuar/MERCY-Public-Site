@@ -7,8 +7,6 @@ const requiredFiles = [
   "data/departments.json",
   "assets/images/awwab-poster.svg",
   "assets/icons/favicon.svg",
-  "../store/index.html",
-  "../store/assets/images/awwab-poster.svg",
 ];
 
 const missing = requiredFiles.filter((file) => !existsSync(file));
@@ -33,12 +31,6 @@ for (const phrase of ["refer to a doctor", "speak directly with a pharmacist", "
     console.error(`Missing boundary phrase: ${phrase}`);
     process.exit(1);
   }
-}
-
-const storeData = JSON.parse(readFileSync("../store/data/knowledge.json", "utf8"));
-if (!storeData.stations?.length || !app.includes('action.type === "link"')) {
-  console.error("Store route integration is missing.");
-  process.exit(1);
 }
 
 console.log("Project checks passed.");

@@ -97,11 +97,6 @@ function renderActions(actions) {
 }
 
 function handleAction(action) {
-  if (action.type === "link") {
-    window.location.href = action.target;
-    return;
-  }
-
   if (action.type === "line") {
     renderLine(action.response);
     return;
