@@ -153,7 +153,7 @@ function fallbackData() {
         id: "opd",
         shortName: "OPD",
         openingLine:
-          "Assalamualaikum and welcome. I am VI Awwab. Let me introduce the Outpatient Pharmacy and the pharmacists who keep care moving every day.",
+          "Assalamualaikum and welcome. I am Shahir VI. Let me introduce the Outpatient Pharmacy and the pharmacists who keep care moving every day.",
         actions: [],
         scopes: [],
       },

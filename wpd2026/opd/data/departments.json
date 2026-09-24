@@ -1,6 +1,6 @@
 {
   "identity": {
-    "name": "VI Awwab",
+    "name": "Shahir VI",
     "roleLabel": "Virtual Intelligence Pharmacist",
     "project": "Pharmacy Department HTAR Klang World Pharmacists Day 2026"
   },
@@ -14,7 +14,7 @@
       "id": "opd",
       "shortName": "OPD",
       "name": "Outpatient Pharmacy",
-      "openingLine": "Assalamualaikum and welcome. I am VI Awwab. Our first stop is the Outpatient Pharmacy, where pharmacists help prescriptions move safely from clinic to patient.",
+      "openingLine": "Assalamualaikum and welcome. I am Shahir VI. Our first stop is the Outpatient Pharmacy, where pharmacists help prescriptions move safely from clinic to patient.",
       "actions": [
         {
           "label": "Explore Pharmacy Store",

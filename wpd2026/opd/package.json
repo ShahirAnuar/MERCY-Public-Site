@@ -1,8 +1,8 @@
 {
-  "name": "vi-awwab-wpd2026",
+  "name": "shahir-vi-wpd2026",
   "version": "1.0.0",
   "private": true,
-  "description": "VI Awwab for Pharmacy Department HTAR World Pharmacists Day 2026.",
+  "description": "Shahir VI for Pharmacy Department HTAR World Pharmacists Day 2026.",
   "scripts": {
     "start": "vite --host 0.0.0.0",
     "build": "vite build",

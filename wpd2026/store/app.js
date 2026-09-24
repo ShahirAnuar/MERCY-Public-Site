@@ -1,4 +1,4 @@
-const fallback = { version: 'fallback', redirect: 'I’m VI Awwab, a learning guide—not a medical or medication chatbot. I can explain pharmacy work, but I can’t diagnose, recommend a medicine or dose, or answer personal medication questions. Please speak with a real pharmacist or doctor.', stations: [] };
+const fallback = { version: 'fallback', redirect: 'I’m Shahir VI, a learning guide—not a medical or medication chatbot. I can explain pharmacy work, but I can’t diagnose, recommend a medicine or dose, or answer personal medication questions. Please speak with a real pharmacist or doctor.', stations: [] };
 const state = { data: fallback, selected: null, language: 'EN' };
 const $ = (selector) => document.querySelector(selector);
 const speech = $('#speech');
@@ -9,7 +9,7 @@ function showAwwabFallback() {
   if (!awwabVideo || !awwabFallback) return;
   awwabVideo.hidden = true;
   awwabFallback.classList.add('is-visible');
-  $('#mediaStatus').textContent = 'VI Awwab is ready';
+  $('#mediaStatus').textContent = 'Shahir VI is ready';
 }
 
 awwabVideo?.addEventListener('error', showAwwabFallback);
@@ -41,7 +41,7 @@ function selectStation(station) {
   state.selected = station;
   document.querySelectorAll('.station').forEach((button) => button.classList.toggle('active', button.dataset.id === station.id));
   speech.textContent = `${station.title}: ${station.detail}`;
-  $('#mediaStatus').textContent = 'Shahir is explaining';
+  $('#mediaStatus').textContent = 'Shahir VI is explaining';
 }
 
 function speakCurrent() {
@@ -54,8 +54,8 @@ function speakCurrent() {
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = state.language === 'BM' ? 'ms-MY' : 'en-US';
   utterance.rate = .96;
-  utterance.onstart = () => { $('#mediaStatus').textContent = 'Shahir is talking'; $('#shahirStage').classList.add('talking'); };
-  utterance.onend = () => { $('#mediaStatus').textContent = 'Shahir is ready'; $('#shahirStage').classList.remove('talking'); };
+  utterance.onstart = () => { $('#mediaStatus').textContent = 'Shahir VI is talking'; $('#shahirStage').classList.add('talking'); };
+  utterance.onend = () => { $('#mediaStatus').textContent = 'Shahir VI is ready'; $('#shahirStage').classList.remove('talking'); };
   window.speechSynthesis.speak(utterance);
 }
 
@@ -65,7 +65,7 @@ $('#redirect').addEventListener('click', () => { speech.textContent = state.data
 $('#language').addEventListener('click', () => {
   state.language = state.language === 'EN' ? 'BM' : 'EN';
   $('#language').textContent = state.language === 'EN' ? 'BM / EN' : 'EN / BM';
-  speech.textContent = state.language === 'BM' ? 'Shahir menerangkan skop kerja pengurusan stor farmasi. Untuk soalan ubat atau kesihatan peribadi, sila rujuk ahli farmasi atau doktor.' : (state.selected?.detail || state.data.redirect);
+  speech.textContent = state.language === 'BM' ? 'Shahir VI menerangkan skop kerja pengurusan stor farmasi. Untuk soalan ubat atau kesihatan peribadi, sila rujuk ahli farmasi atau doktor.' : (state.selected?.detail || state.data.redirect);
 });
 
 if ('serviceWorker' in navigator) {
