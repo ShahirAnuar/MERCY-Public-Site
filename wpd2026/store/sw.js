@@ -1,5 +1,5 @@
 const CACHE = 'shahir-store-v1';
-const CORE = ['./','./index.html','./styles.css','./app.js','./manifest.webmanifest','./data/knowledge.json'];
+const CORE = ['./','./index.html','./styles.css','./app.js','./manifest.webmanifest','./data/knowledge.json','./assets/images/awwab-poster.svg'];
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(CORE)).then(() => self.skipWaiting()));
 });

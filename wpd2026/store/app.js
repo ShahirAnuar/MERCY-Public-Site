@@ -1,7 +1,18 @@
-const fallback = { version: 'fallback', redirect: 'I’m Shahir, a learning guide—not a medical or medication chatbot. I can explain pharmacy work, but I can’t diagnose, recommend a medicine or dose, or answer personal medication questions. Please speak with a real pharmacist or doctor.', stations: [] };
+const fallback = { version: 'fallback', redirect: 'I’m VI Awwab, a learning guide—not a medical or medication chatbot. I can explain pharmacy work, but I can’t diagnose, recommend a medicine or dose, or answer personal medication questions. Please speak with a real pharmacist or doctor.', stations: [] };
 const state = { data: fallback, selected: null, language: 'EN' };
 const $ = (selector) => document.querySelector(selector);
 const speech = $('#speech');
+const awwabVideo = $('#awwabVideo');
+const awwabFallback = $('#awwabFallback');
+
+function showAwwabFallback() {
+  if (!awwabVideo || !awwabFallback) return;
+  awwabVideo.hidden = true;
+  awwabFallback.classList.add('is-visible');
+  $('#mediaStatus').textContent = 'VI Awwab is ready';
+}
+
+awwabVideo?.addEventListener('error', showAwwabFallback);
 
 async function loadKnowledge() {
   try {
