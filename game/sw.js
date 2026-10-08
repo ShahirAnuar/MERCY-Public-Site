@@ -1,4 +1,4 @@
-const CACHE = 'mercy-the-choice-v1';
+const CACHE = 'mercy-the-choice-v3';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icon.svg'];
 
 self.addEventListener('install', (event) => {
