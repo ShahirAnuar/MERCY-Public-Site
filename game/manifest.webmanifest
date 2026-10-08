@@ -1,0 +1,13 @@
+{
+  "name": "MERCY: The Choice",
+  "short_name": "MERCY Game",
+  "description": "A story-driven browser game about courage, questions and moral character.",
+  "lang": "en",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "any",
+  "background_color": "#081b27",
+  "theme_color": "#102c3d",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#102c3d"/>
+  <circle cx="256" cy="230" r="126" fill="#70d2c0" opacity=".18"/>
+  <path d="M256 105c40 70 95 105 95 176 0 55-42 101-95 101s-95-46-95-101c0-71 55-106 95-176Z" fill="#f3c86b"/>
+  <path d="M256 174c-18 49-48 71-48 111 0 29 21 53 48 53s48-24 48-53c0-40-30-62-48-111Z" fill="#fff0c4"/>
+  <text x="256" y="443" text-anchor="middle" font-family="Arial, sans-serif" font-size="46" font-weight="800" fill="#eef7f2">MERCY</text>
+</svg>
