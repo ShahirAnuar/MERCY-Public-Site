@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "@agentmarkup/cli": "^0.7.0"
+  }
+}
