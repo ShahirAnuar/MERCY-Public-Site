@@ -347,6 +347,15 @@
     .detail:nth-child(even){padding-left:1rem;border-left:1px solid rgba(154,106,22,.28)}
     .detail strong{display:block;margin-bottom:.2rem;color:var(--navy-900);font-family:var(--sans);font-size:.72rem;letter-spacing:.09em;text-transform:uppercase}
     .detail span{color:#4f5b70;font-size:.98rem}
+    .story-copy h3{margin:0 0 .45rem;color:var(--navy-900);font-size:1.18rem;line-height:1.25}
+    .story-copy h3:not(:first-child){margin-top:1.35rem}
+    .edition-table-wrap{overflow-x:auto;margin:1.35rem 0 1.6rem;border:1px solid rgba(154,106,22,.22);border-radius:.8rem;background:rgba(255,253,247,.65)}
+    .edition-table{width:100%;min-width:560px;border-collapse:collapse;font-family:var(--sans);font-size:.82rem}
+    .edition-table caption{padding:.8rem 1rem;color:var(--navy-900);font-weight:850;text-align:left}
+    .edition-table th,.edition-table td{padding:.72rem .8rem;border-top:1px solid rgba(154,106,22,.18);text-align:left;vertical-align:top;line-height:1.45}
+    .edition-table th{color:var(--navy-900);font-weight:800}
+    .edition-table td{color:#4f5b70}
+    .edition-note{margin:0;color:var(--muted);font-family:var(--sans);font-size:.78rem;line-height:1.55}
 
     .closing{padding:clamp(4rem,9vw,7rem) 1rem;background:linear-gradient(180deg,rgba(255,250,237,.72),rgba(236,221,188,.95));text-align:center}
     .closing-inner{width:min(820px,100%);margin:auto}
@@ -427,7 +436,18 @@
     "@context":"https://schema.org",
     "@type":"Book",
     "name":"MERCY",
-    "author":{"@type":"Person","name":"Shahir Anuar"},
+    "author":{
+      "@type":"Person",
+      "@id":"https://mercyseries.com/about-author/#shahir-anuar-shahrani",
+      "name":"Shahir Anuar Shahrani",
+      "alternateName":["Shahir Anuar","Shahir Anuar Bin Shahrani"],
+      "url":"https://mercyseries.com/about-author/",
+      "sameAs":[
+        "https://mensa.my/natcom/",
+        "https://patents.google.com/patent/MY197771A/en",
+        "https://mercyseries.com/connect/"
+      ]
+    },
     "datePublished":"2026",
     "bookEdition":"First Edition",
     "bookFormat":"https://schema.org/EBook",
@@ -436,7 +456,21 @@
     "isbn":"978-629-92740-0-1",
     "url":"https://mercyseries.com/",
     "image":"https://mercyseries.com/page_001.webp",
-    "description":"An illustrated story of faith, dignity, struggle, hope and compassion."
+    "description":"MERCY by Shahir Anuar Shahrani is an illustrated Islamic story about Zayd and his father Khalid, exploring faith, mistakes, sincere questions, learning differently, gratitude and compassion."
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "@id":"https://mercyseries.com/#questions",
+    "mainEntity":[
+      {"@type":"Question","name":"What is MERCY about?","acceptedAnswer":{"@type":"Answer","text":"MERCY follows Zayd and his father Khalid through mistakes, sincere questions, learning differently, illness, school pressure and achievement. Its Islamic themes include repentance, gratitude, humility, self-worth and compassion."}},
+      {"@type":"Question","name":"Who is MERCY for?","acceptedAnswer":{"@type":"Answer","text":"It is intended for young readers, families and educators who want an illustrated story that can open conversations about faith, dignity, hidden struggles and kindness."}},
+      {"@type":"Question","name":"Where can I find the editions?","acceptedAnswer":{"@type":"Answer","text":"The official summary and edition guide explains the digital and paperback identifiers. The family and classroom reading guide offers optional discussion questions."}},
+      {"@type":"Question","name":"Is the reading guide medical advice?","acceptedAnswer":{"@type":"Answer","text":"No. MERCY is storytelling, and the guide is a discussion resource. Questions about a real person's treatment belong with that person's healthcare professional."}}
+    ]
   }
   </script>
 </head>
@@ -451,6 +485,7 @@
         <a href="#story">The Story</a>
         <a href="#why">Why It Matters</a>
         <a href="#book">Book Details</a>
+        <a href="#questions">Questions</a>
         <a href="/mercy/">Summary &amp; Editions</a>
         <a href="/mercy/">About the Book</a>
 <a href="/mercy/reading-guide/">Reading Guide</a>
@@ -500,7 +535,7 @@
 
       <div class="story-grid">
         <div class="story-copy">
-          <p><strong>MERCY by Shahir Anuar</strong> is an illustrated Islamic story about faith, family, questions, struggle and compassion. It was created for young readers and families who may see parts of themselves in a child who experiences the world differently.</p>
+          <p><strong>MERCY by Shahir Anuar Shahrani</strong> is an illustrated Islamic story for young readers, families and educators. It follows Zayd and his father, Khalid, through mistakes, sincere questions, learning differently, school pressure, illness, achievement and the possibility of beginning again. The book connects faith, repentance, gratitude, self-worth, humility and compassion, reminding readers that a person's value is not measured by perfection or approval.</p>
           <p>Through the guidance of his father, Khalid, young Zayd discovers that falling is not failure. True balance is found in rising again with repentance, hope and faith — and in remembering that our gifts, effort and strength to continue are all acts of mercy.</p>
           <p><a href="/mercy/">Read the full synopsis and edition guide</a> · <a href="/mercy/reading-guide/">Family reading questions</a></p>
         </div>
@@ -563,9 +598,45 @@
           <div class="detail"><strong>eISBN</strong><span>978-629-92740-0-1</span></div>
         </div>
 
+        <div class="edition-table-wrap">
+          <table class="edition-table">
+            <caption>MERCY edition reference</caption>
+            <thead><tr><th scope="col">Format</th><th scope="col">Identifier</th><th scope="col">Reference</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Digital / ebook</th><td>9786299274001</td><td><a href="https://a.co/d/0axe13wI" target="_blank" rel="noopener">Kindle listing</a> and official edition reference.</td></tr>
+              <tr><th scope="row">Paperback</th><td>9786299274018</td><td><a href="/mercy/#editions">Edition guide and catalogue references</a>.</td></tr>
+              <tr><th scope="row">Hardcover</th><td>Confirm edition ISBN</td><td>Use the exact product page before ordering; a matched public catalogue record is still pending.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="edition-note">Catalogue listings identify an edition; they do not prove physical stock in a particular shop. Prices, delivery and availability can change.</p>
+
         <div class="cta-row">
           <a class="btn btn-primary" href="https://a.co/d/0axe13wI" target="_blank" rel="noopener">Get MERCY on Kindle <span aria-hidden="true">→</span></a>
           <a class="btn btn-secondary" href="/connect/">Contact the Author</a>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="content" id="questions" aria-labelledby="questions-title">
+      <header class="section-heading">
+        <p class="kicker">Reader questions</p>
+        <h2 id="questions-title">Questions families often ask about MERCY</h2>
+        <div class="ornament" aria-hidden="true">✦</div>
+      </header>
+      <div class="story-grid">
+        <div class="story-copy">
+          <h3>What is MERCY about?</h3>
+          <p>MERCY follows Zayd and his father Khalid through mistakes, sincere questions, learning differently, illness, school pressure and achievement. Its Islamic themes include repentance, gratitude, humility, self-worth and compassion.</p>
+          <h3>Who is MERCY for?</h3>
+          <p>It is intended for young readers, families and educators who want an illustrated story that can open conversations about faith, dignity, hidden struggles and kindness.</p>
+        </div>
+        <div class="story-copy">
+          <h3>Where can I find the editions?</h3>
+          <p>The <a href="/mercy/">official summary and edition guide</a> explains the digital and paperback identifiers. The <a href="/mercy/reading-guide/">family and classroom reading guide</a> offers optional discussion questions.</p>
+          <h3>Is the reading guide medical advice?</h3>
+          <p>No. MERCY is storytelling, and the guide is a discussion resource. Questions about a real person's treatment belong with that person's healthcare professional.</p>
         </div>
       </div>
     </section>
