@@ -1,0 +1,8 @@
+/* Shared company details footer for the MERCY Series website. */
+.mercy-company-details{border-top:1px solid rgba(213,166,61,.62);margin:1.1rem auto 0;padding:1rem 1.2rem 0;max-width:1080px;display:flex;justify-content:center;align-items:center;gap:.4rem 1rem;flex-wrap:wrap;text-align:center;color:inherit;font:13px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+.mercy-company-details strong{color:#efd587;font-weight:750;letter-spacing:.02em}
+.mercy-company-details a{color:#efd587;text-underline-offset:3px}
+.mercy-company-details a:hover{color:#fffdf7}
+.mercy-company-footer{background:#071f48;color:#fff3cf;padding:1.2rem 1rem;text-align:center}
+.mercy-company-footer .mercy-company-details{max-width:1080px;margin:0 auto;padding:0;border:0}
+@media(max-width:640px){.mercy-company-details{gap:.3rem .65rem;padding:1rem .75rem 0;font-size:12px}.mercy-company-details .company-copy{flex-basis:100%}}
