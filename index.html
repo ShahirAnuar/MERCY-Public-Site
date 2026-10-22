@@ -474,6 +474,41 @@
       font-weight:900;
     }
 
+
+    /* MERCY theme selector and accessible read-aloud */
+    .header-inner{position:relative}
+    .brand-menu{position:relative;flex:0 0 auto;z-index:60}
+    .brand-menu>summary{list-style:none;cursor:pointer;min-height:44px;display:flex;align-items:center;gap:.42rem}
+    .brand-menu>summary::-webkit-details-marker{display:none}
+    .brand-caret{font-family:var(--sans);font-size:.72rem;letter-spacing:0;transition:transform .2s ease}
+    .brand-menu[open] .brand-caret{transform:rotate(180deg)}
+    .brand-menu-panel{position:absolute;top:calc(100% + .6rem);left:0;z-index:70;width:min(310px,calc(100vw - 2rem));max-height:calc(100svh - 7rem);overflow-y:auto;padding:1rem;border:1px solid rgba(213,166,61,.65);border-radius:1rem;background:var(--navy-950);color:#f7f2e7;box-shadow:0 18px 44px rgba(3,19,47,.3);font-family:var(--sans)}
+    .menu-heading{margin:.15rem 0 .55rem;color:var(--gold-300);font-size:.78rem;font-weight:850;letter-spacing:.08em;text-transform:uppercase}
+    .theme-choice,.speech-control{display:flex;width:100%;min-height:44px;align-items:center;gap:.5rem;padding:.65rem .75rem;border:1px solid transparent;border-radius:.65rem;background:transparent;color:inherit;text-align:left;font:700 .9rem var(--sans);cursor:pointer}
+    .theme-choice:hover,.speech-control:hover{background:rgba(255,255,255,.1)}
+    .theme-choice[aria-pressed="true"]{border-color:rgba(239,213,135,.65);background:rgba(213,166,61,.16);color:var(--gold-300)}
+    .brand-menu-panel hr{margin:.75rem 0;border:0;border-top:1px solid rgba(239,213,135,.3)}
+    .speech-status{margin:.45rem 0 0;color:#c8d1df;font-size:.76rem;line-height:1.45}
+    .brand-menu-panel :focus-visible{outline-color:var(--gold-300);outline-offset:2px}
+    body[data-theme="consultancy"]{background:radial-gradient(circle at 15% 0%,rgba(213,166,61,.1),transparent 28rem),linear-gradient(180deg,#06142c,#081a35 56%,#06142c);color:#edf2fa}
+    body[data-theme="consultancy"] .ornate-frame{background:linear-gradient(135deg,rgba(8,26,53,.99),rgba(12,39,75,.98));}
+    body[data-theme="consultancy"] h1,body[data-theme="consultancy"] h2,body[data-theme="consultancy"] .story-copy h3{color:#fff}
+    body[data-theme="consultancy"] .lead,body[data-theme="consultancy"] .story-copy p,body[data-theme="consultancy"] .book-copy>p,body[data-theme="consultancy"] .section-heading p,body[data-theme="consultancy"] .closing p,body[data-theme="consultancy"] .detail span{color:#d3dceb}
+    body[data-theme="consultancy"] .story-copy,body[data-theme="consultancy"] .quote-card{border-color:rgba(213,166,61,.35);background-color:#0b2040;color:#f5f7fa}
+    body[data-theme="consultancy"] .story-copy{background:rgba(9,28,57,.92)}
+    body[data-theme="consultancy"] .edition-table-wrap{background:#0b2040;border-color:rgba(213,166,61,.35)}
+    body[data-theme="consultancy"] .edition-table th,body[data-theme="consultancy"] .edition-table td{color:#e7edf6}
+    body[data-theme="consultancy"] .closing{background:linear-gradient(180deg,#0b2040,#06142c)}
+    body[data-theme="consultancy"] .theme-ribbon{border-color:rgba(213,166,61,.4);color:#f5dda0}
+    body[data-theme="preschool"]{font-family:var(--sans);background:radial-gradient(circle at 10% 5%,rgba(255,214,112,.38),transparent 25rem),linear-gradient(145deg,#fff8ef,#f1f5ff 56%,#f5ecff);color:#303858}
+    body[data-theme="preschool"] .ornate-frame{border-radius:1.6rem;background:linear-gradient(135deg,#fffdf5,#fff1d8)}
+    body[data-theme="preschool"] .story-copy,body[data-theme="preschool"] .quote-card,body[data-theme="preschool"] .value-card{border-radius:1.4rem}
+    body[data-theme="preschool"] .btn{font-size:1rem;min-height:3.5rem}
+    body[data-theme="preschool"] .eyebrow,body[data-theme="preschool"] .kicker{letter-spacing:.12em}
+    @media(max-width:900px){
+      .brand-menu-panel{left:auto;right:0}
+    }
+
     @media(prefers-reduced-motion:reduce){
       html{scroll-behavior:auto}
       *,*::before,*::after{transition:none!important}
@@ -529,7 +564,20 @@
 
   <header class="site-header">
     <div class="header-inner">
-      <a class="brand" href="/" aria-label="MERCY home">MERCY</a>
+      <details class="brand-menu">
+        <summary class="brand" aria-label="MERCY theme and listening options">MERCY <span class="brand-caret" aria-hidden="true">▾</span></summary>
+        <div class="brand-menu-panel">
+          <p class="menu-heading">Choose a theme</p>
+          <button type="button" class="theme-choice" data-theme-choice="book" aria-pressed="true">Book Theme</button>
+          <button type="button" class="theme-choice" data-theme-choice="consultancy" aria-pressed="false">Polymath Nexus Theme</button>
+          <button type="button" class="theme-choice" data-theme-choice="preschool" aria-pressed="false">Preschool · Ages 3–9</button>
+          <hr>
+          <p class="menu-heading">Listen to this page</p>
+          <button type="button" class="speech-control" id="speech-play">▶ Read aloud</button>
+          <button type="button" class="speech-control" id="speech-stop">■ Stop</button>
+          <p class="speech-status" id="speech-status" aria-live="polite">Uses your browser’s available voice.</p>
+        </div>
+      </details>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation"><span class="menu-icon" aria-hidden="true">☰</span><span class="menu-label">Menu</span></button>
       <nav class="nav" id="main-navigation" aria-label="Main navigation">
         <a href="#story">The Story</a>
@@ -734,6 +782,89 @@
       });
       window.addEventListener('resize', () => {
         if (window.innerWidth > 900) closeMenu();
+      });
+    })();
+  </script>
+
+
+  <script>
+    (() => {
+      const menu = document.querySelector('.brand-menu');
+      const choices = [...document.querySelectorAll('[data-theme-choice]')];
+      const status = document.getElementById('speech-status');
+      const play = document.getElementById('speech-play');
+      const stop = document.getElementById('speech-stop');
+      const themeNames = {
+        book: 'Book Theme',
+        consultancy: 'Polymath Nexus Theme',
+        preschool: 'Preschool theme for ages 3 to 9'
+      };
+      const applyTheme = theme => {
+        if (!themeNames[theme]) return;
+        document.body.dataset.theme = theme;
+        try { localStorage.setItem('mercy-home-theme', theme); } catch (_) {}
+        choices.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.themeChoice === theme)));
+      };
+      let savedTheme = 'book';
+      try { savedTheme = localStorage.getItem('mercy-home-theme') || 'book'; } catch (_) {}
+      applyTheme(savedTheme);
+      choices.forEach(button => button.addEventListener('click', () => {
+        applyTheme(button.dataset.themeChoice);
+      }));
+      menu.addEventListener('toggle', () => {
+        if (!menu.open) return;
+        choices[0]?.focus({preventScroll:true});
+      });
+      let speechQueue = [];
+      let speechIndex = 0;
+      const speakNext = () => {
+        if (speechIndex >= speechQueue.length) {
+          status.textContent = 'Finished reading this page.';
+          return;
+        }
+        const utterance = new SpeechSynthesisUtterance(speechQueue[speechIndex++]);
+        utterance.lang = 'en-GB';
+        utterance.rate = 1;
+        utterance.onend = speakNext;
+        utterance.onerror = () => {
+          status.textContent = 'Read-aloud stopped. Your browser may not have a voice available.';
+        };
+        window.speechSynthesis.speak(utterance);
+      };
+      play.addEventListener('click', () => {
+        if (!('speechSynthesis' in window)) {
+          status.textContent = 'Read-aloud is not supported by this browser.';
+          return;
+        }
+        window.speechSynthesis.cancel();
+        const source = document.querySelector('main').cloneNode(true);
+        source.querySelectorAll('script,button,.edition-note').forEach(node => node.remove());
+        const blocks = [...source.querySelectorAll('h1,h2,h3,p,li,blockquote,td,th')]
+          .map(node => node.textContent.replace(/\s+/g, ' ').trim())
+          .filter(Boolean);
+        speechQueue = blocks.flatMap(text => {
+          const chunks = [];
+          while (text.length > 230) {
+            let cut = text.lastIndexOf(' ', 230);
+            if (cut < 100) cut = 230;
+            chunks.push(text.slice(0, cut));
+            text = text.slice(cut).trim();
+          }
+          if (text) chunks.push(text);
+          return chunks;
+        });
+        speechIndex = 0;
+        status.textContent = 'Reading the page aloud. Use Stop to end.';
+        speakNext();
+      });
+      stop.addEventListener('click', () => {
+        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+        speechQueue = [];
+        speechIndex = 0;
+        status.textContent = 'Read-aloud stopped.';
+      });
+      window.addEventListener('pagehide', () => {
+        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
       });
     })();
   </script>
