@@ -426,6 +426,41 @@
       .footer-inner{justify-content:center;text-align:center}
     }
 
+
+    /* Responsive layout corrections */
+    html,body{width:100%;max-width:100%;overflow-x:hidden}
+    .site-header{width:100%;max-width:100vw}
+    .header-inner{width:min(1600px,calc(100% - 2rem))}
+    .nav{gap:.08rem}
+    .nav a{padding:.58rem .42rem;font-size:.82rem;white-space:nowrap}
+    .menu-toggle{display:none}
+    @media(max-width:900px){
+      .header-inner{width:calc(100% - 1.25rem);min-height:4rem;flex-direction:row;align-items:center;justify-content:space-between;gap:.75rem;padding:.55rem 0}
+      .menu-toggle{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;min-height:44px;padding:.55rem .8rem;border:1px solid rgba(239,213,135,.65);border-radius:999px;background:transparent;color:var(--gold-300);font:750 .9rem var(--sans);cursor:pointer}
+      .menu-icon{font-size:1.1rem;line-height:1}
+      .nav{display:none;position:absolute;top:100%;left:0;right:0;z-index:51;max-height:calc(100svh - 5rem);overflow-y:auto;padding:.65rem max(.75rem,calc((100vw - 720px)/2));border-bottom:1px solid rgba(239,213,135,.45);background:var(--navy-950);box-shadow:0 16px 30px rgba(3,19,47,.24);white-space:normal;flex-direction:column;align-items:stretch;gap:.2rem}
+      .nav.is-open{display:flex}
+      .nav a{display:flex;align-items:center;min-height:46px;padding:.65rem .85rem;border-radius:.6rem;font-size:1rem;white-space:normal}
+      .hero{grid-template-columns:minmax(0,1fr);min-height:0;gap:2rem;text-align:center}
+      .hero-copy{margin:0 auto}
+      .cover-stage{width:min(65vw,300px)}
+      .story-grid,.book-section{grid-template-columns:minmax(0,1fr)}
+      .content{width:min(100% - 2rem,1100px)}
+      .values{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .theme-ribbon{width:calc(100% - 2rem)}
+    }
+    @media(max-width:560px){
+      .hero{padding:2rem 1rem 2.2rem}
+      .cover-stage{width:min(62vw,230px)}
+      .cta-row{width:100%;flex-direction:column;align-items:stretch}
+      .btn{width:100%;min-height:3.25rem}
+      .theme-ribbon{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .values{grid-template-columns:minmax(0,1fr)}
+      .story-copy,.quote-card{min-width:0}
+      .edition-table-wrap{max-width:100%}
+      .footer-inner{justify-content:center;text-align:center}
+    }
+
     @media(prefers-reduced-motion:reduce){
       html{scroll-behavior:auto}
       *,*::before,*::after{transition:none!important}
@@ -482,7 +517,8 @@
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="/" aria-label="MERCY home">MERCY</a>
-      <nav class="nav" aria-label="Main navigation">
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation"><span class="menu-icon" aria-hidden="true">☰</span><span class="menu-label">Menu</span></button>
+      <nav class="nav" id="main-navigation" aria-label="Main navigation">
         <a href="#story">The Story</a>
         <a href="#why">Why It Matters</a>
         <a href="#book">Book Details</a>
@@ -663,5 +699,32 @@
       <span><a href="/connect/">Contact</a> · <a href="/learn/">Learn</a></span>
     </div>
   <div class="mercy-company-details" aria-label="Company details"><strong>MERCY Series Global</strong><span class="company-copy">The global donation arm of <a href="https://www.polymathnexusconsultancy.com/">Polymath Nexus Consultancy</a>.</span><span><a href="mailto:shahir@mercyseries.com">shahir@mercyseries.com</a></span></div></footer>
+
+  <script>
+    (() => {
+      const toggle = document.querySelector('.menu-toggle');
+      const nav = document.getElementById('main-navigation');
+      if (!toggle || !nav) return;
+      const closeMenu = () => {
+        nav.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      };
+      toggle.addEventListener('click', () => {
+        const open = toggle.getAttribute('aria-expanded') !== 'true';
+        toggle.setAttribute('aria-expanded', String(open));
+        nav.classList.toggle('is-open', open);
+      });
+      nav.addEventListener('click', event => {
+        if (event.target.closest('a')) closeMenu();
+      });
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') closeMenu();
+      });
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 900) closeMenu();
+      });
+    })();
+  </script>
+
 </body>
 </html>
