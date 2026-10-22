@@ -557,7 +557,8 @@
     ]
   }
   </script>
-<link rel="stylesheet" href="/company-footer.css"></head>
+<link rel="stylesheet" href="/company-footer.css">  <link rel="stylesheet" href="https://mercyseries.com/global-site.css">
+</head>
 
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -787,87 +788,6 @@
   </script>
 
 
-  <script>
-    (() => {
-      const menu = document.querySelector('.brand-menu');
-      const choices = [...document.querySelectorAll('[data-theme-choice]')];
-      const status = document.getElementById('speech-status');
-      const play = document.getElementById('speech-play');
-      const stop = document.getElementById('speech-stop');
-      const themeNames = {
-        book: 'Book Theme',
-        consultancy: 'Polymath Nexus Theme',
-        preschool: 'Preschool theme for ages 3 to 9'
-      };
-      const applyTheme = theme => {
-        if (!themeNames[theme]) return;
-        document.body.dataset.theme = theme;
-        try { localStorage.setItem('mercy-home-theme', theme); } catch (_) {}
-        choices.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.themeChoice === theme)));
-      };
-      let savedTheme = 'book';
-      try { savedTheme = localStorage.getItem('mercy-home-theme') || 'book'; } catch (_) {}
-      applyTheme(savedTheme);
-      choices.forEach(button => button.addEventListener('click', () => {
-        applyTheme(button.dataset.themeChoice);
-      }));
-      menu.addEventListener('toggle', () => {
-        if (!menu.open) return;
-        choices[0]?.focus({preventScroll:true});
-      });
-      let speechQueue = [];
-      let speechIndex = 0;
-      const speakNext = () => {
-        if (speechIndex >= speechQueue.length) {
-          status.textContent = 'Finished reading this page.';
-          return;
-        }
-        const utterance = new SpeechSynthesisUtterance(speechQueue[speechIndex++]);
-        utterance.lang = 'en-GB';
-        utterance.rate = 1;
-        utterance.onend = speakNext;
-        utterance.onerror = () => {
-          status.textContent = 'Read-aloud stopped. Your browser may not have a voice available.';
-        };
-        window.speechSynthesis.speak(utterance);
-      };
-      play.addEventListener('click', () => {
-        if (!('speechSynthesis' in window)) {
-          status.textContent = 'Read-aloud is not supported by this browser.';
-          return;
-        }
-        window.speechSynthesis.cancel();
-        const source = document.querySelector('main').cloneNode(true);
-        source.querySelectorAll('script,button,.edition-note').forEach(node => node.remove());
-        const blocks = [...source.querySelectorAll('h1,h2,h3,p,li,blockquote,td,th')]
-          .map(node => node.textContent.replace(/\s+/g, ' ').trim())
-          .filter(Boolean);
-        speechQueue = blocks.flatMap(text => {
-          const chunks = [];
-          while (text.length > 230) {
-            let cut = text.lastIndexOf(' ', 230);
-            if (cut < 100) cut = 230;
-            chunks.push(text.slice(0, cut));
-            text = text.slice(cut).trim();
-          }
-          if (text) chunks.push(text);
-          return chunks;
-        });
-        speechIndex = 0;
-        status.textContent = 'Reading the page aloud. Use Stop to end.';
-        speakNext();
-      });
-      stop.addEventListener('click', () => {
-        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-        speechQueue = [];
-        speechIndex = 0;
-        status.textContent = 'Read-aloud stopped.';
-      });
-      window.addEventListener('pagehide', () => {
-        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-      });
-    })();
-  </script>
-
+  <script src="https://mercyseries.com/global-site.js"></script>
 </body>
 </html>

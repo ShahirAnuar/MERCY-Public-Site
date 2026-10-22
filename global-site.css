@@ -1,0 +1,43 @@
+:root{--mercy-navy:#071f48;--mercy-gold:#d5a63d}
+.brand-menu{position:relative;display:inline-flex;align-items:center;flex:0 0 auto;z-index:120}
+.brand-menu>summary{list-style:none;cursor:pointer;min-height:44px;display:inline-flex;align-items:center;gap:.42rem}
+.brand-menu>summary::-webkit-details-marker{display:none}
+.brand-menu .brand-caret{font:700 .72rem/1 system-ui,sans-serif;letter-spacing:0;transition:transform .2s ease}
+.brand-menu[open] .brand-caret{transform:rotate(180deg)}
+.brand-menu-panel{z-index:10000;width:min(320px,calc(100vw - 24px));max-height:calc(100dvh - 84px);overflow:auto;padding:1rem;border:1px solid rgba(213,166,61,.62);border-radius:1rem;background:#07152e;color:#f7f2e7;box-shadow:0 18px 44px rgba(3,19,47,.34);font: .92rem/1.45 system-ui,-apple-system,"Segoe UI",sans-serif}
+.mercy-global-menu .brand-menu-panel{position:fixed;left:var(--mercy-menu-x,12px);top:var(--mercy-menu-y,64px)}
+.brand-menu-panel .menu-heading{margin:.15rem 0 .55rem;color:#efd587;font-size:.75rem;font-weight:850;letter-spacing:.08em;text-transform:uppercase}
+.brand-menu-panel a,.brand-menu-panel button{display:flex;width:100%;min-height:44px;align-items:center;gap:.5rem;padding:.62rem .75rem;border:1px solid transparent;border-radius:.65rem;background:transparent;color:inherit;text-align:left;text-decoration:none;font:700 .9rem/1.3 system-ui,-apple-system,"Segoe UI",sans-serif;cursor:pointer}
+.brand-menu-panel a:hover,.brand-menu-panel button:hover{background:rgba(255,255,255,.1);color:#fff}
+.brand-menu-panel [data-theme-choice][aria-pressed="true"]{border-color:rgba(239,213,135,.68);background:rgba(213,166,61,.16);color:#efd587}
+.brand-menu-panel hr{margin:.7rem 0;border:0;border-top:1px solid rgba(239,213,135,.3)}
+.brand-menu-panel .tap-read-option{display:flex;align-items:flex-start;gap:.6rem;padding:.55rem .2rem;color:inherit;font-size:.82rem;line-height:1.4;cursor:pointer}
+.brand-menu-panel .tap-read-option input{width:1.1rem;height:1.1rem;margin:.08rem 0 0;accent-color:#d5a63d;flex:0 0 auto}
+.brand-menu-panel .speech-status{margin:.45rem 0 0;color:#c8d1df;font-size:.76rem;line-height:1.45}
+.mercy-global-floating{position:fixed;top:12px;left:12px;z-index:99999;padding:.3rem .45rem;border:1px solid rgba(213,166,61,.45);border-radius:999px;background:rgba(7,21,46,.92);box-shadow:0 6px 24px rgba(3,19,47,.24);backdrop-filter:blur(10px)}
+.mercy-global-floating>summary{padding:0 .55rem;color:#efd587!important}
+.mercy-global-floating .brand-menu-panel{position:fixed;left:12px;top:64px}
+.mercy-read-from-here{position:fixed;z-index:11000;left:50%;bottom:max(18px,env(safe-area-inset-bottom));transform:translateX(-50%);min-height:48px;padding:.75rem 1.1rem;border:2px solid #efd587;border-radius:999px;background:#071f48;color:#fff7df;font:800 .95rem/1 system-ui,sans-serif;box-shadow:0 12px 30px rgba(3,19,47,.35);cursor:pointer}
+.mercy-reading-current{outline:3px solid rgba(213,166,61,.8)!important;outline-offset:4px!important;border-radius:.25rem}
+.mercy-company-footer{width:100%;margin:2rem auto 0;padding:1.35rem 1rem max(1.35rem,env(safe-area-inset-bottom));border-top:2px solid #d5a63d;background:#071f48;color:#fff3cf;text-align:center;font: .86rem/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}
+.mercy-company-details{max-width:1100px;margin:0 auto;display:flex;justify-content:center;align-items:center;gap:.25rem 1rem;flex-wrap:wrap}
+.mercy-company-details strong{color:#efd587}
+.mercy-company-details .company-copy{flex-basis:100%;color:#e3e9f3}
+.mercy-company-details a{color:#fff3cf;text-underline-offset:3px}
+html[data-mercy-theme="consultancy"] body{background:radial-gradient(circle at 14% 0%,rgba(213,166,61,.11),transparent 30rem),linear-gradient(180deg,#06142c,#091b38 58%,#06142c)!important;color:#eaf0fa!important;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif!important}
+html[data-mercy-theme="consultancy"] body header,html[data-mercy-theme="consultancy"] body nav,html[data-mercy-theme="consultancy"] body footer:not(.mercy-company-footer){background-color:#05132b!important;border-color:rgba(213,166,61,.55)!important;color:#f4f0e7!important}
+html[data-mercy-theme="consultancy"] body main,html[data-mercy-theme="consultancy"] body main p,html[data-mercy-theme="consultancy"] body main li,html[data-mercy-theme="consultancy"] body main label,html[data-mercy-theme="consultancy"] body main small{color:#d6e0ee!important}
+html[data-mercy-theme="consultancy"] body main h1,html[data-mercy-theme="consultancy"] body main h2,html[data-mercy-theme="consultancy"] body main h3,html[data-mercy-theme="consultancy"] body main h4{color:#fff!important}
+html[data-mercy-theme="consultancy"] body main section,html[data-mercy-theme="consultancy"] body main article,html[data-mercy-theme="consultancy"] body main [class*="card"],html[data-mercy-theme="consultancy"] body main [class*="panel"],html[data-mercy-theme="consultancy"] body main [class*="surface"],html[data-mercy-theme="consultancy"] body main [class*="tile"]{background-color:rgba(11,32,64,.94)!important;border-color:rgba(213,166,61,.38)!important;color:#eaf0fa!important}
+html[data-mercy-theme="consultancy"] body a:not(.brand-menu-panel a){color:#f0cf7c}
+html[data-mercy-theme="consultancy"] body main button,html[data-mercy-theme="consultancy"] body main .btn{border-color:#d5a63d!important}
+html[data-mercy-theme="consultancy"] body main input,html[data-mercy-theme="consultancy"] body main textarea,html[data-mercy-theme="consultancy"] body main select{background-color:#0b2040!important;border-color:rgba(213,166,61,.5)!important;color:#f5f7fb!important}
+html[data-mercy-theme="preschool"] body{background:radial-gradient(circle at 8% 0%,rgba(255,214,112,.32),transparent 27rem),linear-gradient(145deg,#fff8ef,#f1f5ff 56%,#f5ecff)!important;color:#303858!important;font-family:ui-rounded,"Arial Rounded MT Bold",system-ui,-apple-system,"Segoe UI",sans-serif!important}
+html[data-mercy-theme="preschool"] body header,html[data-mercy-theme="preschool"] body nav,html[data-mercy-theme="preschool"] body footer:not(.mercy-company-footer){background-color:#5269a6!important;border-color:#edaa4f!important;color:#fff!important}
+html[data-mercy-theme="preschool"] body main,html[data-mercy-theme="preschool"] body main p,html[data-mercy-theme="preschool"] body main li,html[data-mercy-theme="preschool"] body main label,html[data-mercy-theme="preschool"] body main small{color:#303858!important}
+html[data-mercy-theme="preschool"] body main h1,html[data-mercy-theme="preschool"] body main h2,html[data-mercy-theme="preschool"] body main h3,html[data-mercy-theme="preschool"] body main h4{color:#38436f!important}
+html[data-mercy-theme="preschool"] body main section,html[data-mercy-theme="preschool"] body main article,html[data-mercy-theme="preschool"] body main [class*="card"],html[data-mercy-theme="preschool"] body main [class*="panel"],html[data-mercy-theme="preschool"] body main [class*="surface"],html[data-mercy-theme="preschool"] body main [class*="tile"]{background-color:rgba(255,253,248,.94)!important;border-color:#edaa4f!important;color:#303858!important}
+html[data-mercy-theme="preschool"] body a:not(.brand-menu-panel a){color:#425d9e}
+html[data-mercy-theme="preschool"] body main button,html[data-mercy-theme="preschool"] body main .btn{background-color:#edaa4f!important;border-color:#d88d38!important;color:#303858!important;border-radius:1rem!important}
+@media(max-width:760px){.mercy-global-menu{max-width:100%;}.brand-menu-panel{width:min(320px,calc(100vw - 20px));}.mercy-company-details{gap:.2rem .65rem;font-size:.8rem}.mercy-read-from-here{min-height:50px;max-width:calc(100vw - 28px)}}
+@media(prefers-reduced-motion:reduce){.mercy-reading-current{scroll-behavior:auto!important}}
