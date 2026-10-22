@@ -1,36 +1,9 @@
 (() => {
   "use strict";
-  const themeNames = {book:"Book Theme",consultancy:"Polymath Nexus Theme",preschool:"Preschool · Ages 3–9"};
-  const themeKey = "mercy-home-theme";
-  const cookieGet = name => {
-    const item = document.cookie.split("; ").find(part => part.startsWith(name+"="));
-    return item ? decodeURIComponent(item.split("=").slice(1).join("=")) : "";
-  };
-  const saveTheme = theme => {
-    try { localStorage.setItem(themeKey,theme); } catch (_) {}
-    try { document.cookie = "mercy-theme="+encodeURIComponent(theme)+"; path=/; max-age=31536000; SameSite=Lax; domain=.mercyseries.com"; } catch (_) {}
-  };
-  const applyTheme = theme => {
-    if (!themeNames[theme]) theme="book";
-    document.documentElement.dataset.mercyTheme=theme;
-    if (document.body) {
-      document.body.dataset.mercyTheme=theme;
-      document.body.dataset.theme=theme;
-    }
-    document.querySelectorAll("[data-theme-choice]").forEach(button => {
-      button.setAttribute("aria-pressed",String(button.dataset.themeChoice===theme));
-    });
-    saveTheme(theme);
-  };
-  const getSavedTheme = () => {
-    let theme=cookieGet("mercy-theme");
-    if (!theme) { try { theme=localStorage.getItem(themeKey)||""; } catch (_) {} }
-    return themeNames[theme] ? theme : "book";
-  };
   const createMenu = () => {
     const menu=document.createElement("details");
     menu.className="brand-menu mercy-global-menu";
-    menu.innerHTML='<summary class="brand" aria-label="MERCY home, themes and listening options">MERCY <span class="brand-caret" aria-hidden="true">▾</span></summary><div class="brand-menu-panel"><a class="return-home" href="/">← Return to homepage</a><hr><p class="menu-heading">Choose a theme</p><button type="button" data-theme-choice="book" aria-pressed="true">Book Theme</button><button type="button" data-theme-choice="consultancy" aria-pressed="false">Polymath Nexus Theme</button><button type="button" data-theme-choice="preschool" aria-pressed="false">Preschool · Ages 3–9</button><hr><p class="menu-heading">Listen to this page</p><button type="button" id="speech-play">▶ Read aloud</button><button type="button" id="speech-stop">■ Stop</button><label class="tap-read-option"><input type="checkbox" id="mercy-tap-to-read"><span>When enabled, tap a paragraph to stop current speech and start from that paragraph.</span></label><p class="speech-status" id="speech-status" aria-live="polite">Uses your browser’s available voice.</p></div>';
+    menu.innerHTML='<summary class="brand" aria-label="MERCY menu and listening options">MERCY <span class="brand-caret" aria-hidden="true">▾</span></summary><div class="brand-menu-panel"><a class="return-home" href="/">← Return to homepage</a><hr><p class="menu-heading">Listen to this page</p><button type="button" id="speech-play">▶ Read aloud</button><button type="button" id="speech-stop">■ Stop</button><label class="tap-read-option"><input type="checkbox" id="mercy-tap-to-read"><span>When enabled, tap a paragraph to stop current speech and start from that paragraph.</span></label><p class="speech-status" id="speech-status" aria-live="polite">Uses your browser’s available voice.</p></div>';
     return menu;
   };
   const ensureMenu = () => {
@@ -74,14 +47,6 @@
         panel.prepend(link);
         const divider=document.createElement("hr");
         link.after(divider);
-      }
-      if (!panel.querySelector("[data-theme-choice='book']")) {
-        const heading=document.createElement("p");
-        heading.className="menu-heading";heading.textContent="Choose a theme";
-        panel.append(heading);
-        [["book","Book Theme"],["consultancy","Polymath Nexus Theme"],["preschool","Preschool · Ages 3–9"]].forEach(([value,label])=>{
-          const button=document.createElement("button");button.type="button";button.dataset.themeChoice=value;button.textContent=label;panel.append(button);
-        });
       }
       if (!panel.querySelector("#speech-play")) {
         const heading=document.createElement("p");heading.className="menu-heading";heading.textContent="Listen to this page";panel.append(heading);
@@ -176,12 +141,14 @@
   const init=()=>{
     ensureMenu();
     ensureCompanyFooter();
-    applyTheme(getSavedTheme());
+    document.documentElement.removeAttribute("data-mercy-theme");
+    document.body.removeAttribute("data-mercy-theme");
+    document.body.removeAttribute("data-theme");
+    document.querySelectorAll("[data-theme-choice],.theme-choice").forEach(el=>el.remove());
+    document.querySelectorAll(".menu-heading").forEach(el=>{if(/choose a theme/i.test(el.textContent))el.remove();});
     const tapToggle=document.getElementById("mercy-tap-to-read");
     if(tapToggle){tapToggle.checked=tapToRead;tapToggle.addEventListener("change",()=>{tapToRead=tapToggle.checked;try{localStorage.setItem("mercy-tap-to-read",String(tapToRead));}catch(_){}setStatus(tapToRead?"Tap a paragraph to restart reading from there.":"Tap-to-read is off. Long-press text and choose Read from here.");});}
     document.addEventListener("click",event=>{
-      const themeButton=event.target.closest("[data-theme-choice]");
-      if(themeButton){applyTheme(themeButton.dataset.themeChoice);return;}
       if(event.target.closest("#speech-play")){startAt(null);return;}
       if(event.target.closest("#speech-stop")){stopSpeech();setStatus("Read-aloud stopped.");return;}
       const block=readerBlock(event.target);

@@ -24,20 +24,17 @@
 .mercy-company-details strong{color:#efd587}
 .mercy-company-details .company-copy{flex-basis:100%;color:#e3e9f3}
 .mercy-company-details a{color:#fff3cf;text-underline-offset:3px}
-html[data-mercy-theme="consultancy"] body{background:radial-gradient(circle at 14% 0%,rgba(213,166,61,.11),transparent 30rem),linear-gradient(180deg,#06142c,#091b38 58%,#06142c)!important;color:#eaf0fa!important;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif!important}
-html[data-mercy-theme="consultancy"] body header,html[data-mercy-theme="consultancy"] body nav,html[data-mercy-theme="consultancy"] body footer:not(.mercy-company-footer){background-color:#05132b!important;border-color:rgba(213,166,61,.55)!important;color:#f4f0e7!important}
-html[data-mercy-theme="consultancy"] body main,html[data-mercy-theme="consultancy"] body main p,html[data-mercy-theme="consultancy"] body main li,html[data-mercy-theme="consultancy"] body main label,html[data-mercy-theme="consultancy"] body main small{color:#d6e0ee!important}
-html[data-mercy-theme="consultancy"] body main h1,html[data-mercy-theme="consultancy"] body main h2,html[data-mercy-theme="consultancy"] body main h3,html[data-mercy-theme="consultancy"] body main h4{color:#fff!important}
-html[data-mercy-theme="consultancy"] body main section,html[data-mercy-theme="consultancy"] body main article,html[data-mercy-theme="consultancy"] body main [class*="card"],html[data-mercy-theme="consultancy"] body main [class*="panel"],html[data-mercy-theme="consultancy"] body main [class*="surface"],html[data-mercy-theme="consultancy"] body main [class*="tile"]{background-color:rgba(11,32,64,.94)!important;border-color:rgba(213,166,61,.38)!important;color:#eaf0fa!important}
-html[data-mercy-theme="consultancy"] body a:not(.brand-menu-panel a){color:#f0cf7c}
-html[data-mercy-theme="consultancy"] body main button,html[data-mercy-theme="consultancy"] body main .btn{border-color:#d5a63d!important}
-html[data-mercy-theme="consultancy"] body main input,html[data-mercy-theme="consultancy"] body main textarea,html[data-mercy-theme="consultancy"] body main select{background-color:#0b2040!important;border-color:rgba(213,166,61,.5)!important;color:#f5f7fb!important}
-html[data-mercy-theme="preschool"] body{background:radial-gradient(circle at 8% 0%,rgba(255,214,112,.32),transparent 27rem),linear-gradient(145deg,#fff8ef,#f1f5ff 56%,#f5ecff)!important;color:#303858!important;font-family:ui-rounded,"Arial Rounded MT Bold",system-ui,-apple-system,"Segoe UI",sans-serif!important}
-html[data-mercy-theme="preschool"] body header,html[data-mercy-theme="preschool"] body nav,html[data-mercy-theme="preschool"] body footer:not(.mercy-company-footer){background-color:#5269a6!important;border-color:#edaa4f!important;color:#fff!important}
-html[data-mercy-theme="preschool"] body main,html[data-mercy-theme="preschool"] body main p,html[data-mercy-theme="preschool"] body main li,html[data-mercy-theme="preschool"] body main label,html[data-mercy-theme="preschool"] body main small{color:#303858!important}
-html[data-mercy-theme="preschool"] body main h1,html[data-mercy-theme="preschool"] body main h2,html[data-mercy-theme="preschool"] body main h3,html[data-mercy-theme="preschool"] body main h4{color:#38436f!important}
-html[data-mercy-theme="preschool"] body main section,html[data-mercy-theme="preschool"] body main article,html[data-mercy-theme="preschool"] body main [class*="card"],html[data-mercy-theme="preschool"] body main [class*="panel"],html[data-mercy-theme="preschool"] body main [class*="surface"],html[data-mercy-theme="preschool"] body main [class*="tile"]{background-color:rgba(255,253,248,.94)!important;border-color:#edaa4f!important;color:#303858!important}
-html[data-mercy-theme="preschool"] body a:not(.brand-menu-panel a){color:#425d9e}
-html[data-mercy-theme="preschool"] body main button,html[data-mercy-theme="preschool"] body main .btn{background-color:#edaa4f!important;border-color:#d88d38!important;color:#303858!important;border-radius:1rem!important}
 @media(max-width:760px){.mercy-global-menu{max-width:100%;}.brand-menu-panel{width:min(320px,calc(100vw - 20px));}.mercy-company-details{gap:.2rem .65rem;font-size:.8rem}.mercy-read-from-here{min-height:50px;max-width:calc(100vw - 28px)}}
 @media(prefers-reduced-motion:reduce){.mercy-reading-current{scroll-behavior:auto!important}}
+
+/* MERCY book identity: consistent typography and palette on every page */
+html,body{font-family:Georgia,"Times New Roman",serif!important;color:#071f48!important}
+body{background-color:#fffaf0!important}
+body main,body main p,body main li,body main blockquote,body main label,body main small{color:#071f48!important;font-family:Georgia,"Times New Roman",serif!important}
+body main h1,body main h2,body main h3,body main h4,body main h5,body main h6{color:#071f48!important;font-family:Georgia,"Times New Roman",serif!important}
+body a:not(.brand-menu-panel a){color:#071f48}
+body header,body nav,body footer:not(.mercy-company-footer){font-family:Georgia,"Times New Roman",serif!important}
+body header a,body nav a{color:#fff3cf!important}
+body header a:hover,body nav a:hover{color:#efd587!important}
+
+body header,body nav{background-color:#071f48!important;border-color:#d5a63d!important}
