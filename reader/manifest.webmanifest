@@ -1,7 +1,7 @@
 {
-  "name": "The Guide · Mercy Series",
-  "short_name": "The Guide",
-  "description": "A full-screen, page-by-page reader for The Guide · Mercy Series.",
+  "name": "The Guide App",
+  "short_name": "Guide App",
+  "description": "The protected, full-screen interactive reading app for The Guide.",
   "start_url": "/reader/",
   "scope": "/reader/",
   "display": "fullscreen",
