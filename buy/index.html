@@ -38,7 +38,7 @@
     </div>
     <section aria-labelledby="editions"><p class="eyebrow">Malaysia purchases only</p><h2 id="editions">Choose your edition</h2>
       <div class="cards">
-        <article class="card"><h3>The Guide App · Digital</h3><p class="price">RM 13.60</p><img src="/buy/the-guide-cover.jpg" alt="Father and son on The Guide App cover" style="display:block;width:min(100%,180px);height:auto;margin:1rem auto"><p>Purchase the interactive app and start reading immediately after payment. Sign in with one Google account to activate your copy.</p><a class="button" href="https://buy.stripe.com/bJedR85j45Xae1WfVigA80b">Buy The Guide App</a></article>
+        <article class="card"><h3>The Guide App · Digital</h3><p class="price">RM 13.60</p><img src="/buy/the-guide-cover.jpg" alt="Father and son on The Guide App cover" style="display:block;width:min(100%,180px);height:auto;margin:1rem auto"><p>Purchase the interactive app and start reading immediately after payment. Sign in with one Google account to activate your copy.</p><a class="button" id="digital-buy" href="https://buy.stripe.com/bJedR85j45Xae1WfVigA80b">Buy The Guide App</a></article>
         <article class="card"><h3>MERCY Paperback</h3><p class="price">RM 29.99</p><p class="small">Secure checkout for the current paperback edition.</p><stripe-buy-button buy-button-id="buy_btn_1UWENBD2ecAHnk93xdHihq3o" publishable-key="pk_live_51MYLi5D2ecAHnk93XTAYA0jDXSEvpv4PlYlghRShtHCbB1bDzQ4QUmmix58AjhTDruo1eK6U1xCVJaXUPBulYkMH002Lch7eLT"></stripe-buy-button></article>
         <article class="card"><h3>MERCY Hardcover</h3><p class="price">RM 59.00</p><p class="small">Secure checkout for the current hardcover edition. Stripe currently charges RM 59.00.</p><stripe-buy-button buy-button-id="buy_btn_1UWEovD2ecAHnk93Dg4TorAs" publishable-key="pk_live_51MYLi5D2ecAHnk93XTAYA0jDXSEvpv4PlYlghRShtHCbB1bDzQ4QUmmix58AjhTDruo1eK6U1xCVJaXUPBulYkMH002Lch7eLT"></stripe-buy-button></article>
       </div>
@@ -60,6 +60,7 @@
   <script>
     (() => {
       const api='https://mercy-malaysia-orders-reviews.shahiranuar.chatgpt.site';
+      const referral=new URLSearchParams(location.search).get('ref')||'',digitalBuy=document.getElementById('digital-buy');if(digitalBuy&&/^ref_[a-f0-9]{32}$/.test(referral)){const checkout=new URL(digitalBuy.href);checkout.searchParams.set('client_reference_id',referral);digitalBuy.href=checkout.toString()}
       async function submit(form,endpoint,statusId,body){
         const status=document.getElementById(statusId),button=form.querySelector('button[type=submit]');
         status.className='status';status.textContent='Submitting…';button.disabled=true;
