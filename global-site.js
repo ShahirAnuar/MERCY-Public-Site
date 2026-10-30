@@ -70,7 +70,7 @@
     });
     return menu;
   };
-  const companyMarkup='<strong>MERCY Global Series</strong><span class="company-copy">SSM registered business name: MERCY SERIES GLOBAL</span><span>SSM Business Registration No. 202603256493 (TR0350191-X)</span><span><a href="mailto:shahir@mercyseries.com">shahir@mercyseries.com</a></span>';
+  const companyMarkup='<strong>MERCY Series Global</strong><span class="company-copy">SSM registered business name: MERCY SERIES GLOBAL</span><span>SSM Business Registration No. 202603256493 (TR0350191-X)</span><span><a href="mailto:shahir@mercyseries.com">shahir@mercyseries.com</a></span>';
   const ensureCompanyFooter=()=>{
     let details=[...document.querySelectorAll(".mercy-company-details")];
     if (!details.length) {
