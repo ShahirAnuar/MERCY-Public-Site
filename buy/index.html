@@ -38,11 +38,11 @@
     </div>
     <section aria-labelledby="editions"><p class="eyebrow">Malaysia purchases only</p><h2 id="editions">Choose your edition</h2>
       <div class="cards">
-        <article class="card"><h3>The Guide App · Digital</h3><p class="price" id="digital-price">RM 16.00</p><p class="notice" id="referral-offer" hidden role="status" aria-live="polite"></p><img src="/buy/the-guide-cover.jpg" alt="Father and son on The Guide App cover" style="display:block;width:min(100%,180px);height:auto;margin:1rem auto"><p>Purchase the interactive app and start reading immediately after payment. Sign in with one Google account to activate your copy on up to two active devices.</p><div id="affiliate-offer" class="notice" hidden><p id="affiliate-discount-message">Affiliate purchase</p><label for="affiliate-coupon">Affiliate coupon (optional)</label><input id="affiliate-coupon" type="text" maxlength="48" autocomplete="off" placeholder="Enter your affiliate's coupon code" style="display:block;width:100%;padding:.7rem;margin:.4rem 0;border-radius:8px;font:inherit"><p class="small">Coupons are issued individually to registered affiliates. The correct price will be verified at checkout.</p></div><a class="button" id="digital-buy" href="https://buy.stripe.com/bJedR85j45Xae1WfVigA80b">Buy The Guide App · RM16</a><p class="small" id="referral-checkout-status" role="status" aria-live="polite">Please confirm RM16 is displayed on Stripe before you pay. Affiliate discounts are only active once the secure checkout service is enabled.</p></article>
+        <article class="card"><h3>The Guide App · Digital</h3><p class="price" id="digital-price">RM 16.00</p><p class="notice" id="referral-offer" hidden role="status" aria-live="polite"></p><img src="/buy/the-guide-cover.jpg" alt="Father and son on The Guide App cover" style="display:block;width:min(100%,180px);height:auto;margin:1rem auto"><p>Purchase the interactive app and start reading immediately after payment. Sign in with one Google account to activate your copy on up to two active devices.</p><div id="affiliate-offer" class="notice"><p id="affiliate-discount-message">Affiliate purchase</p><label for="affiliate-coupon">Have an affiliate coupon? (optional)</label><input id="affiliate-coupon" type="text" maxlength="48" autocomplete="off" placeholder="Enter your affiliate's coupon code" style="display:block;width:100%;padding:.7rem;margin:.4rem 0;border-radius:8px;font:inherit"><p class="small">Each coupon has a unique identifier belonging to one registered affiliate. Your discounted amount will be confirmed before payment.</p></div><a class="button" id="digital-buy" href="https://buy.stripe.com/bJedR85j45Xae1WfVigA80b">Buy The Guide App · RM16</a><p class="small" id="referral-checkout-status" role="status" aria-live="polite">Please confirm RM16 is displayed on Stripe before you pay. Affiliate discounts are only active once the secure checkout service is enabled.</p></article>
         <article class="card"><h3>MERCY Paperback</h3><p class="price">RM 29.99</p><p class="small">Secure checkout for the current paperback edition.</p><stripe-buy-button buy-button-id="buy_btn_1UWENBD2ecAHnk93xdHihq3o" publishable-key="pk_live_51MYLi5D2ecAHnk93XTAYA0jDXSEvpv4PlYlghRShtHCbB1bDzQ4QUmmix58AjhTDruo1eK6U1xCVJaXUPBulYkMH002Lch7eLT"></stripe-buy-button></article>
         <article class="card"><h3>MERCY Hardcover</h3><p class="price">RM 59.00</p><p class="small">Secure checkout for the current hardcover edition. Stripe currently charges RM 59.00.</p><stripe-buy-button buy-button-id="buy_btn_1UWEovD2ecAHnk93Dg4TorAs" publishable-key="pk_live_51MYLi5D2ecAHnk93XTAYA0jDXSEvpv4PlYlghRShtHCbB1bDzQ4QUmmix58AjhTDruo1eK6U1xCVJaXUPBulYkMH002Lch7eLT"></stripe-buy-button></article>
       </div>
-      <p class="notice">These checkout options apply to Malaysia purchases. Check delivery costs at checkout. For purchases outside Malaysia, use the <a href="/mercy/#editions">international edition links</a>.</p>
+      <p class="notice">Digital list price: RM16. A registered affiliate may provide a personal sales link and optional coupon for RM1–RM7 off. These checkout options apply to Malaysia purchases. Check delivery costs at checkout. For purchases outside Malaysia, use the <a href="/mercy/#editions">international edition links</a>.</p>
     </section>
     <section id="reader-reviews" aria-labelledby="review-heading"><p class="eyebrow">Reader voices</p><h2 id="review-heading">Rate and review MERCY</h2>
       <p>You can leave an honest review even if you did not buy a copy here. Reader reviews are counted separately from verified book sales. All submissions are reviewed before publication, regardless of rating; we may remove spam, abuse, private information or irrelevant content.</p>
@@ -63,11 +63,11 @@
       const params=new URLSearchParams(location.search);
       // Do not treat buyer activation serials or old one-time ref_* links as affiliate codes.
       const affiliateCode=(params.get('affiliate')||'').trim();
-      const couponFromLink=(params.get('coupon')||'').trim();
+      const couponFromLink=(params.get('coupon')||'').trim().toUpperCase();
       const digitalBuy=document.getElementById('digital-buy'),offer=document.getElementById('affiliate-offer');
       const couponInput=document.getElementById('affiliate-coupon'),checkoutStatus=document.getElementById('referral-checkout-status');
       const validAffiliate=/^AFF-[A-Z0-9]{8,20}$/.test(affiliateCode);
-      if(couponFromLink&&/^[A-Z0-9-]{8,48}$/.test(couponFromLink))couponInput.value=couponFromLink;
+      if(couponFromLink&&/^[A-Z0-9]{8,48}$/.test(couponFromLink))couponInput.value=couponFromLink;
       if(validAffiliate||couponInput.value){
         offer.hidden=false;
         document.getElementById('affiliate-discount-message').textContent=validAffiliate?'Affiliate purchase · '+affiliateCode:'Unique affiliate coupon';
@@ -78,7 +78,7 @@
         const hasAffiliate=validAffiliate,hasCoupon=Boolean(code);
         if(!hasAffiliate&&!hasCoupon)return;
         event.preventDefault();
-        if(!/^[A-Z0-9-]{8,48}$/.test(code)&&hasCoupon){checkoutStatus.textContent='Please enter a valid affiliate coupon.';return}
+        if(!/^[A-Z0-9]{8,48}$/.test(code)&&hasCoupon){checkoutStatus.textContent='Please enter a valid affiliate coupon.';return}
         digitalBuy.setAttribute('aria-disabled','true');
         checkoutStatus.textContent='Confirming coupon ownership and payment total…';
         try{
