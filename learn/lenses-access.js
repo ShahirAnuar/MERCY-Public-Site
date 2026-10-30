@@ -58,11 +58,11 @@
     show(number, lens, panel, choices) {
       pending = {number,lens,panel,choices};
       panel.hidden = false;
-      panel.textContent = '';
-      if (!navigator.onLine) { message('Connect to the internet to use the six lenses.'); return; }
-      if (!configured) { message('Six-lens sign-in is being configured. The book and Qur’an links remain available.'); return; }
+      choices.forEach(item => item.setAttribute('aria-pressed', String(item.dataset.lens === lens)));
+      if (!navigator.onLine) { panel.textContent = 'The ' + lens + ' example needs an internet connection.'; message('Connect to the internet to use the six lenses.'); return; }
+      if (!configured) { panel.textContent = 'The ' + lens + ' example is locked while reader sign-in is being configured.'; message('Six-lens sign-in is being configured. Thread notes remain available.'); return; }
       if (unlocked) showExample();
-      else message('Enter the access code for this digital copy and sign in with Google. Each copy allows two readers.');
+      else { panel.textContent = 'To see the ' + lens + ' example, sign in with Google and enter the access code supplied with your digital copy.'; message('Each digital copy allows two readers.'); }
     }
   };
   json('/api/lenses/config').then(({clientId}) => {
