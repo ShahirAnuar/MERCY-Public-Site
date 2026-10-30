@@ -38,7 +38,7 @@
     </div>
     <section aria-labelledby="editions"><p class="eyebrow">Malaysia purchases only</p><h2 id="editions">Choose your edition</h2>
       <div class="cards">
-        <article class="card"><h3>The Guide App · Digital</h3><p class="price">RM 13.60</p><img src="/buy/the-guide-cover.jpg" alt="Father and son on The Guide App cover" style="display:block;width:min(100%,180px);height:auto;margin:1rem auto"><p>Purchase the interactive app and start reading immediately after payment. Sign in with one Google account to activate your copy.</p><a class="button" id="digital-buy" href="https://buy.stripe.com/bJedR85j45Xae1WfVigA80b">Buy The Guide App</a></article>
+        <article class="card"><h3>The Guide App · Digital</h3><p class="price" id="digital-price">RM 13.60</p><p class="notice" id="referral-offer" hidden role="status" aria-live="polite"></p><img src="/buy/the-guide-cover.jpg" alt="Father and son on The Guide App cover" style="display:block;width:min(100%,180px);height:auto;margin:1rem auto"><p>Purchase the interactive app and start reading immediately after payment. Sign in with one Google account to activate your copy on up to two active devices.</p><a class="button" id="digital-buy" href="https://buy.stripe.com/bJedR85j45Xae1WfVigA80b">Buy The Guide App</a><p class="small" id="referral-checkout-status" role="status" aria-live="polite"></p></article>
         <article class="card"><h3>MERCY Paperback</h3><p class="price">RM 29.99</p><p class="small">Secure checkout for the current paperback edition.</p><stripe-buy-button buy-button-id="buy_btn_1UWENBD2ecAHnk93xdHihq3o" publishable-key="pk_live_51MYLi5D2ecAHnk93XTAYA0jDXSEvpv4PlYlghRShtHCbB1bDzQ4QUmmix58AjhTDruo1eK6U1xCVJaXUPBulYkMH002Lch7eLT"></stripe-buy-button></article>
         <article class="card"><h3>MERCY Hardcover</h3><p class="price">RM 59.00</p><p class="small">Secure checkout for the current hardcover edition. Stripe currently charges RM 59.00.</p><stripe-buy-button buy-button-id="buy_btn_1UWEovD2ecAHnk93Dg4TorAs" publishable-key="pk_live_51MYLi5D2ecAHnk93XTAYA0jDXSEvpv4PlYlghRShtHCbB1bDzQ4QUmmix58AjhTDruo1eK6U1xCVJaXUPBulYkMH002Lch7eLT"></stripe-buy-button></article>
       </div>
@@ -60,7 +60,38 @@
   <script>
     (() => {
       const api='https://mercy-malaysia-orders-reviews.shahiranuar.chatgpt.site';
-      const params=new URLSearchParams(location.search),referral=params.get('ref')||'',digitalBuy=document.getElementById('digital-buy');if(digitalBuy&&/^ref_[a-f0-9]{32}$/.test(referral)){const checkout=new URL(digitalBuy.href);checkout.searchParams.set('client_reference_id',referral);digitalBuy.href=checkout.toString();if(params.get('checkout')==='1'){history.replaceState({},'',location.pathname+'?ref='+encodeURIComponent(referral));location.assign(digitalBuy.href)}}
+      const params=new URLSearchParams(location.search),referral=params.get('ref')||'';
+      const digitalBuy=document.getElementById('digital-buy'),referralOffer=document.getElementById('referral-offer');
+      const checkoutStatus=document.getElementById('referral-checkout-status');
+      const isValidReferral=/^ref_[a-f0-9]{32}$/.test(referral);
+      if(isValidReferral){
+        document.getElementById('digital-price').textContent='RM 10.00 referral price';
+        referralOffer.hidden=false;
+        referralOffer.textContent='Your personal referral link should give you RM10 instead of RM13.60. The person who shared it may earn RM5 for each qualifying purchase. Please check the Stripe payment total before paying.';
+        digitalBuy.textContent='Check out with referral · RM10';
+        digitalBuy.addEventListener('click',async event=>{
+          event.preventDefault();
+          if(digitalBuy.dataset.loading==='1')return;
+          digitalBuy.dataset.loading='1';digitalBuy.setAttribute('aria-disabled','true');
+          checkoutStatus.textContent='Verifying your referral discount before opening secure checkout…';
+          try{
+            // A fixed-price Stripe Payment Link cannot apply a RM10 referral price
+            // through client_reference_id. The payment server must create a verified
+            // RM10 Stripe Checkout Session and record a distinct referral code.
+            const response=await fetch(api+'/api/referral/checkout',{
+              method:'POST',headers:{'content-type':'application/json'},
+              body:JSON.stringify({referralCode:referral})
+            });
+            const data=await response.json();
+            if(!response.ok)throw Error(data.error||'The referral checkout is not available.');
+            const checkout=new URL(data.checkoutUrl);
+            if(checkout.protocol!=='https:'||checkout.hostname!=='checkout.stripe.com'||data.amountCents!==1000||String(data.currency).toLowerCase()!=='myr')throw Error('Unable to confirm a secure RM10 checkout.');
+            location.assign(checkout.href);
+          }catch(error){
+            checkoutStatus.textContent='RM10 referral checkout is not yet available. No payment has been made. Please do not pay RM13.60 expecting the discount. '+error.message;
+          }finally{delete digitalBuy.dataset.loading;digitalBuy.removeAttribute('aria-disabled')}
+        });
+      }
       async function submit(form,endpoint,statusId,body){
         const status=document.getElementById(statusId),button=form.querySelector('button[type=submit]');
         status.className='status';status.textContent='Submitting…';button.disabled=true;
