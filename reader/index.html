@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#071f48">
+  <link rel="manifest" href="/reader/manifest.webmanifest">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -66,7 +67,7 @@
     if('serviceWorker' in navigator)navigator.serviceWorker.register('/reader/service-worker.js').catch(()=>{});
     function enableInstallManifest(){if(document.querySelector('link[rel="manifest"]'))return;const link=document.createElement('link');link.rel='manifest';link.href='/reader/manifest.webmanifest';document.head.append(link)}
     const isInstalled=()=>Boolean(window.matchMedia?.('(display-mode: standalone)').matches||window.matchMedia?.('(display-mode: fullscreen)').matches||navigator.standalone===true);
-    function updateInstallButton(){installButton.hidden=isInstalled()||!installPrompt;installButton.disabled=!accessReady}
+    function updateInstallButton(){installButton.hidden=isInstalled()||!installPrompt;installButton.disabled=false}
     window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();installPrompt=event;updateInstallButton()});
     function updateOpeningShare(){const ready=accessReady&&referralEligible&&Boolean(referralShareUrl);for(const button of [openingShare,headerShare,toolbarShare]){button.hidden=!ready;button.disabled=!ready}}
     async function loadReferral(){referralEligible=false;referralShareUrl='';updateOpeningShare();if(!accessReady||!appAccessToken||!googleCredential)return;try{const response=await fetch(api+'/api/referral',{headers:{authorization:'Bearer '+googleCredential,'x-mercy-access':appAccessToken,'x-mercy-device':deviceId}}),data=await response.json();if(!response.ok)throw Error(data.error||'Referral status unavailable');referralEligible=Boolean(data.eligible&&data.shareUrl);referralShareUrl=data.shareUrl||''}catch{referralEligible=false}updateOpeningShare()}
@@ -107,7 +108,7 @@
     dialog.querySelector('.thread-close').addEventListener('click',()=>dialog.close());dialog.addEventListener('close',()=>returnFocus?.focus());dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
     async function library(){if(readerLib)return readerLib;readerLib=await import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs');readerLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs';return readerLib}
     function pageTurnLayer(){if(!canvas.width||shell.hidden||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return null;const layer=document.createElement('div');layer.className='page-turn-overlay';const sheet=document.createElement('div');sheet.className='page-turn-sheet';sheet.style.setProperty('--turn-image','url("'+canvas.toDataURL('image/png')+'")');layer.append(sheet);shell.append(layer);return layer}
-    async function showPage(number,{animate=false,direction=1}={}){if(!pdf||number<1||number>pdf.numPages)return;if(busy){pendingPage=number;status.textContent='Opening page '+number+'…';return}const oldPage=pageNumber;const turn=animate&&number!==oldPage?pageTurnLayer():null;busy=true;pendingPage=null;stage.setAttribute('aria-busy','true');status.textContent='Opening page '+number+'…';try{
+    async function showPage(number,{animate=false,direction=1}={}){if(!pdf||number<1||number>pdf.numPages)return;if(busy){pendingPage=number;status.textContent='Opening page '+number+'…';return}if(!animate)shell.querySelectorAll('.page-turn-overlay').forEach(item=>item.remove());const oldPage=pageNumber;const turn=animate&&number!==oldPage?pageTurnLayer():null;busy=true;pendingPage=null;stage.setAttribute('aria-busy','true');status.textContent='Opening page '+number+'…';try{
       if(renderTask){renderTask.cancel();try{await renderTask.promise}catch{}renderTask=null}
       const page=await pdf.getPage(number),raw=page.getViewport({scale:1});
       const width=stage.clientWidth-8,height=stage.clientHeight-8,scale=Math.min(width/raw.width,height/raw.height)*zoom;
