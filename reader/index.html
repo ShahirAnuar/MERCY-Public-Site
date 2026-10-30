@@ -89,9 +89,10 @@
       else if(legacySerial){endpoint='/api/access/migrate';payload.serial=legacySerial}
       else throw Error('No purchased app activation was found on this device. Please return through the secure link after payment.');
       const response=await fetch(api+endpoint,{method:'POST',headers,body:JSON.stringify(payload)}),data=await response.json();if(!response.ok)throw Error(data.error||'Access could not be confirmed');
+      if(Number(data.devices)>2)throw Error('Two-device limit reached. Please deactivate another device through account support.');
       if(data.accessToken){appAccessToken=data.accessToken;localStorage.setItem('mercyAppAccess',appAccessToken)}
       localStorage.removeItem('mercySerial');legacySerial='';localStorage.removeItem('mercyCheckoutSession');checkoutSession='';history.replaceState({},'',location.pathname);
-      if(Number(data.devices)>2)throw Error('Two-device limit reached. Please deactivate another device through account support.');setAccess(true,'Access confirmed on this device ('+(data.devices||1)+' of 2).');accessDialog.close();const action=pendingAccessAction;pendingAccessAction=null;action?.()
+      setAccess(true,'Access confirmed on this device ('+(data.devices||1)+' of 2).');accessDialog.close();const action=pendingAccessAction;pendingAccessAction=null;action?.()
     }catch(error){setAccess(false,error.message)}}
     function ensureAccess(action){if(accessReady&&appAccessToken&&googleCredential){action?.();return true}pendingAccessAction=action||null;document.querySelector('#access-copy').textContent=checkoutSession?'Sign in with the Google account that will own this copy. Your payment will be verified before access is granted; up to two active devices are allowed.':appAccessToken||legacySerial?'Sign in with the Google account that owns this copy. Up to two active devices are allowed.':'No activation is stored here. Complete your purchase and return using Stripe’s secure link.';accessStatus.textContent=googleReady?'Choose your Google account to continue.':'Loading Google sign-in…';if(!accessDialog.open)accessDialog.showModal();return false}
     accessDialog.querySelector('.access-close').addEventListener('click',()=>accessDialog.close());
