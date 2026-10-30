@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#071f48">
-  <meta name="description" content="Buy MERCY Digital, Paperback or Hardcover in Malaysia from MERCY Series Global. Leave an honest reader review with or without a purchase.">
+  <meta name="description" content="The Guide · Mercy Series and MERCY editions in Malaysia. Review the story whether or not you purchased a copy.">
   <link rel="canonical" href="https://mercyseries.com/buy/">
   <title>Buy MERCY Digital, Paperback or Hardcover in Malaysia | MERCY Series Global</title>
   <link rel="stylesheet" href="/global-site.css">
@@ -33,11 +33,11 @@
   <header><nav class="navigation" aria-label="Main navigation"><a href="/">MERCY home</a><a href="/mercy/">About the book</a><a href="/learn/">Reading guide</a><a href="/buy/" aria-current="page">Buy &amp; review</a><a href="/connect/">Contact</a></nav></header>
   <main id="main">
     <div class="hero">
-      <div><p class="eyebrow">MERCY Series Global · Malaysia</p><h1>Bring MERCY home.</h1><p>An illustrated story of faith, learning differently, dignity and the mercy we owe one another. Explore the editions available in Malaysia, or tell us what the story meant to you.</p><div class="actions"><a class="button" href="#editions">Choose an edition</a><a class="button secondary" href="#reader-reviews">Rate &amp; review</a></div></div>
-      <img class="cover" src="/page_001.webp" alt="MERCY book cover" width="1365" height="2048">
+      <div><p class="eyebrow">MERCY Series Global · Malaysia</p><h1>The Guide<br><small>Mercy Series</small></h1><p>by Shahir &amp; Shahirah. Explore the Malaysia editions and the 86 interactive story threads, or tell us what the story meant to you.</p><div class="actions"><a class="button" href="#editions">Choose an edition</a><a class="button secondary" href="#reader-reviews">Rate &amp; review</a></div></div>
+      <img class="cover" src="/buy/the-guide-cover.jpg" alt="The Guide, Mercy Series cover showing Shaheem on the left and Shahir on the right" width="1024" height="1536">
     </div>
     <section aria-labelledby="editions"><p class="eyebrow">Malaysia purchases only</p><h2 id="editions">Choose your edition</h2>
-      <div class="cards"><article class="card"><h3>MERCY Digital</h3><p class="price">RM 13.60</p><p>The numbered PDF is prepared. Direct digital ordering is paused while MERCY is enrolled in KDP Select. Six-lens access also needs internet, a reader code and Google sign-in; that setup is in progress.</p><span class="button disabled" aria-disabled="true">Digital ordering paused</span><p class="small"><a href="/reader/">Open the page-by-page swipe reader with a PDF you already have</a></p></article><article class="card"><h3>MERCY Paperback</h3><p class="price">RM 29.99</p><p>ISBN 9786299274018</p><a class="button edition-choice" href="#order" data-format="Paperback">Choose Paperback</a></article><article class="card"><h3>MERCY Hardcover</h3><p class="price">RM 49.99</p><p>ISBN 9786299274025</p><a class="button edition-choice" href="#order" data-format="Hardcover">Choose Hardcover</a></article></div>
+      <div class="cards"><article class="card"><h3>The Guide · Digital</h3><p class="price">RM 13.60</p><p>The numbered PDF is prepared. Direct digital ordering is paused while MERCY is enrolled in KDP Select. Six-lens access also needs internet, a reader code and Google sign-in; that setup is in progress.</p><span class="button disabled" aria-disabled="true">Digital ordering paused</span><p class="small"><a href="/reader/">Open the page-by-page swipe reader with a PDF you already have</a></p></article><article class="card"><h3>MERCY Paperback</h3><p class="price">RM 29.99</p><p class="small">Secure card checkout for the current MERCY paperback edition.</p><stripe-buy-button buy-button-id="buy_btn_1UWENBD2ecAHnk93xdHihq3o" publishable-key="pk_live_51MYLi5D2ecAHnk93XTAYA0jDXSEvpv4PlYlghRShtHCbB1bDzQ4QUmmix58AjhTDruo1eK6U1xCVJaXUPBulYkMH002Lch7eLT"></stripe-buy-button><a class="button edition-choice secondary" href="#order" data-format="Paperback">Pay by Maybank QR instead</a></article><article class="card"><h3>MERCY Hardcover</h3><p class="price">RM 49.99</p><p class="small">Pay by Maybank QR at this price. Card checkout will appear after the Stripe price is corrected.</p><a class="button edition-choice" href="#order" data-format="Hardcover">Choose Hardcover</a></article></div>
       <p class="notice">These prices apply to Malaysia purchases only. Print delivery costs are not included and will be confirmed separately before dispatch. For purchases outside Malaysia, use the <a href="/mercy/#editions">international edition links</a>.</p>
     </section>
     <section id="order" aria-labelledby="order-heading"><p class="eyebrow">Order directly</p><h2 id="order-heading">Pay by QR and attach proof</h2>
@@ -86,6 +86,7 @@
       fetch(api+'/api/reviews').then(r=>r.json()).then(({reviews=[]})=>{const root=document.getElementById('reviews');document.getElementById('review-count').textContent=reviews.length+' published reader review'+(reviews.length===1?'':'s');if(!reviews.length){root.textContent='No reader reviews have been published yet.';return}reviews.forEach(item=>{const article=document.createElement('article');article.className='review-card';const h=document.createElement('h4');h.textContent=item.name+' · '+item.edition;const stars=document.createElement('div');stars.className='stars';stars.setAttribute('aria-label',item.rating+' out of 5 stars');stars.textContent='★'.repeat(item.rating)+'☆'.repeat(5-item.rating);const p=document.createElement('p');p.textContent=item.review;article.append(h,stars,p);root.append(article)})}).catch(()=>{document.getElementById('review-count').textContent='Reviews are temporarily unavailable.'});
     })();
   </script>
+  <script async src="https://js.stripe.com/v3/buy-button.js"></script>
   <script src="/global-site.js"></script>
 </body>
 </html>
