@@ -11,7 +11,7 @@
   const status = box.querySelector('#lens-auth-status');
   const unlock = box.querySelector('#lens-unlock');
   const googleMount = box.querySelector('#google-signin');
-  let credential = '', code = '', unlocked = false, pending = null;
+  let credential = '', code = '', unlocked = false, configured = false, pending = null;
   function message(value) { status.textContent = value; }
   async function json(path, options) {
     if (!navigator.onLine) throw Error('Connect to the internet to use the six lenses.');
@@ -60,12 +60,14 @@
       panel.hidden = false;
       panel.textContent = '';
       if (!navigator.onLine) { message('Connect to the internet to use the six lenses.'); return; }
+      if (!configured) { message('Six-lens sign-in is being configured. The book and Qur’an links remain available.'); return; }
       if (unlocked) showExample();
       else message('Enter the access code for this digital copy and sign in with Google. Each copy allows two readers.');
     }
   };
   json('/api/lenses/config').then(({clientId}) => {
     if (!clientId) { message('Six-lens sign-in is being configured. The book and Qur’an links remain available.'); return; }
+    configured = true;
     const script = document.createElement('script');
     script.src = 'https://accounts.google.com/gsi/client';
     script.async = true;
