@@ -4,19 +4,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#071f48">
-  <title>MERCY · Page by Page Reader</title>
-  <meta name="description" content="Read your MERCY digital PDF one full page at a time. Swipe between pages on a phone.">
+  <title>The Guide · Full-screen Reader</title>
+  <meta name="description" content="Read The Guide one full-screen page at a time. Scroll or swipe to turn pages.">
   <style>
     :root{color-scheme:dark;--navy:#071f48;--gold:#e8c46a;--cream:#fff6df}
     *{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:#020b1d;color:var(--cream);font:16px/1.4 system-ui,sans-serif}
     button,label,a{touch-action:manipulation}button:focus-visible,a:focus-visible,label:focus-within{outline:3px solid var(--gold);outline-offset:3px}
     .reader{height:100dvh;display:grid;grid-template-rows:auto minmax(0,1fr) auto;overscroll-behavior:none}
+    .reader.reading{display:block}.reader.reading #stage{height:100dvh;width:100vw}.reader.reading header,.reader.reading .toolbar{position:absolute;left:0;right:0;transition:opacity .22s ease;z-index:3}.reader.reading header{top:0}.reader.reading .toolbar{bottom:0}.reader.reading:not(.controls-visible) header,.reader.reading:not(.controls-visible) .toolbar{opacity:0;pointer-events:none}
     header,.toolbar{background:rgba(4,20,46,.94);display:flex;align-items:center;gap:.65rem;padding:.55rem max(.65rem,env(safe-area-inset-left));min-height:54px;z-index:2}
     header{border-bottom:1px solid #b7944b66}.toolbar{border-top:1px solid #b7944b66;justify-content:center;padding-bottom:max(.6rem,env(safe-area-inset-bottom))}
     .brand{font:700 1.18rem Georgia,serif;letter-spacing:.12em;color:var(--gold);white-space:nowrap}.spacer{flex:1}a{color:var(--cream)}
     button,.file-button{border:1px solid #b7944b;border-radius:999px;background:var(--navy);color:var(--cream);padding:.56rem .8rem;min-width:44px;min-height:44px;font:700 .92rem system-ui;cursor:pointer;text-align:center}
     button:disabled{opacity:.4;cursor:default}.file-button input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
-    #stage{position:relative;min-height:0;display:grid;place-items:center;overflow:hidden;touch-action:pan-y;background:radial-gradient(circle,#173054,#020b1d 70%)}
+    #stage{position:relative;min-height:0;display:grid;place-items:center;overflow:hidden;touch-action:none;background:radial-gradient(circle,#173054,#020b1d 70%)}
     #page-shell{position:relative;max-width:100%;max-height:100%;box-shadow:0 12px 40px #000b;line-height:0}
     canvas{display:block;max-width:100%;max-height:100%;height:auto;width:auto}
     #links{position:absolute;inset:0}.pdf-link{position:absolute;display:block;border-radius:5px;min-width:20px;min-height:20px}.pdf-link:focus-visible{outline:3px solid #f4c849;background:#f4c84944}
@@ -31,9 +32,9 @@
 </head>
 <body>
   <div class="reader">
-    <header><span class="brand">MERCY</span><a href="/buy/" class="optional">Editions</a><span class="spacer"></span><label class="file-button">Open PDF<input id="file" type="file" accept="application/pdf,.pdf"></label><button id="full" type="button" aria-label="Enter full screen">Expand</button></header>
+    <header><span class="brand">THE GUIDE</span><a href="/buy/" class="optional">Editions</a><span class="spacer"></span><label class="file-button">Open PDF<input id="file" type="file" accept="application/pdf,.pdf"></label><button id="full" type="button" aria-label="Enter full screen">Expand</button></header>
     <main id="stage" aria-label="Book page">
-      <div id="empty"><img class="empty-cover" src="/page_001.webp" alt="MERCY cover"><h1>One page at a time</h1><p>Open your MERCY PDF. Swipe left or right to turn pages. The PDF stays on your device; this reader does not upload it.</p></div>
+      <div id="empty"><img class="empty-cover" src="/buy/the-guide-cover.jpg" alt="The Guide cover"><h1>One full-screen page at a time</h1><p>Open your PDF. Scroll or swipe up and down to turn pages. Tap a page to reveal controls. The PDF stays on your device.</p></div>
       <div id="page-shell" hidden><canvas id="page" aria-label="Current book page"></canvas><div id="links"></div></div>
     </main>
     <div class="toolbar"><button id="prev" type="button" aria-label="Previous page" disabled>‹ Previous</button><span id="page-count">—</span><button id="next" type="button" aria-label="Next page" disabled>Next ›</button><span id="status" role="status" aria-live="polite">Choose a PDF to begin</span></div>
@@ -44,7 +45,7 @@
     const stage=document.querySelector('#stage'),fileInput=document.querySelector('#file'),canvas=document.querySelector('#page'),shell=document.querySelector('#page-shell'),links=document.querySelector('#links'),empty=document.querySelector('#empty');
     const prev=document.querySelector('#prev'),next=document.querySelector('#next'),count=document.querySelector('#page-count'),status=document.querySelector('#status');
     const dialog=document.querySelector('#thread-dialog'),lensButtons=dialog.querySelector('.lens-buttons'),lensPanel=dialog.querySelector('.lens-panel');
-    let pdf=null,pageNumber=1,renderTask=null,busy=false,readerLib=null,returnFocus=null;
+    let pdf=null,pageNumber=1,renderTask=null,busy=false,readerLib=null,returnFocus=null,wheelLocked=false,wheelTimer=null,wheelDistance=0;
     const lensNames=['Science','History','Psychology','Ethics','Faith','Art'];
     function openThread(number,title,note,verse,trigger){returnFocus=trigger;dialog.querySelector('#thread-kicker').textContent='STORY THREAD '+String(number).padStart(2,'0');dialog.querySelector('#thread-title').textContent=title;dialog.querySelector('#thread-note').textContent=note;dialog.querySelector('#thread-verse').textContent='Qur’an '+verse;lensButtons.replaceChildren();lensPanel.hidden=true;lensPanel.textContent='';for(const name of lensNames){const button=document.createElement('button');button.type='button';button.textContent=name;button.dataset.lens=name.toLowerCase();button.setAttribute('aria-pressed','false');button.addEventListener('click',()=>window.mercyLens?.show(number,name.toLowerCase(),lensPanel,[...lensButtons.children]));lensButtons.append(button)}dialog.showModal();dialog.querySelector('.thread-close').focus()}
     dialog.querySelector('.thread-close').addEventListener('click',()=>dialog.close());dialog.addEventListener('close',()=>returnFocus?.focus());dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
@@ -65,12 +66,14 @@
         const number=embedded?Number(embedded[1]):oldLink,lines=embedded?contents.split('\n'):[],title=embedded?lines[1]:'Story thread '+number,note=embedded?lines[3]:'Open this thread for the discussion.',verse=embedded?(contents.match(/Qur’an ([0-9:]+)/)||[])[1]:'—';
         const rect=viewport.convertToViewportRectangle(annotation.rect),target=document.createElement('button');target.type='button';target.className='thread-target';target.style.left=Math.min(rect[0],rect[2])+'px';target.style.top=Math.min(rect[1],rect[3])+'px';target.style.width=Math.abs(rect[2]-rect[0])+'px';target.style.height=Math.abs(rect[3]-rect[1])+'px';target.setAttribute('aria-label','Open story thread '+number+' in this reader');target.addEventListener('click',()=>openThread(number,title,note,verse,target));links.append(target)
       }
-      pageNumber=number;count.textContent=number+' / '+pdf.numPages;status.textContent='Swipe to turn pages';shell.hidden=false;empty.hidden=true;
+      pageNumber=number;count.textContent=number+' / '+pdf.numPages;status.textContent='Scroll or swipe to turn pages';shell.hidden=false;empty.hidden=true;document.querySelector('.reader').classList.add('reading');
     }catch(error){status.textContent='Could not render this page: '+error.message}finally{busy=false;prev.disabled=!pdf||pageNumber<=1;next.disabled=!pdf||pageNumber>=pdf.numPages}}
     fileInput.addEventListener('change',async()=>{const file=fileInput.files?.[0];if(!file)return;status.textContent='Opening '+file.name+'…';try{const lib=await library();const bytes=new Uint8Array(await file.arrayBuffer());pdf=await lib.getDocument({data:bytes}).promise;pageNumber=1;await showPage(1)}catch(error){status.textContent='Could not open this PDF: '+error.message}});
     prev.addEventListener('click',()=>showPage(pageNumber-1));next.addEventListener('click',()=>showPage(pageNumber+1));
     document.querySelector('#full').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen()}catch{status.textContent='Full screen is unavailable in this browser.'}});
-    let start=null;stage.addEventListener('touchstart',event=>{if(event.touches.length===1)start=[event.touches[0].clientX,event.touches[0].clientY]},{passive:true});stage.addEventListener('touchend',event=>{if(!start||!pdf||event.target.closest('a'))return;const dx=event.changedTouches[0].clientX-start[0],dy=event.changedTouches[0].clientY-start[1];start=null;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3)showPage(pageNumber+(dx<0?1:-1))},{passive:true});
+    stage.addEventListener('click',event=>{if(event.target.closest('.thread-target'))return;document.querySelector('.reader').classList.toggle('controls-visible')});
+    let start=null;stage.addEventListener('touchstart',event=>{if(event.touches.length===1)start=[event.touches[0].clientX,event.touches[0].clientY]},{passive:true});stage.addEventListener('touchend',event=>{if(!start||!pdf||event.target.closest('.thread-target'))return;const dx=event.changedTouches[0].clientX-start[0],dy=event.changedTouches[0].clientY-start[1];start=null;if(Math.abs(dy)>45&&Math.abs(dy)>Math.abs(dx)*1.1)showPage(pageNumber+(dy<0?1:-1));else if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3)showPage(pageNumber+(dx<0?1:-1))},{passive:true});
+    stage.addEventListener('wheel',event=>{if(!pdf||dialog.open)return;event.preventDefault();clearTimeout(wheelTimer);wheelTimer=setTimeout(()=>{wheelLocked=false;wheelDistance=0},180);if(wheelLocked||busy)return;wheelDistance+=event.deltaY;if(Math.abs(wheelDistance)>35){wheelLocked=true;showPage(pageNumber+(wheelDistance>0?1:-1))}},{passive:false});
     window.addEventListener('keydown',event=>{if(event.key==='ArrowRight')showPage(pageNumber+1);if(event.key==='ArrowLeft')showPage(pageNumber-1)});
     let resizeTimer;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{if(pdf)showPage(pageNumber)},150)});
   </script>
