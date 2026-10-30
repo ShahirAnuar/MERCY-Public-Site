@@ -1,0 +1,25 @@
+{
+  "name": "The Guide · Mercy Series",
+  "short_name": "The Guide",
+  "description": "A full-screen, page-by-page reader for The Guide · Mercy Series.",
+  "start_url": "/reader/",
+  "scope": "/reader/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#020b1d",
+  "theme_color": "#071f48",
+  "icons": [
+    {
+      "src": "/buy/the-guide-cover.jpg",
+      "sizes": "any",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "/buy/the-guide-cover.jpg",
+      "sizes": "any",
+      "type": "image/jpeg",
+      "purpose": "maskable"
+    }
+  ]
+}
