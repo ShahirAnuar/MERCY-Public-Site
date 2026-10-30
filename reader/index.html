@@ -100,7 +100,13 @@
       if(!accessReady||!referralEligible)return;
       const link=safeReferralUrl(referralShareUrl);
       if(!link){status.textContent='The referral link is temporarily unavailable. Please try again later.';return}
-      const message="*Purchase The Guide - The Mercy Series (Best Selling Children's Islam Book in Amazon.com) - referral*\\n\\nAssalamualaikum! I’m sharing The Guide because I believe its stories can help children and families grow in faith, empathy and kindness.\\n\\nThe regular price is RM13.60. A referred buyer is intended to pay RM10; please confirm that *RM10 is displayed at checkout before paying*.\\n\\n"+link+"\\n\\n*Transparency:* I may receive RM5 for each qualifying purchase through my link. My greater hope is that this book reaches families who will benefit from it. You're welcome to share it with other parents and educators.";
+      const message=[
+        "*Purchase The Guide - The Mercy Series (Best Selling Children's Islam Book in Amazon.com) - referral*",
+        "Assalamualaikum! I’m sharing The Guide because I believe its stories can help children and families grow in faith, empathy and kindness.",
+        "The usual price is RM13.60. The referral offer is RM10, but please *confirm RM10 appears at checkout before you pay*.",
+        link,
+        "Transparency: I may receive RM5 for each qualifying purchase through my personal referral link, with no cap on referrals once the programme is activated. My greater hope is that this book reaches families who will benefit from it. Please share with parents and educators."
+      ].join(String.fromCharCode(10,10));
       window.open('https://wa.me/?text='+encodeURIComponent(message),'_blank','noopener');
     }
     for(const button of [openingShare,headerShare,toolbarShare,qrShare])button.addEventListener('click',shareReferral);
@@ -159,7 +165,7 @@
       if(number>14){if(pageNumber===number){onQrPage=false;updateOpeningShare()}return}
       const content=await page.getTextContent();
       const words=content.items.map(item=>item.str||'').join(' ');
-      let detected=/\\bqr(?:\\s+code)?\\b|\\bscan\\s+(?:this|the)\\s+code\\b/i.test(words);
+      let detected=/\bqr(?:\s+code)?\b|\bscan\s+(?:this|the)\s+code\b/i.test(words);
       if(!detected&&typeof BarcodeDetector!=='undefined'){
         try{const detector=new BarcodeDetector({formats:['qr_code']});detected=(await detector.detect(canvas)).length>0}catch{}
       }
