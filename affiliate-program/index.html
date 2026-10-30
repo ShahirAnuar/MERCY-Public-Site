@@ -103,7 +103,7 @@
         <p id="affiliate-id" class="small"></p>
         <label class="field">Your attributed sales link <input id="affiliate-link" type="text" readonly></label>
         <button class="button secondary" type="button" id="copy-affiliate-link">Copy my link</button>
-        <p class="small">You can promote at the full RM16 price without requesting coupons.</p>
+        <p class="small">You can promote at the full RM16 price without requesting coupons. When a buyer uses one of your codes, they enter it <strong>on Stripe’s payment page</strong> before paying, not on the MERCY purchase page.</p>
         <form id="coupon-form">
           <label class="field" for="coupon-value">Request a coupon for your customers
             <select id="coupon-value" required><option value="100">RM1 off</option><option value="200">RM2 off</option><option value="300">RM3 off</option><option value="400">RM4 off</option><option value="500">RM5 off</option><option value="600">RM6 off</option><option value="700">RM7 off</option></select>
@@ -205,7 +205,7 @@
           if(result.discountAmountCents!==amount||!result.couponCode||result.affiliateId!==affiliateId)throw Error('Coupon ownership could not be verified.');
           document.querySelector('#coupon-code').value=String(result.couponCode);
           document.querySelector('#coupon-result').hidden=false;
-          couponStatus.textContent='Your individual RM'+(amount/100)+' coupon is ready. Share only the code and your affiliate purchase link, not a buyer activation serial.';
+          couponStatus.textContent='Your individual RM'+(amount/100)+' coupon is ready. Give buyers your code to enter during Stripe Checkout and your affiliate purchase link. Never share a buyer activation serial.';
         }catch(error){document.querySelector('#coupon-result').hidden=true;couponStatus.textContent=error.message}
         finally{button.disabled=false}
       });
