@@ -38,7 +38,7 @@
     </div>
     <section aria-labelledby="editions"><p class="eyebrow">Malaysia purchases only</p><h2 id="editions">Choose your edition</h2>
       <div class="cards">
-        <article class="card"><h3>The Guide App · Digital</h3><p class="price" id="digital-price">RM 16.00</p><p class="notice" id="referral-offer" hidden role="status" aria-live="polite"></p><img src="/buy/the-guide-cover.jpg" alt="Father and son on The Guide App cover" style="display:block;width:min(100%,180px);height:auto;margin:1rem auto"><p>Purchase the interactive app and start reading immediately after payment. Sign in with one Google account to activate your copy on up to two active devices.</p><div id="affiliate-offer" class="notice"><p id="affiliate-discount-message">Affiliate purchase</p><label for="affiliate-coupon">Have an affiliate coupon? (optional)</label><input id="affiliate-coupon" type="text" maxlength="48" autocomplete="off" placeholder="Enter your affiliate's coupon code" style="display:block;width:100%;padding:.7rem;margin:.4rem 0;border-radius:8px;font:inherit"><p class="small">Each coupon has a unique identifier belonging to one registered affiliate. Your discounted amount will be confirmed before payment.</p></div><a class="button" id="digital-buy" href="https://buy.stripe.com/bJedR85j45Xae1WfVigA80b">Buy The Guide App · RM16</a><p class="small" id="referral-checkout-status" role="status" aria-live="polite">Please confirm RM16 is displayed on Stripe before you pay. Affiliate discounts are only active once the secure checkout service is enabled.</p></article>
+        <article class="card"><h3>The Guide App · Digital</h3><p class="price" id="digital-price">RM 16.00</p><p class="notice" id="referral-offer" hidden role="status" aria-live="polite"></p><img src="/buy/the-guide-cover.jpg" alt="Father and son on The Guide App cover" style="display:block;width:min(100%,180px);height:auto;margin:1rem auto"><p>Purchase the interactive app and start reading immediately after payment. Sign in with one Google account to activate your copy on up to two active devices.</p><p class="small" id="coupon-on-stripe">Have an affiliate coupon? <strong>Enter it directly on Stripe’s secure checkout page</strong> and confirm the discounted total before paying.</p><a class="button" id="digital-buy" href="https://buy.stripe.com/bJedR85j45Xae1WfVigA80b">Buy The Guide App · RM16</a><p class="small" id="referral-checkout-status" role="status" aria-live="polite">Please confirm RM16 is displayed on Stripe before you pay. Affiliate discounts are only active once the secure checkout service is enabled.</p></article>
         <article class="card"><h3>MERCY Paperback</h3><p class="price">RM 29.99</p><p class="small">Secure checkout for the current paperback edition.</p><stripe-buy-button buy-button-id="buy_btn_1UWENBD2ecAHnk93xdHihq3o" publishable-key="pk_live_51MYLi5D2ecAHnk93XTAYA0jDXSEvpv4PlYlghRShtHCbB1bDzQ4QUmmix58AjhTDruo1eK6U1xCVJaXUPBulYkMH002Lch7eLT"></stripe-buy-button></article>
         <article class="card"><h3>MERCY Hardcover</h3><p class="price">RM 59.00</p><p class="small">Secure checkout for the current hardcover edition. Stripe currently charges RM 59.00.</p><stripe-buy-button buy-button-id="buy_btn_1UWEovD2ecAHnk93Dg4TorAs" publishable-key="pk_live_51MYLi5D2ecAHnk93XTAYA0jDXSEvpv4PlYlghRShtHCbB1bDzQ4QUmmix58AjhTDruo1eK6U1xCVJaXUPBulYkMH002Lch7eLT"></stripe-buy-button></article>
       </div>
@@ -61,43 +61,52 @@
     (() => {
       const api='https://mercy-malaysia-orders-reviews.shahiranuar.chatgpt.site';
       const params=new URLSearchParams(location.search);
-      // Do not treat buyer activation serials or old one-time ref_* links as affiliate codes.
-      const affiliateCode=(params.get('affiliate')||'').trim();
-      const couponFromLink=(params.get('coupon')||'').trim().toUpperCase();
-      const digitalBuy=document.getElementById('digital-buy'),offer=document.getElementById('affiliate-offer');
-      const couponInput=document.getElementById('affiliate-coupon'),checkoutStatus=document.getElementById('referral-checkout-status');
+      // Affiliate identifiers are not purchase activation serials. Customers enter
+      // their promotion codes on Stripe, NEVER in a separate merchant-side form.
+      const affiliateCode=(params.get('affiliate')||'').trim().toUpperCase();
+      const digitalBuy=document.getElementById('digital-buy');
+      const checkoutStatus=document.getElementById('referral-checkout-status');
       const validAffiliate=/^AFF-[A-Z0-9]{8,20}$/.test(affiliateCode);
-      if(couponFromLink&&/^[A-Z0-9]{8,48}$/.test(couponFromLink))couponInput.value=couponFromLink;
-      if(validAffiliate||couponInput.value){
-        offer.hidden=false;
-        document.getElementById('affiliate-discount-message').textContent=validAffiliate?'Affiliate purchase · '+affiliateCode:'Unique affiliate coupon';
-        checkoutStatus.textContent='Your final discounted price will be verified with the affiliate checkout service. No payment is taken on this page.';
+      if(validAffiliate){
+        checkoutStatus.textContent='Affiliate sale · '+affiliateCode+'. Enter any coupon on Stripe Checkout to see your final discounted total.';
       }
-      async function startAffiliateCheckout(event){
-        const code=couponInput.value.trim().toUpperCase();
-        const hasAffiliate=validAffiliate,hasCoupon=Boolean(code);
-        if(!hasAffiliate&&!hasCoupon)return;
+      digitalBuy.addEventListener('click',async event=>{
+        // Without an affiliate link, use the normal Stripe Payment Link directly.
+        // Stripe must have "Allow promotion codes" enabled for the buyer to enter one.
+        // After payment, the server resolves the Stripe promotion-code ID to its
+        // owning affiliate, even if the buyer used no affiliate tracking URL.
+        if(!validAffiliate)return;
         event.preventDefault();
-        if(!/^[A-Z0-9]{8,48}$/.test(code)&&hasCoupon){checkoutStatus.textContent='Please enter a valid affiliate coupon.';return}
+        if(digitalBuy.dataset.loading==='1')return;
+        digitalBuy.dataset.loading='1';
         digitalBuy.setAttribute('aria-disabled','true');
-        checkoutStatus.textContent='Confirming coupon ownership and payment total…';
+        checkoutStatus.textContent='Preparing your secure affiliate checkout…';
         try{
-          const response=await fetch(api+'/api/affiliate/checkout',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({affiliateCode:hasAffiliate?affiliateCode:null,couponCode:code||null})});
+          const response=await fetch(api+'/api/affiliate/checkout',{
+            method:'POST',headers:{'content-type':'application/json'},
+            body:JSON.stringify({affiliateCode})
+          });
           const result=await response.json();
-          if(!response.ok)throw Error(result.error||'Affiliate checkout is not yet active.');
-          const checkoutUrl=new URL(result.checkoutUrl),amount=result.amountCents,discount=result.discountAmountCents;
-          if(checkoutUrl.protocol!=='https:'||checkoutUrl.hostname!=='checkout.stripe.com'||result.currency!=='myr'||!Number.isInteger(amount)||!Number.isInteger(discount)||discount<0||discount>700||amount!==1600-discount||!result.affiliateId)throw Error('Secure checkout verification failed.');
-          location.assign(checkoutUrl.href);
-        }catch(error){checkoutStatus.textContent='Affiliate checkout is not yet available; no charge has been made. '+error.message}
-        finally{digitalBuy.removeAttribute('aria-disabled')}
-      }
-      digitalBuy.addEventListener('click',startAffiliateCheckout);
-      couponInput.addEventListener('input',()=>{if(couponInput.value.trim()){offer.hidden=false;checkoutStatus.textContent='Your coupon will be verified before payment.'}else if(!validAffiliate){checkoutStatus.textContent='Check that Stripe displays RM16 before paying.'}});
+          if(!response.ok)throw Error(result.error||'Affiliate checkout is not available.');
+          const checkoutUrl=new URL(result.checkoutUrl);
+          if(checkoutUrl.protocol!=='https:'||checkoutUrl.hostname!=='checkout.stripe.com'||
+             result.currency!=='myr'||result.amountCents!==1600||
+             result.affiliateId!==affiliateCode||result.promotionCodesEnabled!==true){
+            throw Error('Stripe checkout could not be verified for this affiliate.');
+          }
+          window.location.assign(checkoutUrl.href);
+        }catch(error){
+          checkoutStatus.textContent='Affiliate checkout is not available yet. No payment has been made. '+error.message;
+        }finally{
+          delete digitalBuy.dataset.loading;
+          digitalBuy.removeAttribute('aria-disabled');
+        }
+      });
       const oldReferral=(params.get('ref')||'').trim();
       if(/^ref_[a-f0-9]{32}$/.test(oldReferral)){
         document.getElementById('referral-offer').hidden=false;
         document.getElementById('referral-offer').textContent='The previous RM10 referral offer has ended. Please see the new Affiliate Programme for current affiliate pricing and coupons.';
-        checkoutStatus.textContent='The former referral link does not apply a discount; check the RM16 price before paying.';
+        checkoutStatus.textContent='The former referral link does not apply a discount. Confirm the price on Stripe before paying.';
       }
       async function submit(form,endpoint,statusId,body){
         const status=document.getElementById(statusId),button=form.querySelector('button[type=submit]');
