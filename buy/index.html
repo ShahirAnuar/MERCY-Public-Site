@@ -60,7 +60,7 @@
   <script>
     (() => {
       const api='https://mercy-malaysia-orders-reviews.shahiranuar.chatgpt.site';
-      const referral=new URLSearchParams(location.search).get('ref')||'',digitalBuy=document.getElementById('digital-buy');if(digitalBuy&&/^ref_[a-f0-9]{32}$/.test(referral)){const checkout=new URL(digitalBuy.href);checkout.searchParams.set('client_reference_id',referral);digitalBuy.href=checkout.toString()}
+      const params=new URLSearchParams(location.search),referral=params.get('ref')||'',digitalBuy=document.getElementById('digital-buy');if(digitalBuy&&/^ref_[a-f0-9]{32}$/.test(referral)){const checkout=new URL(digitalBuy.href);checkout.searchParams.set('client_reference_id',referral);digitalBuy.href=checkout.toString();if(params.get('checkout')==='1'){history.replaceState({},'',location.pathname+'?ref='+encodeURIComponent(referral));location.assign(digitalBuy.href)}}
       async function submit(form,endpoint,statusId,body){
         const status=document.getElementById(statusId),button=form.querySelector('button[type=submit]');
         status.className='status';status.textContent='Submitting…';button.disabled=true;
