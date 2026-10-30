@@ -44,6 +44,7 @@
     .auth-panel{display:grid;gap:.65rem;border:1px solid #b7944b66;border-radius:14px;padding:1rem;margin-top:1rem;background:#071f4899;text-align:left}.auth-panel label{display:grid;gap:.25rem}.auth-panel input{width:100%;padding:.7rem;border:1px solid #b7944b;border-radius:8px;font:inherit}.auth-status{font-size:.86rem;margin:0}.access-dialog{width:min(560px,calc(100vw - 1rem));border:2px solid #d5a63d;border-radius:18px;background:#fff9e9;color:#17243a;padding:0;box-shadow:0 22px 70px #000a}.access-dialog::backdrop{background:#020b1dcc;backdrop-filter:blur(4px)}.access-card{padding:1.25rem;line-height:1.5}.access-card h2{font:700 1.5rem Georgia,serif;color:#071f48;margin:.1rem 0 .5rem}.access-card label{display:grid;gap:.3rem;font-weight:700}.access-card input{padding:.75rem;border:1px solid #a98234;border-radius:8px;font:inherit}.access-card button{margin-top:.65rem}.access-close{float:right;background:#071f48;color:#fff}.reader-message{margin:.8rem auto;max-width:34rem;font-size:1.04rem}.reader-message strong{color:var(--gold);font:700 clamp(1.25rem,4vw,1.65rem) Georgia,serif}.opening-share{display:block;margin:1.1rem auto 0;background:var(--gold);color:#071f48;border-color:var(--gold);padding:.75rem 1.15rem}.share-button{background:var(--gold);color:var(--navy);border-color:var(--gold)}.reader.reading .toolbar{flex-wrap:wrap}.reader:not(.reading) .toolbar{display:none}.reader.locked #start-reading,.reader.locked #continue{opacity:.85}.zoom-controls,.tts-controls{display:flex;gap:.3rem}.tts-controls button{white-space:nowrap}.zoom-controls button{min-width:40px;padding:.35rem .55rem}
     #status{font-size:.82rem;flex:1;min-width:0;text-align:center;max-width:23rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#page-count{font-variant-numeric:tabular-nums;min-width:5rem;text-align:center}
     [hidden]{display:none!important}
+    @media(max-width:580px){.reader.reading .toolbar #status{position:fixed;left:.75rem;right:.75rem;bottom:calc(env(safe-area-inset-bottom) + 112px);width:auto;height:auto;max-width:none;min-width:0;white-space:normal;overflow:visible;text-overflow:clip;clip:auto;margin:0;padding:.55rem .7rem;border-radius:10px;background:#071f48ee;color:#fff6df;border:1px solid #b7944b66;box-shadow:0 2px 12px #0007;font-size:.78rem;pointer-events:none;z-index:5;text-align:center}}
     @media(max-width:580px){header{gap:.35rem}.brand{font-size:1rem;flex:0 0 100%;text-align:center}header button{flex:1 1 0;min-width:0;padding:.45rem .25rem;font-size:.78rem;line-height:1.1}.toolbar{gap:.4rem}.toolbar button{padding:.45rem}.toolbar #status{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}}
   </style>
 </head>
@@ -54,12 +55,12 @@
       <div id="empty"><img class="empty-cover" src="/buy/the-guide-cover.jpg" alt="The Guide cover"><p class="reader-message"><strong>Together, these stories follow a father and son learning from one another.</strong></p><p class="reader-message">They remind us that worth is not measured by perfection, achievement, or approval, but by humility, perseverance, gratitude, and the mercy of Allah.</p><button id="share-opening" class="opening-share share-button" type="button" hidden>Share hope with another family · Earn RM5</button></div>
       <div id="page-shell" hidden><canvas id="page" aria-label="Current book page"></canvas><div id="links"></div></div>
     </main>
-    <div class="toolbar"><button id="prev" type="button" aria-label="Previous page" disabled>‹ Previous</button><span id="page-count">—</span><button id="next" type="button" aria-label="Next page" disabled>Next ›</button><div class="zoom-controls" aria-label="Zoom controls"><button id="zoom-out" type="button" aria-label="Zoom out">−</button><button id="zoom-reset" type="button">100%</button><button id="zoom-in" type="button" aria-label="Zoom in">+</button></div><button id="share-toolbar" class="share-button" type="button" hidden>Share · RM5</button><div class="tts-controls" hidden><button id="tts-play" type="button" aria-label="Read chapter story or translation on this page">▶ Listen</button><button id="tts-stop" type="button" hidden>■ Stop</button></div><span id="status" role="status" aria-live="polite">Choose Start reading</span></div>
+    <div class="toolbar"><button id="prev" type="button" aria-label="Previous page" disabled>‹ Previous</button><span id="page-count">—</span><button id="next" type="button" aria-label="Next page" disabled>Next ›</button><div class="zoom-controls" aria-label="Zoom controls"><button id="zoom-out" type="button" aria-label="Zoom out">−</button><button id="zoom-reset" type="button">100%</button><button id="zoom-in" type="button" aria-label="Zoom in">+</button></div><button id="share-toolbar" class="share-button" type="button" hidden>Share · RM5</button><div class="tts-controls" hidden><button id="tts-play" type="button" aria-label="Read chapter story or translation on this page">▶ Listen</button><button id="tts-stop" type="button" hidden>■ Stop</button><button id="tts-test" type="button" aria-label="Test whether your device can speak">Test voice</button></div><span id="status" role="status" aria-live="polite">Choose Start reading</span></div>
   </div>
   <dialog id="access-dialog" class="access-dialog" aria-labelledby="access-title"><div class="access-card"><button class="access-close" type="button" aria-label="Close access dialog">×</button><h2 id="access-title">Sign in to start reading</h2><p id="access-copy">Sign in with the Google account used to activate this purchased copy. Access is limited to three devices.</p><div id="google-signin"></div><p class="auth-status" id="access-status" role="status" aria-live="polite">Google authorization is required.</p></div></dialog>
   <dialog id="thread-dialog" aria-labelledby="thread-title"><div class="thread-card"><button class="thread-close" type="button" aria-label="Close discussion thread">×</button><p id="thread-kicker">Story thread</p><h2 id="thread-title"></h2><p id="thread-note"></p><p class="thread-verse" id="thread-verse"></p><section class="lens-explorer"><h3>Explore through six lenses</h3><div class="lens-buttons"></div><p class="lens-panel" hidden></p></section></div></dialog>
   <script type="module">
-    const stage=document.querySelector('#stage'),canvas=document.querySelector('#page'),shell=document.querySelector('#page-shell'),links=document.querySelector('#links'),empty=document.querySelector('#empty'),installButton=document.querySelector('#install'),startButton=document.querySelector('#start-reading'),continueButton=document.querySelector('#continue'),openingShare=document.querySelector('#share-opening'),headerShare=document.querySelector('#share-header'),toolbarShare=document.querySelector('#share-toolbar'),ttsControls=document.querySelector('.tts-controls'),ttsPlay=document.querySelector('#tts-play'),ttsStop=document.querySelector('#tts-stop'),accessDialog=document.querySelector('#access-dialog'),accessStatus=document.querySelector('#access-status'),reader=document.querySelector('.reader');
+    const stage=document.querySelector('#stage'),canvas=document.querySelector('#page'),shell=document.querySelector('#page-shell'),links=document.querySelector('#links'),empty=document.querySelector('#empty'),installButton=document.querySelector('#install'),startButton=document.querySelector('#start-reading'),continueButton=document.querySelector('#continue'),openingShare=document.querySelector('#share-opening'),headerShare=document.querySelector('#share-header'),toolbarShare=document.querySelector('#share-toolbar'),ttsControls=document.querySelector('.tts-controls'),ttsPlay=document.querySelector('#tts-play'),ttsStop=document.querySelector('#tts-stop'),ttsTest=document.querySelector('#tts-test'),accessDialog=document.querySelector('#access-dialog'),accessStatus=document.querySelector('#access-status'),reader=document.querySelector('.reader');
     const prev=document.querySelector('#prev'),next=document.querySelector('#next'),count=document.querySelector('#page-count'),status=document.querySelector('#status');
     const dialog=document.querySelector('#thread-dialog'),lensButtons=dialog.querySelector('.lens-buttons'),lensPanel=dialog.querySelector('.lens-panel');
     let pdf=null,pageNumber=1,renderTask=null,busy=false,pendingPage=null,readerLib=null,returnFocus=null,wheelLocked=false,wheelTimer=null,wheelDistance=0,controlsTimer=null,googleReady=false,installPrompt=null,zoom=1,turnDirection=1,googleCredential='',pendingAccessAction=null,accessReady=false,referralEligible=false,referralShareUrl='',appAccessToken=localStorage.getItem('mercyAppAccess')||'',legacySerial=localStorage.getItem('mercySerial')||'',googleClientId=null,checkoutSession=new URLSearchParams(location.search).get('session_id')||localStorage.getItem('mercyCheckoutSession')||'',deviceId=localStorage.getItem('mercyDeviceId')||'';if(!/^[a-f0-9-]{36}$/.test(deviceId)){deviceId=crypto.randomUUID();localStorage.setItem('mercyDeviceId',deviceId)}if(checkoutSession)localStorage.setItem('mercyCheckoutSession',checkoutSession);
@@ -100,7 +101,7 @@
     async function saveBook(bytes){const database=await db();await new Promise((resolve,reject)=>{const tx=database.transaction('book','readwrite');tx.objectStore('book').put(bytes,'pdf');tx.oncomplete=resolve;tx.onerror=()=>reject(tx.error)})}
     async function savedBook(){const database=await db();return new Promise((resolve,reject)=>{const tx=database.transaction('book','readonly'),request=tx.objectStore('book').get('pdf');request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error)})}
     async function enterFullscreen(){try{if(!document.fullscreenElement)await document.documentElement.requestFullscreen()}catch{}}
-    async function openBytes(bytes,page=1){stopNarration();const lib=await library();pdf=await lib.getDocument({data:new Uint8Array(bytes)}).promise;pageNumber=Math.max(1,Math.min(pdf.numPages,page));speechScanTo=0;speechSection=null;speechPages.clear();await enterFullscreen();await showPage(pageNumber,{animate:false})}
+    async function openBytes(bytes,page=1){stopNarration();const lib=await library();pdf=await lib.getDocument({data:new Uint8Array(bytes)}).promise;pageNumber=Math.max(1,Math.min(pdf.numPages,page));ttsGeneration++;await enterFullscreen();await showPage(pageNumber,{animate:false})}
     async function downloadBook(page=1){status.textContent='Securely downloading The Guide App…';const response=await fetch(api+'/api/book',{headers:{authorization:'Bearer '+googleCredential,'x-mercy-access':appAccessToken,'x-mercy-device':deviceId}});if(!response.ok){const data=await response.json().catch(()=>({}));throw Error(data.error||'The book could not be downloaded')}const bytes=await response.arrayBuffer();await saveBook(bytes);await openBytes(bytes,page)}
 
 
@@ -135,7 +136,7 @@
     function turnPage(delta){if(!pdf)return;const base=pendingPage??pageNumber,target=clamp(base+delta,1,pdf.numPages);if(target===base)return;stopNarration();shell.querySelectorAll('.page-turn-overlay').forEach(item=>item.remove());zoom=1;panX=0;panY=0;setZoomLabel();showPage(target,{animate:true,direction:delta})}
     prev.addEventListener('click',event=>{event.preventDefault();turnPage(-1)});next.addEventListener('click',event=>{event.preventDefault();turnPage(1)});
     function changeZoom(delta){if(!pdf)return;zoom=clamp(Math.round((zoom+delta)*4)/4,1,3);if(zoom===1){panX=0;panY=0}setZoomLabel();showPage(pageNumber,{animate:false})}document.querySelector('#zoom-in').onclick=()=>changeZoom(.25);document.querySelector('#zoom-out').onclick=()=>changeZoom(-.25);document.querySelector('#zoom-reset').onclick=()=>{zoom=1;panX=0;panY=0;applyPan();setZoomLabel();showPage(pageNumber,{animate:false})};
-    function showControls(){if(!reader.classList.contains('reading'))return;reader.classList.add('controls-visible');clearTimeout(controlsTimer);controlsTimer=setTimeout(()=>{if(!reader.querySelector('.toolbar :focus-visible')&&!dialog.open)reader.classList.remove('controls-visible')},3000)}stage.addEventListener('click',event=>{if(event.target.closest('.thread-target'))return;showControls()});document.querySelector('.toolbar').addEventListener('click',showControls);document.querySelector('.toolbar').addEventListener('focusin',showControls);
+    function showControls(){if(!reader.classList.contains('reading'))return;reader.classList.add('controls-visible');clearTimeout(controlsTimer);controlsTimer=setTimeout(()=>{if(!reader.querySelector('.toolbar :focus-visible')&&!dialog.open&&!window.speechSynthesis?.speaking)reader.classList.remove('controls-visible')},3000)}stage.addEventListener('click',event=>{if(event.target.closest('.thread-target'))return;showControls()});document.querySelector('.toolbar').addEventListener('click',showControls);document.querySelector('.toolbar').addEventListener('focusin',showControls);
     const touchDistance=touches=>Math.hypot(touches[0].clientX-touches[1].clientX,touches[0].clientY-touches[1].clientY);
     // Touch gestures are only for zooming and panning; they never change the page.
     stage.addEventListener('touchstart',event=>{if(!pdf)return;showControls();if(event.touches.length===2){event.preventDefault();pinchStart=touchDistance(event.touches);pinchBaseZoom=zoom;pinchNextZoom=zoom;touchStart=null;return}if(event.touches.length===1){const t=event.touches[0];touchStart=[t.clientX,t.clientY,panX,panY]}},{passive:false});
@@ -145,56 +146,124 @@
     stage.addEventListener('wheel',event=>{if(!pdf||dialog.open)return;event.preventDefault();showControls();if(event.ctrlKey||event.metaKey){changeZoom(event.deltaY<0?.25:-.25);return}if(zoom>1){panX-=event.deltaX;panY-=event.deltaY;applyPan()}},{passive:false});
     window.addEventListener('keydown',event=>{if(!pdf||dialog.open||accessDialog.open||event.target.closest('input,textarea,button,select,[contenteditable]'))return;if(event.key==='ArrowRight'){event.preventDefault();turnPage(1)}else if(event.key==='ArrowLeft'){event.preventDefault();turnPage(-1)}});
 
-    // Browser TTS reads extracted text only inside an explicitly identified chapter or translation section.
-    let speechScanTo=0,speechSection=null,speechPages=new Map(),speechRun=0;
+    // TTS is deliberately local to the reader. Nothing from the purchased PDF is uploaded.
+    let speechRun=0,activeSpeech=null,ttsWorker=null,ttsLoader=null,ttsGeneration=0;
     function stopNarration(){
       speechRun++;
       if('speechSynthesis' in window)window.speechSynthesis.cancel();
+      activeSpeech=null;
       ttsStop.hidden=true;ttsPlay.disabled=false;ttsPlay.textContent='▶ Listen';
     }
-    async function narrationFor(target){
-      while(speechScanTo<target){
-        const i=speechScanTo+1;
-        const page=await pdf.getPage(i),content=await page.getTextContent();
-        const raw=content.items.map(item=>item.str||'').join(' ').replace(/\s+/g,' ').trim();
-        const head=raw.slice(0,250);
-        if(/\b(table of contents|contents|reading guide|discussion guide|story threads|about the author|acknowledg(?:e)?ments|glossary|references|appendix|activities|lesson plans|questions for discussion)\b/i.test(head)){speechSection=null}
-        else if(/\b(?:chapter|bab)\s*(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten)\b/i.test(head)){speechSection='story'}
-        else if(/\b(?:translation|terjemahan)\b/i.test(head)){speechSection='translation'}
-        // Unlabelled pages outside recognised chapter/translation sections are never spoken.
-        speechPages.set(i,speechSection&&raw.length>25?{kind:speechSection,text:raw}:null);
-        speechScanTo=i;
+    function splitSpeech(text){
+      const parts=[],words=text.trim().split(/\s+/);let phrase='';
+      for(const word of words){
+        if(phrase.length+word.length>180){if(phrase)parts.push(phrase);phrase=''}
+        phrase+=(phrase?' ':'')+word;
       }
-      return speechPages.get(target);
+      if(phrase)parts.push(phrase);
+      return parts;
     }
-    function speakChunks(text,lang,run){
-      const chunks=text.match(/.{1,240}(?:\s|$)/g)||[text];let index=0;
-      function speakNext(){
+    function speakText(text,lang){
+      const chunks=splitSpeech(text);
+      if(!chunks.length){status.textContent='There is no readable text on this page.';return}
+      stopNarration();
+      const run=speechRun;
+      let index=0,started=false,watchdog=0;
+      ttsStop.hidden=false;ttsPlay.disabled=true;ttsPlay.textContent='Listening…';
+      reader.classList.add('controls-visible');
+      const synth=window.speechSynthesis;
+      const next=()=>{
         if(run!==speechRun)return;
-        if(index===chunks.length){ttsStop.hidden=true;ttsPlay.disabled=false;ttsPlay.textContent='▶ Listen';return}
-        const speech=new SpeechSynthesisUtterance(chunks[index++]);speech.lang=lang;speech.rate=.95;
-        const voice=window.speechSynthesis.getVoices().find(v=>v.lang.toLowerCase().startsWith(lang.slice(0,2).toLowerCase()));
-        if(voice)speech.voice=voice;
-        speech.onend=speakNext;
-        speech.onerror=()=>{if(run===speechRun){stopNarration();status.textContent='Narration stopped. Check the speech voices available on this device.'}};
-        window.speechSynthesis.speak(speech);
-      }
-      speakNext();
+        if(index>=chunks.length){stopNarration();status.textContent='Finished reading this page.';return}
+        const utterance=new SpeechSynthesisUtterance(chunks[index++]);activeSpeech=utterance;
+        utterance.lang=lang;utterance.rate=.92;utterance.pitch=1;
+        const voices=synth.getVoices(),short=lang.slice(0,2);
+        utterance.voice=voices.find(v=>v.lang.toLowerCase()===lang.toLowerCase())||voices.find(v=>v.lang.toLowerCase().startsWith(short))||null;
+        started=false;
+        utterance.onstart=()=>{if(run!==speechRun)return;started=true;clearTimeout(watchdog);status.textContent='Reading aloud · '+Math.min(index,chunks.length)+'/'+chunks.length;reader.classList.add('controls-visible')};
+        utterance.onend=()=>{clearTimeout(watchdog);if(run===speechRun)setTimeout(next,90)};
+        utterance.onerror=event=>{clearTimeout(watchdog);if(run===speechRun){stopNarration();status.textContent='Speech engine error ('+(event.error||'unknown')+'). Tap Test voice to check your device.'}};
+        try{synth.resume();synth.speak(utterance)}catch(error){stopNarration();status.textContent='Unable to start audio: '+error.message;return}
+        watchdog=setTimeout(()=>{if(run===speechRun&&!started){stopNarration();status.textContent='The phone did not start speech. Tap Test voice; check Android text-to-speech settings.'}},9000);
+      };
+      // Some Android browsers need the queue to settle immediately after cancellation.
+      setTimeout(next,130);
     }
+    function isStoryOrTranslation(text){
+      const clean=text.replace(/\s+/g,' ').trim();
+      if(clean.length<90)return false;
+      const head=clean.slice(0,160);
+      if(/\b(?:table of contents|acknowledgements|about the author|reading guide|discussion questions|review questions|glossary|bibliography|copyright notice|chapter overview)\b/i.test(head))return false;
+      if(/\b(?:story thread \d+|explore through six lenses|science:\s|psychology:\s|reflection exercise|learning objectives)\b/i.test(head))return false;
+      if(/\b(?:translation|terjemahan)\b/i.test(head)&&clean.length>140)return true;
+      const narrativeNames=/\b(?:Zayd|Khalid|Shaheem)\b/i;
+      const narrativeVerbs=/\b(?:said|asked|replied|felt|thought|walked|looked|woke|turned|tried|heard|held|found|smiled|cried|understood|remembered|berkata|bertanya|tersenyum|berasa|berjalan|menjawab|ayahnya)\b/i;
+      return narrativeNames.test(clean)&&narrativeVerbs.test(clean)&&clean.length>170;
+    }
+    async function loadTesseract(){
+      if(window.Tesseract?.createWorker)return window.Tesseract;
+      if(ttsLoader)return ttsLoader;
+      ttsLoader=new Promise((resolve,reject)=>{
+        const script=document.createElement('script');
+        script.src='https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js';
+        script.async=true;
+        script.onload=()=>window.Tesseract?.createWorker?resolve(window.Tesseract):reject(Error('Image text recognition could not start'));
+        script.onerror=()=>reject(Error('Text recognition needs an internet connection the first time'));
+        document.head.append(script);
+      });
+      try{return await ttsLoader}catch(error){ttsLoader=null;throw error}
+    }
+    async function recogniseIllustratedPage(page){
+      const Tesseract=await loadTesseract();
+      if(!ttsWorker)ttsWorker=await Tesseract.createWorker('eng');
+      const viewport=page.getViewport({scale:1});
+      const scale=Math.min(2.2,1800/viewport.width);
+      const output=page.getViewport({scale});
+      const image=document.createElement('canvas');
+      image.width=Math.round(output.width);image.height=Math.round(output.height);
+      const job=page.render({canvasContext:image.getContext('2d',{willReadFrequently:true}),viewport:output});
+      try{await job.promise;const result=await ttsWorker.recognize(image);return result?.data?.text?.trim()||''}
+      finally{image.width=1;image.height=1}
+    }
+    async function narrationForCurrentPage(){
+      const page=await pdf.getPage(pageNumber);
+      const content=await page.getTextContent();
+      let text=content.items.map(item=>item.str||'').join(' ').replace(/\s+/g,' ').trim();
+      if(text.length<170){
+        status.textContent='Recognising the text on this illustrated page (runs on your device)…';
+        text=await recogniseIllustratedPage(page);
+      }
+      return isStoryOrTranslation(text)?text:null;
+    }
+    function getNarrationLanguage(text){
+      if(/[\u0600-\u06ff]/.test(text))return'ar-SA';
+      if(/\b(?:terjemahan|bahasa melayu|bahasa malaysia|berkata|bertanya|ayahnya)\b/i.test(text))return'ms-MY';
+      return'en-US';
+    }
+    ttsTest.addEventListener('click',()=>{
+      if(!('speechSynthesis' in window)){status.textContent='Speech synthesis is unavailable in this browser.';return}
+      speakText('This is a test of The Guide App narration. If you can hear this sentence, your device voice is working.','en-US');
+    });
     ttsPlay.addEventListener('click',async()=>{
       if(!pdf||!('speechSynthesis' in window))return;
-      stopNarration();const run=speechRun,current=pageNumber;
-      ttsPlay.disabled=true;ttsPlay.textContent='Checking story…';
+      stopNarration();
+      const target=pageNumber,run=speechRun;
+      ttsPlay.disabled=true;ttsPlay.textContent='Preparing audio…';
+      status.textContent='Reading the current page…';
+      // Warm up the Android speech engine inside the direct tap (the later OCR is asynchronous).
+      try{const unlock=new SpeechSynthesisUtterance(' ');unlock.volume=0;window.speechSynthesis.resume();window.speechSynthesis.speak(unlock)}catch{}
       try{
-        const item=await narrationFor(current);
-        if(run!==speechRun||current!==pageNumber)return;
-        if(!item){ttsPlay.disabled=false;ttsPlay.textContent='▶ Listen';status.textContent='Narration is for chapter stories and translations only.';return}
-        const lang=/[\u0600-\u06ff]/.test(item.text)?'ar-SA':/\b(terjemahan|bahasa melayu|bahasa malaysia)\b/i.test(item.text)?'ms-MY':'en-US';
-        ttsPlay.textContent='▶ Playing';ttsStop.hidden=false;status.textContent='Reading '+item.kind+' page '+current+' aloud';
-        speakChunks(item.text,lang,run);
-      }catch(error){ttsPlay.disabled=false;ttsPlay.textContent='▶ Listen';status.textContent='Narration unavailable for this page: '+error.message}
+        const text=await narrationForCurrentPage();
+        if(run!==speechRun||target!==pageNumber)return;
+        if(!text){ttsPlay.disabled=false;ttsPlay.textContent='▶ Listen';status.textContent='This page has no recognised chapter story or translation. Try a story text page.';return}
+        speakText(text,getNarrationLanguage(text));
+      }catch(error){
+        if(run!==speechRun)return;
+        ttsPlay.disabled=false;ttsPlay.textContent='▶ Listen';
+        status.textContent='Could not read text: '+error.message+'. Try Test voice.';
+      }
     });
-    ttsStop.addEventListener('click',stopNarration);
+    ttsStop.addEventListener('click',()=>{stopNarration();status.textContent='Narration stopped.'});
     let resizeTimer;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{if(pdf)showPage(pageNumber,{animate:false})},150)});
   </script>
 </body>
