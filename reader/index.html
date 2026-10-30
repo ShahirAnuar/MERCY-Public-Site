@@ -86,7 +86,7 @@
       canvas.width=Math.round(viewport.width*pixelRatio);canvas.height=Math.round(viewport.height*pixelRatio);canvas.style.width=viewport.width+'px';canvas.style.height=viewport.height+'px';shell.style.width=viewport.width+'px';shell.style.height=viewport.height+'px';links.style.width=viewport.width+'px';links.style.height=viewport.height+'px';
       links.replaceChildren();renderTask=page.render({canvasContext:canvas.getContext('2d'),viewport,transform:[pixelRatio,0,0,pixelRatio,0,0]});await renderTask.promise;renderTask=null;
       for(const annotation of await page.getAnnotations()){
-        const contents=annotation.contentsObj?.str||annotation.contents||'';
+        const contents=String(annotation.contentsObj?.str||annotation.contents||'').replace(/\\r\\n?/g,'\\n');
         const embedded=annotation.subtype==='Text'&&/^STORY THREAD (\d+)/.exec(contents);
         let oldLink=null;
         if(annotation.subtype==='Link'&&annotation.url){const url=new URL(annotation.url);if(!['mercyseries.com','www.mercyseries.com'].includes(url.hostname))continue;oldLink=/^\/learn\/chapter-[123]\/$/.test(url.pathname)?Number(url.searchParams.get('thread')):null;if(!oldLink)continue}
