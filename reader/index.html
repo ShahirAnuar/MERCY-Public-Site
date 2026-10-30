@@ -4,6 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#071f48">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="The Guide">
+  <link rel="manifest" href="/reader/manifest.webmanifest">
   <title>The Guide · Full-screen Reader</title>
   <meta name="description" content="Read The Guide one full-screen page at a time. Scroll or swipe to turn pages.">
   <style>
@@ -32,7 +37,7 @@
 </head>
 <body>
   <div class="reader">
-    <header><span class="brand">THE GUIDE</span><a href="/buy/" class="optional">Editions</a><span class="spacer"></span><label class="file-button">Open PDF<input id="file" type="file" accept="application/pdf,.pdf"></label><button id="full" type="button" aria-label="Enter full screen">Expand</button></header>
+    <header><span class="brand">THE GUIDE</span><a href="/buy/" class="optional">Editions</a><span class="spacer"></span><button id="install" type="button">Install app</button><label class="file-button">Open PDF<input id="file" type="file" accept="application/pdf,.pdf"></label><button id="full" type="button" aria-label="Enter full screen">Expand</button></header>
     <main id="stage" aria-label="Book page">
       <div id="empty"><img class="empty-cover" src="/buy/the-guide-cover.jpg" alt="The Guide cover"><h1>One full-screen page at a time</h1><p>Open your PDF. Scroll or swipe up and down to turn pages. Tap a page to reveal controls. The PDF stays on your device.</p></div>
       <div id="page-shell" hidden><canvas id="page" aria-label="Current book page"></canvas><div id="links"></div></div>
@@ -41,11 +46,16 @@
   </div>
   <dialog id="thread-dialog" aria-labelledby="thread-title"><div class="thread-card"><button class="thread-close" type="button" aria-label="Close discussion thread">×</button><p id="thread-kicker">Story thread</p><h2 id="thread-title"></h2><p id="thread-note"></p><p class="thread-verse" id="thread-verse"></p><section class="lens-explorer"><h3>Explore through six lenses</h3><div class="lens-buttons"></div><p class="lens-panel" hidden></p></section></div></dialog>
   <script type="module">
-    const stage=document.querySelector('#stage'),fileInput=document.querySelector('#file'),canvas=document.querySelector('#page'),shell=document.querySelector('#page-shell'),links=document.querySelector('#links'),empty=document.querySelector('#empty');
+    const stage=document.querySelector('#stage'),fileInput=document.querySelector('#file'),canvas=document.querySelector('#page'),shell=document.querySelector('#page-shell'),links=document.querySelector('#links'),empty=document.querySelector('#empty'),installButton=document.querySelector('#install');
     const prev=document.querySelector('#prev'),next=document.querySelector('#next'),count=document.querySelector('#page-count'),status=document.querySelector('#status');
     const dialog=document.querySelector('#thread-dialog'),lensButtons=dialog.querySelector('.lens-buttons'),lensPanel=dialog.querySelector('.lens-panel');
-    let pdf=null,pageNumber=1,renderTask=null,busy=false,pendingPage=null,readerLib=null,returnFocus=null,wheelLocked=false,wheelTimer=null,wheelDistance=0;
+    let pdf=null,pageNumber=1,renderTask=null,busy=false,pendingPage=null,readerLib=null,returnFocus=null,wheelLocked=false,wheelTimer=null,wheelDistance=0,installPrompt=null;
     const lensNames=['Science','History','Psychology','Ethics','Faith','Art'];
+    if('serviceWorker' in navigator)navigator.serviceWorker.register('/reader/service-worker.js').catch(()=>{});
+    window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();installPrompt=event;installButton.hidden=false});
+    window.addEventListener('appinstalled',()=>{installPrompt=null;installButton.textContent='Installed';installButton.disabled=true;status.textContent='The Guide reader is installed.'});
+    installButton.addEventListener('click',async()=>{if(installPrompt){installPrompt.prompt();const choice=await installPrompt.userChoice;if(choice.outcome==='accepted'){installButton.textContent='Installing…';installButton.disabled=true}return}const isiOS=/iphone|ipad|ipod/i.test(navigator.userAgent);status.textContent=isiOS?'On iPhone or iPad: tap Share, then Add to Home Screen.':'Open your browser menu and choose Install app or Add to Home screen.';alert(status.textContent)});
+
     function openThread(number,title,note,verse,examples,trigger){returnFocus=trigger;dialog.querySelector('#thread-kicker').textContent='STORY THREAD '+String(number).padStart(2,'0');dialog.querySelector('#thread-title').textContent=title;dialog.querySelector('#thread-note').textContent=note;dialog.querySelector('#thread-verse').textContent='Qur’an '+verse;lensButtons.replaceChildren();lensPanel.hidden=true;lensPanel.textContent='';for(const name of lensNames){const button=document.createElement('button');button.type='button';button.textContent=name;button.dataset.lens=name.toLowerCase();button.setAttribute('aria-pressed','false');button.addEventListener('click',()=>{[...lensButtons.children].forEach(item=>item.setAttribute('aria-pressed',String(item===button)));lensPanel.textContent=examples[name.toLowerCase()]||'This example is available in the updated edition of the PDF.';lensPanel.hidden=false});lensButtons.append(button)}dialog.showModal();dialog.querySelector('.thread-close').focus()}
     dialog.querySelector('.thread-close').addEventListener('click',()=>dialog.close());dialog.addEventListener('close',()=>returnFocus?.focus());dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
     async function library(){if(readerLib)return readerLib;readerLib=await import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs');readerLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs';return readerLib}
