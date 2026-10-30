@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#071f48">
+  <title>MERCY · Page by Page Reader</title>
+  <meta name="description" content="Read your MERCY digital PDF one full page at a time. Swipe between pages on a phone.">
+  <style>
+    :root{color-scheme:dark;--navy:#071f48;--gold:#e8c46a;--cream:#fff6df}
+    *{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:#020b1d;color:var(--cream);font:16px/1.4 system-ui,sans-serif}
+    button,label,a{touch-action:manipulation}button:focus-visible,a:focus-visible,label:focus-within{outline:3px solid var(--gold);outline-offset:3px}
+    .reader{height:100dvh;display:grid;grid-template-rows:auto minmax(0,1fr) auto;overscroll-behavior:none}
+    header,.toolbar{background:rgba(4,20,46,.94);display:flex;align-items:center;gap:.65rem;padding:.55rem max(.65rem,env(safe-area-inset-left));min-height:54px;z-index:2}
+    header{border-bottom:1px solid #b7944b66}.toolbar{border-top:1px solid #b7944b66;justify-content:center;padding-bottom:max(.6rem,env(safe-area-inset-bottom))}
+    .brand{font:700 1.18rem Georgia,serif;letter-spacing:.12em;color:var(--gold);white-space:nowrap}.spacer{flex:1}a{color:var(--cream)}
+    button,.file-button{border:1px solid #b7944b;border-radius:999px;background:var(--navy);color:var(--cream);padding:.56rem .8rem;min-width:44px;min-height:44px;font:700 .92rem system-ui;cursor:pointer;text-align:center}
+    button:disabled{opacity:.4;cursor:default}.file-button input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+    #stage{position:relative;min-height:0;display:grid;place-items:center;overflow:hidden;touch-action:pan-y;background:radial-gradient(circle,#173054,#020b1d 70%)}
+    #page-shell{position:relative;max-width:100%;max-height:100%;box-shadow:0 12px 40px #000b;line-height:0}
+    canvas{display:block;max-width:100%;max-height:100%;height:auto;width:auto}
+    #links{position:absolute;inset:0}.pdf-link{position:absolute;display:block;border-radius:5px;min-width:20px;min-height:20px}.pdf-link:focus-visible{outline:3px solid #f4c849;background:#f4c84944}
+    #empty{padding:1.5rem;max-width:30rem;text-align:center;line-height:1.6}#empty h1{font:700 clamp(1.8rem,7vw,2.8rem) Georgia,serif;color:var(--gold);margin:.2rem 0}.empty-cover{display:block;width:min(42vw,170px);height:auto;max-height:32dvh;object-fit:contain;margin:0 auto 1rem;border:2px solid #c49b44;border-radius:.35rem}
+    #status{font-size:.82rem;flex:1;text-align:center;max-width:23rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#page-count{font-variant-numeric:tabular-nums;min-width:5rem;text-align:center}
+    [hidden]{display:none!important}
+    @media(max-width:580px){header{gap:.35rem}.brand{font-size:1rem}header a{font-size:.83rem}.file-button{padding:.55rem}.toolbar{gap:.4rem}.toolbar button{padding:.45rem}.optional{display:none}}
+  </style>
+</head>
+<body>
+  <div class="reader">
+    <header><span class="brand">MERCY</span><a href="/buy/" class="optional">Editions</a><span class="spacer"></span><label class="file-button">Open PDF<input id="file" type="file" accept="application/pdf,.pdf"></label><button id="full" type="button" aria-label="Enter full screen">Expand</button></header>
+    <main id="stage" aria-label="Book page">
+      <div id="empty"><img class="empty-cover" src="/page_001.webp" alt="MERCY cover"><h1>One page at a time</h1><p>Open your MERCY PDF. Swipe left or right to turn pages. The PDF stays on your device; this reader does not upload it.</p></div>
+      <div id="page-shell" hidden><canvas id="page" aria-label="Current book page"></canvas><div id="links"></div></div>
+    </main>
+    <div class="toolbar"><button id="prev" type="button" aria-label="Previous page" disabled>‹ Previous</button><span id="page-count">—</span><button id="next" type="button" aria-label="Next page" disabled>Next ›</button><span id="status" role="status" aria-live="polite">Choose a PDF to begin</span></div>
+  </div>
+  <script type="module">
+    const stage=document.querySelector('#stage'),fileInput=document.querySelector('#file'),canvas=document.querySelector('#page'),shell=document.querySelector('#page-shell'),links=document.querySelector('#links'),empty=document.querySelector('#empty');
+    const prev=document.querySelector('#prev'),next=document.querySelector('#next'),count=document.querySelector('#page-count'),status=document.querySelector('#status');
+    let pdf=null,pageNumber=1,renderTask=null,busy=false,readerLib=null;
+    async function library(){if(readerLib)return readerLib;readerLib=await import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs');readerLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs';return readerLib}
+    async function showPage(number){if(!pdf||busy||number<1||number>pdf.numPages)return;busy=true;prev.disabled=next.disabled=true;status.textContent='Opening page '+number+'…';try{
+      if(renderTask){renderTask.cancel();try{await renderTask.promise}catch{}renderTask=null}
+      const page=await pdf.getPage(number),raw=page.getViewport({scale:1});
+      const width=stage.clientWidth-8,height=stage.clientHeight-8,scale=Math.min(width/raw.width,height/raw.height);
+      const viewport=page.getViewport({scale}),pixelRatio=Math.min(devicePixelRatio||1,2);
+      canvas.width=Math.round(viewport.width*pixelRatio);canvas.height=Math.round(viewport.height*pixelRatio);canvas.style.width=viewport.width+'px';canvas.style.height=viewport.height+'px';
+      links.replaceChildren();renderTask=page.render({canvasContext:canvas.getContext('2d'),viewport,transform:[pixelRatio,0,0,pixelRatio,0,0]});await renderTask.promise;renderTask=null;
+      for(const annotation of await page.getAnnotations()){if(annotation.subtype!=='Link'||!annotation.url)continue;const url=new URL(annotation.url);if(url.protocol!=='https:'||!['mercyseries.com','www.mercyseries.com'].includes(url.hostname))continue;const rect=viewport.convertToViewportRectangle(annotation.rect),anchor=document.createElement('a');anchor.href=url.href;anchor.target='_blank';anchor.rel='noopener noreferrer';anchor.className='pdf-link';anchor.style.left=Math.min(rect[0],rect[2])+'px';anchor.style.top=Math.min(rect[1],rect[3])+'px';anchor.style.width=Math.abs(rect[2]-rect[0])+'px';anchor.style.height=Math.abs(rect[3]-rect[1])+'px';anchor.setAttribute('aria-label','Open MERCY discussion thread');anchor.addEventListener('click',e=>{if(!navigator.onLine){e.preventDefault();status.textContent='Six lenses need an internet connection.'}});links.append(anchor)}
+      pageNumber=number;count.textContent=number+' / '+pdf.numPages;status.textContent='Swipe to turn pages';shell.hidden=false;empty.hidden=true;
+    }catch(error){status.textContent='Could not render this page: '+error.message}finally{busy=false;prev.disabled=!pdf||pageNumber<=1;next.disabled=!pdf||pageNumber>=pdf.numPages}}
+    fileInput.addEventListener('change',async()=>{const file=fileInput.files?.[0];if(!file)return;status.textContent='Opening '+file.name+'…';try{const lib=await library();const bytes=new Uint8Array(await file.arrayBuffer());pdf=await lib.getDocument({data:bytes}).promise;pageNumber=1;await showPage(1)}catch(error){status.textContent='Could not open this PDF: '+error.message}});
+    prev.addEventListener('click',()=>showPage(pageNumber-1));next.addEventListener('click',()=>showPage(pageNumber+1));
+    document.querySelector('#full').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen()}catch{status.textContent='Full screen is unavailable in this browser.'}});
+    let start=null;stage.addEventListener('touchstart',event=>{if(event.touches.length===1)start=[event.touches[0].clientX,event.touches[0].clientY]},{passive:true});stage.addEventListener('touchend',event=>{if(!start||!pdf||event.target.closest('a'))return;const dx=event.changedTouches[0].clientX-start[0],dy=event.changedTouches[0].clientY-start[1];start=null;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3)showPage(pageNumber+(dx<0?1:-1))},{passive:true});
+    window.addEventListener('keydown',event=>{if(event.key==='ArrowRight')showPage(pageNumber+1);if(event.key==='ArrowLeft')showPage(pageNumber-1)});
+    let resizeTimer;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{if(pdf)showPage(pageNumber)},150)});
+  </script>
+</body>
+</html>
