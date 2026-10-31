@@ -85,8 +85,10 @@ async function checkGuideOrder(sessionId){
  const discountLines=session.total_details?.breakdown?.discounts||[];
  let owner=null;
  if(discountLines.length){
-  const promo=await resolvePromotionOwner(discountLines,id=>stripeRequest('promotion_codes/'+encodeURIComponent(id)));
-  owner=promo?.affiliateId||null;
+  let promo=null;
+  try{promo=await resolvePromotionOwner(discountLines,id=>stripeRequest('promotion_codes/'+encodeURIComponent(id)))}catch{return null}
+  if(!promo||session.total_details?.amount_discount!==promo.discountCents)return null;
+  owner=promo.affiliateId;
  }else if(validAffiliate(session.client_reference_id)){
   owner=session.client_reference_id;
  }
@@ -98,10 +100,12 @@ async function checkGuideOrder(sessionId){
  const latestCharge=pi.latest_charge;
  let fee;
  if(latestCharge&&typeof latestCharge==='object'&&latestCharge.balance_transaction&&typeof latestCharge.balance_transaction==='object'){
+  if(latestCharge.refunded||latestCharge.amount_refunded>0)return null;
   fee=latestCharge.balance_transaction.fee;
  }else if(typeof latestCharge==='string'){
   const chargeQuery=new URLSearchParams();chargeQuery.append('expand[]','balance_transaction');
   const charge=await stripeRequest('charges/'+encodeURIComponent(latestCharge)+'?'+chargeQuery);
+  if(charge.refunded||charge.amount_refunded>0)return null;
   fee=typeof charge.balance_transaction==='object'?charge.balance_transaction.fee:undefined;
  }
  if(!Number.isInteger(fee))throw Error('Final Stripe processing fee is not available yet');
@@ -130,7 +134,7 @@ async function processPaidSession(sessionId){
 }
 async function processRefund(charge){
  const piId=typeof charge.payment_intent==='string'?charge.payment_intent:charge.payment_intent?.id;
- if(!piId||!charge.refunded)return;
+ if(!piId||!(charge.refunded||charge.amount_refunded>0))return;
  const intent=await stripeRequest('payment_intents/'+encodeURIComponent(piId));
  if(intent.metadata?.mercy_affiliate_program!==program)return;
  const form={'metadata[mercy_affiliate_status]':'reversed'};
