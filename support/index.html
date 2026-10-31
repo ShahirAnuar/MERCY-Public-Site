@@ -62,5 +62,6 @@
     document.querySelector('#feedback-form').addEventListener('submit',async e=>{e.preventDefault();const form=e.currentTarget,button=document.querySelector('#send-feedback'),status=document.querySelector('#feedback-status');if(!form.reportValidity())return;const values=Object.fromEntries(new FormData(form)),stages={purchase:'purchase',gift:'gift',installation:'install',affiliate:'affiliate',reading:'reading',feedback:'other'},payload={...values,stage:stages[values.topic]||'other'};delete payload.topic;button.disabled=true;status.className='status wide';status.textContent='Sending your message…';try{const r=await fetch(api+'/api/support/feedback',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});const data=await r.json().catch(()=>({}));if(!r.ok||data.ok!==true)throw Error(data.error||'Your message could not be confirmed.');status.className='status wide success';status.textContent='Your message was received'+(data.reference?' · reference '+data.reference:'')+'. Keep this reference for any follow-up.';form.reset();}catch(error){status.className='status wide error';status.textContent=error.message+' Please email shahir@mercyseries.com if you need help.'}finally{button.disabled=false}});
   })();
   </script>
+<script src="/assets/site-language.js" defer></script>
 </body>
 </html>

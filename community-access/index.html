@@ -59,5 +59,6 @@ async function startGoogle(){try{const response=await fetch(api+'/api/lenses/con
 const requested=new URLSearchParams(location.search).get('kind');if(Object.hasOwn(labels,requested))$('kind').value=requested;updateKind();startGoogle();
 })();
 </script>
+<script src="/assets/site-language.js" defer></script>
 </body>
 </html>

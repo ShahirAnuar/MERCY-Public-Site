@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+const panel={hidden:true,textContent:'',replaceChildren(){this.children=[]},append(...items){this.children=(this.children||[]).concat(items)}},choices=[{dataset:{lens:'science'},setAttribute(k,v){this[k]=v}}];
+const saved=new Map(),events={};let calls=0,requested,resolve;
+const context={window:{MercyLanguage:{getLanguage:()=> 'ms'},addEventListener:(name,fn)=>events[name]=fn},document:{documentElement:{lang:'ms'},createElement:tag=>({tag,textContent:'',href:''}),querySelector:()=>panel,querySelectorAll:()=>choices},localStorage:{getItem:k=>saved.get(k)},encodeURIComponent,fetch:async(url,opts)=>{calls++;requested={url,opts};return {ok:true,json:async()=>({example:'Perhatikan dengan teliti.'})}}};
+vm.runInNewContext(fs.readFileSync('assets/learn-language.js','utf8'),context);
+await context.window.MercyLearnBM.show(2,'science',panel,choices);assert.equal(calls,0);assert.ok(panel.children.some(x=>x.href==='/reader/?lang=ms'),'missing entitlement points to existing reader without requesting another payment');
+saved.set('mercyEmailAccess','private-token');saved.set('mercyDeviceId','private-device');await context.window.MercyLearnBM.show(2,'science',panel,choices);assert.equal(calls,1);assert.equal(requested.url.endsWith('thread=2&lens=science&lang=ms'),true);assert.equal(requested.url.includes('private-token'),false);assert.equal(requested.opts.headers['x-mercy-access'],'private-token');assert.equal(panel.textContent,'Perhatikan dengan teliti.');assert.equal(choices[0]['aria-pressed'],'true');
+events['mercy-language-change']();assert.equal(panel.hidden,true,'changing language clears the previous lens text');
+console.log('BM Learn lenses require existing entitlement, keep tokens out of URLs and clear stale-language examples');

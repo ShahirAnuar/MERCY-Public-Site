@@ -101,11 +101,12 @@
     document.querySelectorAll(".mercy-reading-current").forEach(el=>el.classList.remove("mercy-reading-current"));
     queue=[];queueIndex=0;currentBlock=null;
   };
+  window.addEventListener("mercy-language-change",stopSpeech);
   const speakNext=()=>{
     if(queueIndex>=queue.length){setStatus("Finished reading this page.");return;}
     const item=queue[queueIndex++];
     const utterance=new SpeechSynthesisUtterance(item.text);
-    utterance.lang="en-GB";utterance.rate=1;
+    utterance.lang=document.documentElement.lang==="ms"?"ms-MY":"en-GB";utterance.rate=1;
     utterance.onstart=()=>{
       document.querySelectorAll(".mercy-reading-current").forEach(el=>el.classList.remove("mercy-reading-current"));
       currentBlock=item.el;item.el.classList.add("mercy-reading-current");

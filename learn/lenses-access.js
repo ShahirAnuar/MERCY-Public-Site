@@ -24,7 +24,7 @@
     if (!pending || !unlocked) return;
     const {number, lens, panel, choices} = pending;
     try {
-      const data = await json('/api/lenses/' + number + '/' + lens, {
+      const data = await json('/api/lenses/' + number + '/' + lens+'?lang='+(window.MercyLanguage?.getLanguage()==='ms'?'ms':'en'), {
         headers: {'authorization':'Bearer ' + credential, 'x-mercy-access-code':code}
       });
       choices.forEach(item => item.setAttribute('aria-pressed', String(item.dataset.lens === lens)));
@@ -54,6 +54,7 @@
     } catch (error) { unlocked = false; message(error.message); }
   }
   unlock.addEventListener('click', claim);
+  window.addEventListener('mercy-language-change',()=>{if(unlocked&&pending)showExample()});
   window.mercyLens = {
     show(number, lens, panel, choices) {
       pending = {number,lens,panel,choices};
