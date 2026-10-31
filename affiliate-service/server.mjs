@@ -90,6 +90,8 @@ async function checkGuideOrder(sessionId){
   if(!promo||session.total_details?.amount_discount!==promo.discountCents)return null;
   owner=promo.affiliateId;
  }else if(validAffiliate(session.client_reference_id)){
+  const confirmed=await stripeFind(session.client_reference_id,1);
+  if(!confirmed)return null;
   owner=session.client_reference_id;
  }
  if(!owner||!session.payment_intent)return null;
@@ -110,7 +112,7 @@ async function checkGuideOrder(sessionId){
  }
  if(!Number.isInteger(fee))throw Error('Final Stripe processing fee is not available yet');
  const financials=calculateCommission(session.amount_total,fee);
- return {session,piId,owner,financials,source:discountLines.length?'verified_promotion':'public_ref_review'};
+ return {session,piId,owner,financials,source:discountLines.length?'verified_promotion':'verified_affiliate_link'};
 }
 async function processPaidSession(sessionId){
  const order=await checkGuideOrder(sessionId);
@@ -126,7 +128,7 @@ async function processPaidSession(sessionId){
   'metadata[mercy_affiliate_fee_sen]':String(financials.feeCents),
   'metadata[mercy_affiliate_sale_sen]':String(session.amount_total),
   'metadata[mercy_affiliate_session]':session.id,
-  'metadata[mercy_affiliate_status]':source==='verified_promotion'?'pending':'review',
+  'metadata[mercy_affiliate_status]':'pending',
   'metadata[mercy_affiliate_source]':source,
   'metadata[mercy_affiliate_program]':program
  };
@@ -189,7 +191,7 @@ async function affiliateDashboard(affiliate){
  const available=pending.filter(r=>Date.now()-r.created*1000>=14*86400000);
  const sum=items=>items.reduce((total,r)=>total+r.commissionCents,0);
  return {affiliateId:affiliate,asOf:new Date().toISOString(),
-  summary:{verifiedSales:pending.length+paid.length,pendingCents:sum(pending),availableCents:sum(available),paidCents:sum(paid)},
+  summary:{verifiedSales:pending.length+paid.length,pendingCents:sum(pending.filter(r=>Date.now()-r.created*1000<14*86400000)),availableCents:sum(available),paidCents:sum(paid)},
   sales:safeRows.slice().sort((a,b)=>b.created-a.created).slice(0,30).map(({created,...r})=>r),
   payoutStatus:'Commissions are recorded in Stripe. Bank/DuitNow payment requires separate merchant verification; balances shown here are not evidence that money has been transferred.'};
 }
