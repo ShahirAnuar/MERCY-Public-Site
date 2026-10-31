@@ -105,4 +105,5 @@ async function handle(req,res){
   return json(res,503,{error:'Stripe could not confirm the requested coupon(s). Please retry.'});
  }
 }
-createServer((req,res)=>{handle(req,res).catch(()=>json(res,500,{error:'Service temporarily unavailable'}))}).listen(port,'0.0.0.0',()=>console.log('MERCY coupons listening on port',port));
+export {couponId,codeFor,validAffiliate,tier,stripeFind,issueOne,verifyAffiliate,handle};
+if(process.env.MERCY_TEST_MODE!=='1')createServer((req,res)=>{handle(req,res).catch(()=>json(res,500,{error:'Service temporarily unavailable'}))}).listen(port,'0.0.0.0',()=>console.log('MERCY coupons listening on port',port));
