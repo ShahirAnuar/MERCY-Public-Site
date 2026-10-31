@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 
 process.env.MERCY_TEST_MODE='1';
 process.env.STRIPE_RESTRICTED_KEY='rk_test_do_not_use';
-const {couponId,codeFor,validAffiliate,tier,stripeFind,issueOne,checkGuideOrder}=await import('./server.mjs');
+const {couponId,codeFor,validAffiliate,tier,stripeFind,issueOne,checkGuideOrder,affiliateDashboard}=await import('./server.mjs');
 const owner='AFF-DDE33B64C781';
 const program='MERCY_GUIDE_DIGITAL_2026';
 const reply=(body,ok=true,status=200)=>({ok,status,json:async()=>body});
@@ -133,5 +133,24 @@ test('full-price affiliate link with a Stripe-verified owner earns the maximum R
   assert.equal(order.owner,owner);
   assert.equal(order.financials.affiliateCents,752);
   assert.equal(order.source,'verified_affiliate_link');
+ }finally{globalThis.fetch=original}
+});
+
+
+test('verified Stripe ledger reports pending and payout-eligible commissions without double counting',async()=>{
+ const original=globalThis.fetch,now=Math.floor(Date.now()/1000);
+ try{
+  globalThis.fetch=async url=>{
+   assert.equal(new URL(url).pathname,'/v1/payment_intents/search');
+   return reply({has_more:false,data:[
+    {id:'pi_oldpaid_123456',created:now-20*86400,metadata:{mercy_affiliate_id:owner,mercy_affiliate_program:program,mercy_affiliate_status:'pending',mercy_affiliate_sale_sen:'1600',mercy_affiliate_commission_sen:'752'}},
+    {id:'pi_recent_987654',created:now-1*86400,metadata:{mercy_affiliate_id:owner,mercy_affiliate_program:program,mercy_affiliate_status:'pending',mercy_affiliate_sale_sen:'1300',mercy_affiliate_commission_sen:'461'}},
+    {id:'pi_other_987654',created:now-1*86400,metadata:{mercy_affiliate_id:'AFF-OTHERS123456',mercy_affiliate_program:program,mercy_affiliate_status:'pending',mercy_affiliate_sale_sen:'1600',mercy_affiliate_commission_sen:'752'}}
+   ]});
+  };
+  const report=await affiliateDashboard(owner);
+  assert.equal(report.affiliateId,owner);
+  assert.deepEqual(report.summary,{verifiedSales:2,pendingCents:461,availableCents:752,paidCents:0});
+  assert.equal(report.sales.length,2);
  }finally{globalThis.fetch=original}
 });
