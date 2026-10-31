@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#061b39"><meta name="robots" content="noindex,nofollow"><title>Review Moderation · MERCY Staff</title>
+<style>
+:root{color-scheme:dark;--ink:#f9f4e8;--gold:#edc77c}*{box-sizing:border-box}body{margin:0;background:#071a33;color:var(--ink);font:16px/1.55 system-ui,sans-serif}a{color:var(--gold);text-underline-offset:3px}header{background:#061229;border-bottom:1px solid #d6b47a5e;padding:1rem}nav{max-width:1050px;margin:auto;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}nav a{min-height:44px;display:inline-flex;align-items:center}nav .brand{font:700 1.45rem Georgia,serif;letter-spacing:.12em;margin-right:auto;text-decoration:none}main{max-width:1050px;margin:auto;padding:2rem 1rem 5rem}h1{font:700 clamp(2rem,4vw,3rem) Georgia,serif;color:var(--gold);margin:.5rem 0}h2{font:700 1.4rem Georgia,serif;color:var(--gold);margin:.2rem 0}p{margin:.5rem 0 1rem}.panel{border:1px solid #c6a36a88;border-radius:16px;background:#112b49;padding:1.25rem;margin:1.2rem 0}.muted{color:#d0dce7}.status{border-left:4px solid var(--gold);background:#1c3a59;padding:.8rem 1rem;margin:.9rem 0;border-radius:0 10px 10px 0}.button{border:1px solid var(--gold);border-radius:999px;background:var(--gold);color:#09203b;font:750 .95rem system-ui;min-height:44px;padding:.6rem 1.1rem;cursor:pointer}.button.secondary{background:transparent;color:#f4e6cb}.button.danger{background:#6e2736;color:#fff;border-color:#d99c9c}.button:disabled{opacity:.5;cursor:not-allowed}.actions{display:flex;gap:.65rem;flex-wrap:wrap}.review{border:1px solid #d4b06b77;border-radius:12px;padding:1rem;margin:1rem 0;background:#0a203c}.review h3{margin:.2rem 0}.review .stars{color:var(--gold);font-size:1.2rem;letter-spacing:.04em}.review .copy{white-space:pre-wrap;overflow-wrap:anywhere;background:#183755;padding:.7rem;border-radius:9px}.review .details{font-size:.82rem;color:#d0dce7}.empty{padding:1rem;border:1px dashed #d4b06b99;border-radius:12px}.warn{border-color:#e9acac;background:#492735}button:focus-visible,a:focus-visible{outline:3px solid #fff;outline-offset:3px}[hidden]{display:none!important}@media(max-width:620px){nav .brand{flex:1 0 100%}.actions .button{flex:1}} 
+</style></head>
+<body><header><nav><a class="brand" href="/">MERCY</a><a href="/buy/#reader-reviews">Public reviews</a><a href="/affiliate-program/dashboard/">Affiliate Dashboard</a></nav></header>
+<main><p style="color:var(--gold);letter-spacing:.12em;text-transform:uppercase;font-size:.75rem;font-weight:800">Restricted staff workspace</p><h1>Review moderation</h1><p class="muted">Approve, reject or review reader submissions without altering ratings. Only a server-authorised MERCY administrator may access unpublished comments.</p>
+<div class="panel"><h2>Administrator sign-in</h2><p>Sign in with the Google account authorised to moderate MERCY reviews. Google sign-in alone does not grant administrator access; the backend must verify your permission.</p><div id="signin"></div><p id="access-state" class="status" role="status" aria-live="polite">Preparing staff login…</p><div class="actions"><button class="button secondary" id="reload" type="button" disabled>Refresh pending reviews</button><a class="button secondary" href="mailto:shahir@mercyseries.com?subject=MERCY%20Review%20Administrator%20Access">Request staff access</a></div></div>
+<section id="reviews-panel" class="panel" hidden aria-label="Private pending reviews"><div class="actions" style="justify-content:space-between;align-items:center"><h2>Reviews awaiting a decision</h2><span id="total">—</span></div><div id="pending-list" role="list"></div><p class="muted">Every action must be confirmed by the secure review backend. Rejected reviews are not published. Apply the same moderation standard to every rating.</p></section>
+<div class="panel"><h2>Where reviews go</h2><p>Readers submit ratings on <a href="/buy/#reader-reviews">mercyseries.com/buy/#reader-reviews</a>. The public website displays only published reviews from <code>/api/reviews</code>. The private endpoint <code>/api/admin/reviews</code> requires administrator authentication; if it rejects your account, review moderation cannot be performed from this page yet.</p><p class="muted">For security, this page never stores administrator credentials or exposes pending reviews to visitors without successful backend authorisation.</p></div>
+</main>
+<script>
+(()=>{'use strict';
+const api='https://mercy-malaysia-orders-reviews.shahiranuar.chatgpt.site';
+const clientId='493511900191-agm17paeu1tm85reir024doegb0go88p.apps.googleusercontent.com';
+let token='',verified=false;
+const $=id=>document.getElementById(id),status=message=>$('access-state').textContent=message;
+function card(review){
+ const id=String(review.id||'');
+ if(!/^[a-zA-Z0-9_-]{1,100}$/.test(id))return null;
+ const article=document.createElement('article');article.className='review';article.setAttribute('role','listitem');
+ const title=document.createElement('h3');title.textContent=String(review.name||'Reader').slice(0,100)+' · '+String(review.edition||'Edition unspecified').slice(0,40);
+ const stars=document.createElement('div');stars.className='stars';const rating=Number(review.rating);stars.textContent=Number.isInteger(rating)&&rating>=1&&rating<=5?'★'.repeat(rating)+'☆'.repeat(5-rating):'Rating not supplied';
+ const details=document.createElement('p');details.className='details';details.textContent='Reference: '+id+(review.createdAt?' · Submitted '+new Date(review.createdAt).toLocaleDateString('en-MY'):'');
+ const body=document.createElement('p');body.className='copy';body.textContent=String(review.review||review.text||'No review text provided').slice(0,3000);
+ const buttons=document.createElement('div');buttons.className='actions';
+ for(const [action,label,clazz]of [['approve','Approve & publish','button'],['reject','Reject','button danger']]){
+   const btn=document.createElement('button');btn.className=clazz;btn.type='button';btn.textContent=label;
+   btn.addEventListener('click',()=>moderate(id,action,btn));
+   buttons.append(btn);
+ }
+ const msg=document.createElement('p');msg.className='muted';msg.id='review-message-'+id;msg.setAttribute('role','status');
+ article.append(title,stars,details,body,buttons,msg);return article
+}
+async function readReviews(){
+ if(!token)return;
+ status('Verifying staff permissions with the MERCY review server…');
+ try{
+  const response=await fetch(api+'/api/admin/reviews',{headers:{authorization:'Bearer '+token},cache:'no-store'});
+  if(response.status===401||response.status===403)throw Error('Administrator access not granted. This account is not authorised by the review server or the admin authentication service is not connected.');
+  if(!response.ok)throw Error('Review moderation service unavailable ('+response.status+').');
+  const data=await response.json();if(!Array.isArray(data.reviews)&&!Array.isArray(data.pending))throw Error('Moderation response format is not ready.');
+  verified=true;const all=Array.isArray(data.pending)?data.pending:data.reviews;
+  const pending=all.filter(r=>!r.status||['pending','review','unpublished','awaiting_approval'].includes(String(r.status).toLowerCase()));
+  $('reviews-panel').hidden=false;$('reload').disabled=false;const root=$('pending-list');root.replaceChildren();
+  for(const review of pending.slice(0,100)){const item=card(review);if(item)root.append(item)}
+  if(!root.children.length){const p=document.createElement('p');p.className='empty';p.textContent='No reviews are awaiting moderation in the verified list.';root.append(p)}
+  $('total').textContent=pending.length+' pending';
+  status('Staff access verified. Review decisions require confirmation from the server.');
+ }catch(e){verified=false;$('reviews-panel').hidden=true;$('reload').disabled=true;status(e.message+' If necessary, contact the MERCY administrator to enable your staff account.')}
+}
+async function moderate(id,decision,button){
+ if(!verified||!token||!['approve','reject'].includes(decision))return;
+ if(!window.confirm((decision==='approve'?'Publish':'Reject')+' review '+id+'?'))return;
+ const msg=$('review-message-'+id);button.disabled=true;msg.textContent='Sending decision to secure moderation service…';
+ try{
+  // The separate backend must implement a verified, role-gated endpoint.
+  // Never claim publication on the basis of a click or a 200 with unknown data.
+  const response=await fetch(api+'/api/admin/reviews/'+encodeURIComponent(id)+'/moderate',{method:'POST',headers:{authorization:'Bearer '+token,'content-type':'application/json'},body:JSON.stringify({decision})});
+  const data=await response.json().catch(()=>({}));
+  if(!response.ok)throw Error(data.error||'Moderation backend unavailable ('+response.status+').');
+  const expected=decision==='approve'?'published':'rejected';
+  if(String(data.id)!==id||data.status!==expected)throw Error('The moderation outcome was not confirmed by the server.');
+  msg.textContent='Decision confirmed. Refreshing pending queue…';await readReviews();
+ }catch(e){msg.textContent='Decision NOT confirmed: '+e.message+'. The review has not been marked as approved here.'}
+ finally{button.disabled=false}
+}
+$('reload').addEventListener('click',readReviews);
+const script=document.createElement('script');script.src='https://accounts.google.com/gsi/client';script.async=true;
+script.onload=()=>{try{google.accounts.id.initialize({client_id:clientId,callback:r=>{token=r.credential||'';readReviews()}});google.accounts.id.renderButton($('signin'),{theme:'outline',size:'large',shape:'pill',text:'signin_with'});status('Sign in to verify your MERCY review administrator permission.')}catch{status('Google sign-in could not initialise. Please check your browser.')}};
+script.onerror=()=>status('Google sign-in cannot be loaded at present.');
+document.head.append(script);
+})();
+</script>
+</body></html>
