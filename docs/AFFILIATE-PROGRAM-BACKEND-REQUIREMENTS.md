@@ -93,3 +93,34 @@ References: https://stripe.com/en-my/pricing ; https://docs.stripe.com/api/promo
 - This checkout opening **does not mean** automatic affiliate commissions, unique coupon issuance, or payout processing work. They require separate secure backend implementation and testing; preserve Stripe event data for later manual reconciliation.
 - **Never disable normal sales because an auxiliary affiliate endpoint is unavailable.** When possible, record incomplete attribution and reconcile later. If attribution cannot be verified, do not pretend a reward has been paid.
 - Stripe documentation: https://docs.stripe.com/payment-links/url-parameters
+
+## Affiliate dashboard and review moderation interface — added 31 October 2026
+
+### Public routes
+- `/affiliate-program/dashboard/` is a client-side, **Google-authenticated** affiliate workspace. It displays the user's public affiliate ID, verified personal sales URL, WhatsApp promotion, issuance requests, own unique coupons, and *only authenticated backend-provided* earnings, transactions, and payouts.
+- `/review-admin/` is a **staff-only moderation page**. Public reviewers submit at `/buy/#reader-reviews`. Public display uses `GET /api/reviews` (published only); private pending review list uses `GET /api/admin/reviews` (currently returns 401 when unauthenticated). Staff page uses Google sign-in but does not assume sign-in means staff authorisation.
+
+### Existing affiliate endpoints
+- `GET /api/affiliate/me` with `Authorization: Bearer <Google JWT>` must verify issuer, audience, expiry and account owner; return `{"status":"active","affiliateId":"AFF-...","shareUrl":"https://mercyseries.com/buy/?affiliate=AFF-..."}`.
+- `POST /api/affiliate/coupons/request` must issue Stripe's actual unique Promotion Codes to this *authenticated affiliate only*, atomically map Stripe Promotion Code ID to affiliate ID and amount, and return `{"affiliateId":"AFF-...","discountAmountCents":100|...|700,"couponCode":"..."}`. Never return simulated/generated codes unrelated to Stripe.
+
+### Dashboard endpoints required (not implemented by this public repo)
+- `GET /api/affiliate/dashboard` (Google JWT, account scope) -> `{"affiliateId":"AFF-...","asOf":"2026-10-31T...Z","summary":{"verifiedSales":0,"pendingCents":0,"availableCents":0,"paidCents":0},"sales":[{"date":"ISO","reference":"non-sensitive order reference","saleCents":1600,"commissionCents":752,"status":"pending|approved|paid|reversed"}],"payoutStatus":"..."}`. Currency is MYR; money in **integer sen**. The client must never receive buyers' private names, serials, Google emails or device IDs. Compute from reconciled Stripe webhook ledger, not clicks or unverified client input. Under account permission errors return 401/403, never another affiliate's records.
+- `GET /api/affiliate/coupons` -> `{"affiliateId":"AFF-...","coupons":[{"affiliateId":"AFF-...","discountAmountCents":100,"couponCode":"...", "active":true}]}`. Only verified account-owned Stripe codes. Fetch history with account-level auth.
+- Payout onboarding must occur through a secured authenticated form/service; the dashboard deliberately **does not collect bank details** before that exists.
+- When an API is unavailable the dashboard displays **“not connected”** and `—` balances. It must never invent RM values, auto-mark paid, or imply no sales when the reporting feed is missing.
+
+### Review moderation backend required (admin-only)
+- `GET /api/admin/reviews` must require authenticated user identity plus an explicit server-side reviewer/admin role check, ideally allowlisted Google `sub` IDs. Return `{"pending":[{"id":"safe-ID","name":"reader display name","edition":"Paperback","rating":5,"review":"text","createdAt":"ISO","status":"pending"}]}` or `{"reviews":[...]}`, never expose it to unauthorised visitors.
+- `POST /api/admin/reviews/:id/moderate` requires the same verified moderator role; body `{"decision":"approve"|"reject"}`, audit who acted, action time, old and new state, and optional reason. Return `{"id":"same-ID","status":"published"|"rejected"}` only after a durable write. On reject, do not show publicly. Review rating or wording must not be silently changed. Apply same substantive moderation criteria regardless of star rating.
+- Server must reject CSRF/invalid sessions as appropriate, rate-limit, log moderation, return 401/403 when unauthorised, and allow reviewer role revocation.
+- The public frontend only sends a decision after a deliberate administrator confirmation and **does not show a success state until the backend acknowledges** the exact ID and resulting status.
+- The current repo doesn't contain the backend, so these routes cannot be declared fully functional until implemented and tested. A 401 from `/api/admin/reviews` is evidence of a protected endpoint, *not* evidence the admin panel has been configured for this login method.
+
+### Go-live scenarios
+1. Unauthenticated user cannot see affiliate sales or moderation queue.
+2. Google identity for Affiliate A cannot view Affiliate B's balance/coupons or change a coupon's owner.
+3. Dashboard correctly shows missing-data states if endpoint unavailable (not fictitious RM0).
+4. Stripe coupon issuance, lookup, idempotent attribution, refunds and payouts are reconciled before showing values.
+5. Authorized reviewer can list pending reviews and approve/reject, and the public `/api/reviews` updates only after approval.
+6. Non-authorised affiliates cannot approve reviews even if they visit `/review-admin/`.
