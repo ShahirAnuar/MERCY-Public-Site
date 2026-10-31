@@ -32,7 +32,7 @@
         <p class="eyebrow">MERCY Series Global · Malaysia</p>
         <h1 id="affiliate-title">Share meaningful stories.<br>Earn as an affiliate.</h1>
         <p>Help more families discover <em>The Guide</em> while earning commission for eligible digital-app sales. Register online to receive your personal affiliate identifier. Your dashboard automatically prepares seven account-owned coupon levels, from RM1 to RM7 off.</p>
-        <p class="small">Public applications open · No recruitment fees · Earnings from verified sales only</p>
+        <p>Every registered affiliate receives one free personal copy of The Guide App, marked “Affiliate version — Not for sale”. Existing affiliates receive the same benefit through their dashboard. No app purchase is required.</p><p class="small">Public applications open · No recruitment fees · Earnings from verified sales only</p>
         <div style="display:flex;gap:.65rem;flex-wrap:wrap;margin-top:1.15rem"><a class="button" href="#registration">Apply now</a><a class="button secondary" href="/affiliate-program/dashboard/">Open my affiliate dashboard</a></div>
       </div>
       <img class="cover" src="/buy/the-guide-cover.jpg" alt="The Guide — MERCY Series digital book cover" width="210" height="315">
@@ -106,7 +106,8 @@
         <label class="field">Your attributed sales link <input id="affiliate-link" type="text" readonly></label>
         <button class="button secondary" type="button" id="copy-affiliate-link">Copy my link</button>
         <p class="small">You can promote at the full RM16 price without requesting coupons. When a buyer uses one of your codes, they enter it <strong>on Stripe’s payment page</strong> before paying, not on the MERCY purchase page.</p>
-        <p><a class="button" href="/affiliate-program/dashboard/#coupons">Manage my seven personal coupons (RM1–RM7)</a></p>
+        <section class="card" id="free-app" aria-labelledby="free-app-heading"><span class="eyebrow">Included with your registration</span><h2 id="free-app-heading">My free affiliate app</h2><p><strong translate="no">Affiliate version — Not for sale</strong></p><p>Every registered affiliate receives one free personal copy of The Guide App, marked “Affiliate version — Not for sale”. Existing affiliates receive the same benefit through their dashboard. No app purchase is required.</p><label class="field" for="free-app-serial">Your private free-app serial<input id="free-app-serial" readonly autocomplete="off" translate="no"></label><div class="actions"><button class="button" id="open-free-app" type="button" disabled>Open my free app</button><button class="button secondary" id="copy-free-app-serial" type="button" disabled>Copy private serial</button><button class="button ghost" id="email-free-app" type="button" disabled>Email my free-app details</button></div><p id="free-app-state" class="status" role="status" aria-live="polite">Checking your free app access…</p><p class="micro">Your free affiliate copy is personal and cannot be resold, transferred or gifted. Customer purchases and paid gift copies use the normal checkout. The usual serial, email sign-in and two-device / one-active-reader controls apply.</p></section>
+<p><a class="button" href="/affiliate-program/dashboard/#coupons">Manage my seven personal coupons (RM1–RM7)</a></p>
         <p class="small">Each affiliate has one personal identifier and seven distinct discount levels. Only Stripe-confirmed codes tied to that identifier can be shared.</p>
 
       </div>
@@ -134,6 +135,23 @@
       const registrationFallback=document.querySelector('#registration-fallback');
       const form=document.querySelector('#affiliate-form'),status=document.querySelector('#application-status'),fields=document.querySelector('#registration-fields'),apply=document.querySelector('#apply-button'),submitStatus=document.querySelector('#submit-status'),signinStatus=document.querySelector('#signin-status'),account=document.querySelector('#affiliate-account');
       let registrationOpen=false,googleCredential='',affiliateId='';
+const $=id=>document.querySelector('#'+id);
+const authHeaders=()=>({authorization:'Bearer '+googleCredential});
+const appStatus=(id,message,error=false)=>{const node=$(id);node.textContent=message;node.classList.toggle('error',error)};
+
+let currentAppAccess=null;
+function validateAppAccess(app){
+ if(app?.ready!==true||app.licenseType!=='affiliate'||app.notForSale!==true||app.transferable!==false||!/^MERCY-D-\d{6}$/.test(String(app.serial||'')))return null;
+ try{const url=new URL(app.appUrl);if(!['https://mercyseries.com','https://www.mercyseries.com'].includes(url.origin)||url.username||url.password||url.pathname!=='/reader/'||url.hash||url.searchParams.get('edition')!=='affiliate'||[...url.searchParams.keys()].some(key=>!['edition','lang'].includes(key))||url.searchParams.has('lang')&&!['en','ms'].includes(url.searchParams.get('lang')))return null;return {serial:app.serial,appUrl:url.href,label:'Affiliate version — Not for sale'}}catch{return null}
+}
+function showAppAccess(app){
+ currentAppAccess=validateAppAccess(app);$('free-app-serial').value=currentAppAccess?.serial||'';for(const id of ['open-free-app','copy-free-app-serial','email-free-app'])$(id).disabled=!currentAppAccess;
+ appStatus('free-app-state',currentAppAccess?'Your free personal affiliate app is ready. Use your serial and a fresh email sign-in code.':'Your free app access is being prepared. Refresh your account or contact support if it does not appear.');
+}
+$('open-free-app').addEventListener('click',()=>{if(!currentAppAccess||!googleCredential||!affiliateId)return;try{if(localStorage.getItem('mercyReaderSerial')!==currentAppAccess.serial)localStorage.removeItem('mercyEmailAccess');localStorage.setItem('mercyReaderSerial',currentAppAccess.serial);window.location.assign(currentAppAccess.appUrl)}catch{appStatus('free-app-state','Browser storage is unavailable. Copy your private serial and open The Guide App manually.',true)}});
+$('copy-free-app-serial').addEventListener('click',async()=>{if(!currentAppAccess)return;try{if(!navigator.clipboard?.writeText)throw Error();await navigator.clipboard.writeText(currentAppAccess.serial);appStatus('free-app-state','Private serial copied. Keep it for your own sign-in.')}catch{appStatus('free-app-state','Select and copy the private serial above.')}});
+$('email-free-app').addEventListener('click',async()=>{if(!currentAppAccess||!googleCredential||!affiliateId)return;const button=$('email-free-app');button.disabled=true;appStatus('free-app-state','Requesting delivery of your own free-app details…');try{const response=await fetch(api+'/api/affiliate/app/email',{method:'POST',headers:{...authHeaders(),'content-type':'application/json'},body:'{}'}),data=await response.json().catch(()=>({}));if(!response.ok||data.ok===false)throw Error(data.error||data.message||'Email delivery could not be confirmed.');appStatus('free-app-state',data.emailSent===true?'Your app link and private serial have been emailed to your registered address.':'Email delivery could not be confirmed. Your free app remains available here.')}catch(error){appStatus('free-app-state',error.message,true)}finally{button.disabled=!currentAppAccess}});
+
       function updateForm(){fields.disabled=!(registrationOpen&&Boolean(googleCredential));apply.disabled=fields.disabled}
       function verifyLink(raw){
         try{const url=new URL(raw);return url.protocol==='https:'&&['mercyseries.com','www.mercyseries.com'].includes(url.hostname)&&url.pathname==='/buy/'?url.href:''}catch{return ''}
@@ -143,7 +161,7 @@
         const link=verifyLink(data.shareUrl||'');
         if(!link)return;
         affiliateId=String(data.affiliateId);account.hidden=false;form.hidden=true;document.querySelector('#affiliate-id').textContent='Affiliate ID: '+affiliateId;
-        document.querySelector('#affiliate-link').value=link;
+        document.querySelector('#affiliate-link').value=link;showAppAccess(data.appAccess);
         submitStatus.textContent='Affiliate registration active. Open your dashboard to collect all seven personal coupon levels, or share your full-price link.';
       }
       async function loadAffiliateAccount(){
@@ -157,7 +175,7 @@
       function initGoogle(){
         const script=document.createElement('script');script.src='https://accounts.google.com/gsi/client';script.async=true;
         script.onload=()=>{
-          try{google.accounts.id.initialize({client_id:googleClientId,callback:async response=>{googleCredential=response.credential||'';form.hidden=false;account.hidden=true;try{const payload=googleCredential.split('.')[1],claims=JSON.parse(atob(payload.replace(/-/g,'+').replace(/_/g,'/')));if(claims.email){form.elements.email.value=String(claims.email);form.elements.email.readOnly=true}if(claims.name&&!form.elements.fullName.value)form.elements.fullName.value=String(claims.name)}catch{}signinStatus.textContent=googleCredential?'Google sign-in confirmed. Check your details below or open your existing account.':'Google sign-in is required.';updateForm();await loadAffiliateAccount()}});google.accounts.id.renderButton(document.querySelector('#affiliate-google'),{theme:'outline',size:'large',text:'signin_with'});}
+          try{google.accounts.id.initialize({client_id:googleClientId,callback:async response=>{googleCredential=response.credential||'';showAppAccess(null);form.hidden=false;account.hidden=true;try{const payload=googleCredential.split('.')[1],claims=JSON.parse(atob(payload.replace(/-/g,'+').replace(/_/g,'/')));if(claims.email){form.elements.email.value=String(claims.email);form.elements.email.readOnly=true}if(claims.name&&!form.elements.fullName.value)form.elements.fullName.value=String(claims.name)}catch{}signinStatus.textContent=googleCredential?'Google sign-in confirmed. Check your details below or open your existing account.':'Google sign-in is required.';updateForm();await loadAffiliateAccount()}});google.accounts.id.renderButton(document.querySelector('#affiliate-google'),{theme:'outline',size:'large',text:'signin_with'});}
           catch{signinStatus.textContent='Google sign-in could not initialise on this device.'}
         };
         script.onerror=()=>{signinStatus.textContent='Google sign-in is unavailable. Check your internet connection.'};
