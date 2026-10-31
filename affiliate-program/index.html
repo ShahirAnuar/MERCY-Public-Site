@@ -130,14 +130,9 @@
         <label class="field">Your attributed sales link <input id="affiliate-link" type="text" readonly></label>
         <button class="button secondary" type="button" id="copy-affiliate-link">Copy my link</button>
         <p class="small">You can promote at the full RM16 price without requesting coupons. When a buyer uses one of your codes, they enter it <strong>on Stripe’s payment page</strong> before paying, not on the MERCY purchase page.</p>
-        <form id="coupon-form">
-          <label class="field" for="coupon-value">Request a coupon for your customers
-            <select id="coupon-value" required><option value="100">RM1 off</option><option value="200">RM2 off</option><option value="300">RM3 off</option><option value="400">RM4 off</option><option value="500">RM5 off</option><option value="600">RM6 off</option><option value="700">RM7 off</option></select>
-          </label>
-          <button class="button" type="submit" id="request-coupon">Request my unique coupon</button>
-          <p id="coupon-status" class="small" role="status" aria-live="polite"></p>
-          <label class="field" id="coupon-result" hidden>My coupon code <input id="coupon-code" type="text" readonly></label><p class="small">A coupon code appears here only after Stripe confirms successful issuance. Your affiliate account may be active even if coupons are not available yet.</p>
-        </form>
+        <p><a class="button" href="/affiliate-program/dashboard/#coupons">Manage my seven personal coupons (RM1–RM7)</a></p>
+        <p class="small">Each affiliate has one personal identifier and seven distinct discount levels. Only Stripe-confirmed codes tied to that identifier can be shared.</p>
+
       </div>
       <p class="terms">The email-based application route is open to eligible Malaysian adults. Your email provider will process the details you choose to send. The secure account and coupon forms remain disabled until the backend is available. No affiliate ID, coupon, purchase attribution or commission is active merely because an application email was sent. Direct-sales activity remains restricted pending applicable Malaysian legal checks.</p>
       <p>Questions? <a href="mailto:shahir@mercyseries.com?subject=MERCY%20Affiliate%20Programme">shahir@mercyseries.com</a>.</p>
@@ -161,7 +156,7 @@
         simulation.textContent='Buyer pays RM'+price.toFixed(2)+' · Stripe fee RM'+fee.toFixed(2)+' · Affiliate earns RM'+affiliate+' · Publisher receives RM7.00';
       });
       const emailApplication=document.querySelector('#email-application-form'),emailApplicationStatus=document.querySelector('#email-application-status');
-      const form=document.querySelector('#affiliate-form'),status=document.querySelector('#application-status'),fields=document.querySelector('#registration-fields'),apply=document.querySelector('#apply-button'),submitStatus=document.querySelector('#submit-status'),signinStatus=document.querySelector('#signin-status'),account=document.querySelector('#affiliate-account'),couponForm=document.querySelector('#coupon-form'),couponStatus=document.querySelector('#coupon-status');
+      const form=document.querySelector('#affiliate-form'),status=document.querySelector('#application-status'),fields=document.querySelector('#registration-fields'),apply=document.querySelector('#apply-button'),submitStatus=document.querySelector('#submit-status'),signinStatus=document.querySelector('#signin-status'),account=document.querySelector('#affiliate-account');
       let registrationOpen=false,googleCredential='',affiliateId='';
       function updateForm(){fields.disabled=!(registrationOpen&&Boolean(googleCredential));apply.disabled=fields.disabled}
       function verifyLink(raw){
@@ -221,62 +216,6 @@
         if(link&&navigator.clipboard?.writeText)navigator.clipboard.writeText(link).then(()=>{submitStatus.textContent='Affiliate link copied.'}).catch(()=>{submitStatus.textContent='Select and copy your link above.'});
         else submitStatus.textContent='Select and copy your link above.';
       });
-      couponForm.addEventListener('submit',async event=>{
-        event.preventDefault();if(!registrationOpen||!googleCredential||!affiliateId)return;
-        const button=document.querySelector('#request-coupon');button.disabled=true;couponStatus.textContent='Requesting your account-specific coupon…';
-        const amount=Number(document.querySelector('#coupon-value').value);
-        try{
-          const response=await fetch(api+'/api/affiliate/coupons/request',{method:'POST',headers:{'content-type':'application/json',authorization:'Bearer '+googleCredential},body:JSON.stringify({discountAmountCents:amount})});
-          const result=await response.json();
-          if(!response.ok)throw Error(result.error||'Your coupon request could not be completed.');
-          if(result.discountAmountCents!==amount||!result.couponCode||result.affiliateId!==affiliateId)throw Error('Coupon ownership could not be verified.');
-          document.querySelector('#coupon-code').value=String(result.couponCode);
-          document.querySelector('#coupon-result').hidden=false;
-          couponStatus.textContent='Your individual RM'+(amount/100)+' coupon is ready. Give buyers your code to enter during Stripe Checkout and your affiliate purchase link. Never share a buyer activation serial.';
-        }catch(error){document.querySelector('#coupon-result').hidden=true;document.querySelector('#coupon-code').value='';couponStatus.textContent='Coupon not issued. '+error.message+' Your affiliate account remains active; please try again once coupon issuing is connected.'}
-        finally{button.disabled=false}
-      });
-      function publicApplicationMessage(){
-        if(!emailApplication.reportValidity())return '';
-        const x=Object.fromEntries(new FormData(emailApplication).entries());
-        const line=v=>String(v||'').replace(/[\r\n]+/g,' ').trim();
-        return [
-          'MERCY Digital Affiliate Programme — Public Application',
-          '',
-          'Full name: '+line(x.fullName),
-          'Email: '+line(x.email),
-          'WhatsApp: '+line(x.phone),
-          'State: '+line(x.state),
-          'Applicant type: Individual',
-          'Country: Malaysia',
-          'Promotional channel: '+line(x.channel),
-          'Intended audience: '+line(x.audience||'Not supplied'),
-          'Age 18+ confirmed: Yes',
-          'Affiliate Terms accepted: Yes',
-          'Privacy Notice read and email submission consented: Yes',
-          '',
-          'I understand this email is an application, NOT an active affiliate account. Please advise on secure verification and onboarding; I will not send passwords or OTPs.'
-        ].join('\n');
-      }
-      emailApplication.addEventListener('submit',event=>{
-        event.preventDefault();
-        const body=publicApplicationMessage();if(!body)return;
-        const subject='MERCY Digital Affiliate — New Public Application';
-        const href='mailto:shahir@mercyseries.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
-        emailApplicationStatus.textContent='Your email application should open now. Please press Send in your email app. Your application is not submitted or approved until you send it and receive confirmation.';
-        window.location.href=href;
-      });
-      document.querySelector('#copy-public-application').addEventListener('click',async()=>{
-        const body=publicApplicationMessage();if(!body)return;
-        try{
-          await navigator.clipboard.writeText(body);
-          emailApplicationStatus.textContent='Application copied. Email it to shahir@mercyseries.com with subject MERCY Digital Affiliate — New Public Application. Only a sent email counts as an application.';
-        }catch{
-          emailApplicationStatus.textContent='Unable to copy automatically. Please use the email submission button or email shahir@mercyseries.com directly.';
-        }
-      });
-      document.querySelector("#coupon-result").hidden=true;
-      document.querySelector("#coupon-code").value="";
       checkRegistration();
     })();
   </script>
