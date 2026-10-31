@@ -60,6 +60,16 @@ footer{text-align:center;border-top:1px solid var(--border);padding:1.4rem;color
 (()=>{'use strict';
 const api='https://mercy-malaysia-orders-reviews.shahiranuar.chatgpt.site';
 const googleClientId='493511900191-agm17paeu1tm85reir024doegb0go88p.apps.googleusercontent.com';
+let couponApi=api;
+async function configureCouponApi(){
+ try{
+  const response=await fetch('/affiliate-program/dashboard/coupon-service.json',{cache:'no-store'});
+  if(!response.ok)return;
+  const config=await response.json();if(!config.couponServiceUrl)return;
+  const u=new URL(config.couponServiceUrl);
+  if(u.protocol==='https:'&&!u.username&&!u.password&&!u.search&&!u.hash)couponApi=u.origin;
+ }catch{}
+}
 const $=id=>document.getElementById(id);
 let credential='',currentId='',shareLink='';
 const money=cents=>'RM'+(cents/100).toFixed(2);
@@ -76,7 +86,7 @@ function showAccount(data){
  $('dashboard').hidden=false;status('signin-state','Account verified. Your personal dashboard is open.');
  $('refresh-account').disabled=false;clearReports();
 }
-async function read(path){const r=await fetch(api+path,{headers:authHeaders(),cache:'no-store'});if(r.status===401||r.status===403)throw Error('Account verification or access expired. Sign in again.');if(!r.ok)throw Error('Not available ('+r.status+').');return r.json()}
+async function read(path){const r=await fetch((path.startsWith('/api/affiliate/coupons')?couponApi:api)+path,{headers:authHeaders(),cache:'no-store'});if(r.status===401||r.status===403)throw Error('Account verification or access expired. Sign in again.');if(!r.ok)throw Error('Not available ('+r.status+').');return r.json()}
 async function loadAccount(){if(!credential){status('signin-state','Please sign in with your registered Google account.',true);return}
  status('signin-state','Checking your private affiliate account…');
  try{const data=await read('/api/affiliate/me');showAccount(data);await Promise.all([loadReports(),loadCoupons()])}
@@ -148,7 +158,7 @@ async function loadCoupons(){
   const levels=new Set(result.coupons.filter(c=>c.affiliateId===currentId&&c.active!==false).map(c=>c.discountAmountCents));
   if(levels.size<7){
    try{
-    const response=await fetch(api+'/api/affiliate/coupons/provision',{method:'POST',headers:{...authHeaders(),'content-type':'application/json'},body:'{}'});
+    const response=await fetch(couponApi+'/api/affiliate/coupons/provision',{method:'POST',headers:{...authHeaders(),'content-type':'application/json'},body:'{}'});
     const issued=await response.json().catch(()=>({}));
     if(response.ok&&issued.affiliateId===currentId&&Array.isArray(issued.coupons)&&issued.coupons.length===7)result=issued;
    }catch{}
@@ -188,7 +198,7 @@ $('coupon-request').addEventListener('submit',async event=>{
  if(!credential||!currentId){status('coupon-state','Sign in to your affiliate account first.',true);return}
  const button=$('coupon-submit');button.disabled=true;status('coupon-state','Checking Stripe issuance of your seven account-owned codes…');
  try{
-  const response=await fetch(api+'/api/affiliate/coupons/provision',{method:'POST',headers:{...authHeaders(),'content-type':'application/json'},body:JSON.stringify({})});
+  const response=await fetch(couponApi+'/api/affiliate/coupons/provision',{method:'POST',headers:{...authHeaders(),'content-type':'application/json'},body:JSON.stringify({})});
   const data=await response.json().catch(()=>({}));
   if(!response.ok)throw Error(data.error||'Secure coupon provisioning is not connected ('+response.status+').');
   if(data.affiliateId!==currentId||!Array.isArray(data.coupons)||data.coupons.length!==7)throw Error('Seven verified account-owned coupon records were not returned.');
@@ -213,7 +223,7 @@ function startGoogle(){
  script.onerror=()=>status('signin-state','Google sign-in is unavailable right now. Try again after checking your connection.',true);
  document.head.append(script);
 }
-startGoogle();
+configureCouponApi().then(startGoogle);
 })();
 </script>
 </body></html>
