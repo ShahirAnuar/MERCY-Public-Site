@@ -79,3 +79,17 @@ References: https://stripe.com/en-my/pricing ; https://docs.stripe.com/api/promo
 - With a valid `?affiliate=AFF-...`, the website asks the backend for a full-price RM16 Stripe Checkout Session that reports `promotionCodesEnabled: true` and bears the correct affiliate identity. Without a valid affiliate ID, the normal Stripe Payment Link is opened directly (its Allow promotion codes switch must be enabled separately in the Stripe Dashboard).
 - Unique affiliate coupons are requested only by authenticated affiliates from `/affiliate-program/` and created as actual Stripe Promotion Codes, with durable ownership mapping. Never use buyer activation serials or expose buyer identities to affiliates.
 - **Current implementation is frontend only.** No Stripe account access or backend implementation is available from this repository, and the coupon input inside Stripe is not live until it is enabled in Stripe.
+
+## Immediate storefront requirement — never block purchases (31 October 2026)
+
+**Live checkout fallback:** All digital purchases use the existing, verified ACTIVE RM16 Stripe Payment Link:
+`https://buy.stripe.com/7sYeVc6n82KY4rm10ogA80d`.
+
+- For `/buy/?affiliate=AFF-...`, client appends Stripe-supported `?client_reference_id=AFF-...` directly to the Payment Link. The affiliate code is public; never use customer serials, emails, access tokens, or private IDs in that URL.
+- Buyers **always** open the same working Stripe checkout, even when affiliate registration/coupon/ledger backend API routes are unavailable. Do not intercept the click to call `/api/affiliate/checkout` or fail closed on a 404.
+- For `?coupon=<alphanumeric>`, client optionally sets `prefilled_promo_code` on Stripe; Stripe itself determines validity. The Payment Link currently has `allow_promotion_codes=true`.
+- Existing link after-payment redirect is `https://mercyseries.com/reader/?session_id={CHECKOUT_SESSION_ID}`. Buyer unlocks a purchased copy via normal verified payment/activation flow.
+- Stripe sends Payment Link `client_reference_id` as Checkout Session's `client_reference_id` in `checkout.session.completed`. Backend should reconcile this **only after validating that the reference maps to a real active affiliate**, then cross-check actual redeemed promotion code owner and prevent duplicate payout credit; a user could tamper with a public URL.
+- This checkout opening **does not mean** automatic affiliate commissions, unique coupon issuance, or payout processing work. They require separate secure backend implementation and testing; preserve Stripe event data for later manual reconciliation.
+- **Never disable normal sales because an auxiliary affiliate endpoint is unavailable.** When possible, record incomplete attribution and reconcile later. If attribution cannot be verified, do not pretend a reward has been paid.
+- Stripe documentation: https://docs.stripe.com/payment-links/url-parameters
