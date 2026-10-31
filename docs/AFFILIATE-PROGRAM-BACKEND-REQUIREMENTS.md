@@ -124,3 +124,25 @@ References: https://stripe.com/en-my/pricing ; https://docs.stripe.com/api/promo
 4. Stripe coupon issuance, lookup, idempotent attribution, refunds and payouts are reconciled before showing values.
 5. Authorized reviewer can list pending reviews and approve/reject, and the public `/api/reviews` updates only after approval.
 6. Non-authorised affiliates cannot approve reviews even if they visit `/review-admin/`.
+
+## Mandatory seven Stripe coupons per affiliate (31 October 2026)
+
+**One verified affiliate ID -> exactly seven uniquely identified, product-scoped, reusable Stripe Promotion Codes.** The account ID is independent of any purchaser serial number. For an example affiliate `AFF-XXXXXXXXXXXX`, the codes can use deterministic names `MERCYXXXXXXXXXXXXR1`, `MERCYXXXXXXXXXXXXR2`, ... `MERCYXXXXXXXXXXXXR7`, with a globally unique affiliate ID suffix; never reveal a buyer serial.
+
+### Provisioning (secure server only)
+1. Verify Google JWT (signature, audience, issuer, expiry) and look up the *existing registered affiliate ID* in the order service database; **never trust an ID supplied by the browser**.
+2. Ensure seven MYR fixed-value Stripe **Coupons** of 100, 200, 300, 400, 500, 600, 700 sen, ideally applying **only** to Stripe product `prod_VXRT8IIXbvXctI` (The Guide - MERCY Series), `duration=once` for each purchase, not unlimited products. Affiliate codes are separate **Stripe Promotion Code** objects referencing those coupons.
+3. For each verified affiliate, issue seven unique Stripe Promotion Codes. Set immutable Stripe promotion-code metadata `affiliate_id=AFF-...`, `discount_sen=100..700`, `program=MERCY_GUIDE_DIGITAL_2026`. Record IDs in a durable table with database UNIQUE constraints for `(affiliate_id,discount_sen)`, `stripe_promotion_code_id`, and `public_code`.
+4. Idempotent API: `POST /api/affiliate/coupons/provision`, authenticated with Google JWT, generates/returns **all seven** `{"affiliateId":"AFF-...","coupons":[{"affiliateId":"AFF-...","discountAmountCents":100,"couponCode":"...","active":true}, ... seven levels],"complete":true}`. A repeated call returns the same seven, never an eighth or another affiliate's. Partial failure must be retriable and **not** represented as complete.
+5. `GET /api/affiliate/coupons` returns only that registered user's **Stripe-confirmed** codes in the same format. Provision on successful registration and reconcile any previously registered account at its next authenticated sign-in, so existing accounts such as those created before launch also receive all seven.
+6. Payment-Link Checkout already accepts Stripe promo codes; the existing `/buy/?affiliate=AFF-...&coupon=...` route pre-fills Stripe's promotion-code field and carries the affiliate ID through `client_reference_id`. On webhook, look up the **actually redeemed** Stripe Promotion Code, determine its verified owner, and credit that affiliate only once; prevent attribution hijacking via a user-supplied affiliate query string.
+7. **Do not use the existing Stripe-wide numeric codes '1'–'9' as affiliate coupons**: their Stripe metadata does not identify an owner; codes 8 and 9 also exceed the declared RM1–RM7 discount tiers. Review/deactivate unscoped codes if no current promotions depend on them, only after checking impact.
+8. The affiliate dashboard now displays all seven tiers; unissued tiers say 'Awaiting code', with no fabricated code. When Stripe returns the verified code, it offers Copy and WhatsApp sharing. If the backend API is not connected, it must not promise commission payout or pretend coupons are active.
+
+### Requirements before calling this live
+- Deploy the server-side API into `mercy-malaysia-orders-reviews.shahiranuar.chatgpt.site` or a securely connected equivalent (not GitHub Pages static JavaScript).
+- Stripe **secret key never in browser, git, WhatsApp, URLs or public API responses**.
+- Test two separate affiliates: each gets seven DIFFERENT codes; re-sign-in does not duplicate codes; Stripe reduces the correct digital sale by the correct amount; webhook credits the owner; refunds reverse earned commissions.
+- Verify eligibility, legal compliance and seller margins under actual payment fees before activation.
+
+This repository can implement the public interface, but it cannot perform or verify the separate hosting service's private Stripe writes without a connected backend deployment with secret credentials.
