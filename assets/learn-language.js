@@ -1,20 +1,35 @@
-// BM lens examples remain protected by the existing paid-reader entitlement.
+// Public English/Bahasa Melayu discussion answers. No account or purchase is required.
 (() => {
- let requestSequence=0;
- const language=()=>window.MercyLanguage?.getLanguage()||document.documentElement.lang;
- async function show(number,lens,panel,choices){
-  const sequence=++requestSequence;
-  panel.hidden=false;panel.textContent='Sedang membuka contoh lensa Bahasa Melayu…';
-  function accessHelp(){panel.replaceChildren();const message=document.createElement('span');message.textContent='Contoh lensa Bahasa Melayu memerlukan akses aplikasi yang sah. Jika anda sudah membeli, buka aplikasi menggunakan nombor siri dan kod e-mel anda. Tidak perlu membeli semula. ';const link=document.createElement('a');link.href='/reader/?lang=ms';link.textContent='Buka aplikasi The Guide';panel.append(message,link)}
-  try{
-   const token=localStorage.getItem('mercyEmailAccess')||'',device=localStorage.getItem('mercyDeviceId')||'';
-   if(!token||!device){accessHelp();return}
-   const response=await fetch('https://mercy-malaysia-orders-reviews.shahiranuar.chatgpt.site/api/lenses/example?thread='+encodeURIComponent(number)+'&lens='+encodeURIComponent(lens)+'&lang=ms',{headers:{'x-mercy-access':token,'x-mercy-device':device},cache:'no-store'});
-   const data=await response.json().catch(()=>({}));if(sequence!==requestSequence||language()!=='ms')return;
-   if(!response.ok||typeof data.example!=='string'){accessHelp();return}
-   panel.textContent=data.example;choices.forEach(item=>item.setAttribute('aria-pressed',String(item.dataset.lens===lens)));
-  }catch{if(sequence===requestSequence&&language()==='ms')panel.textContent='Contoh lensa belum dapat dibuka. Semak sambungan internet dan buka aplikasi The Guide untuk mengesahkan akses anda.'}
+ const keys=['science','history','psychology','ethics','faith','art'];
+ const names={en:{science:'Science',history:'History',psychology:'Psychology',ethics:'Ethics',faith:'Faith',art:'Art'},ms:{science:'Sains',history:'Sejarah',psychology:'Psikologi',ethics:'Etika',faith:'Iman',art:'Seni'}};
+ const strings={en:{loading:'Opening the answers…',failed:'The answers could not load. Check your connection and try again.',practice:'Optional activity',all:'Show all six answers',free:'All answers are free to read. No sign-in or purchase is needed.',readAll:'Read all 516 answers',allNav:'All answers',guideBanner:'All 86 threads and all six lenses have explanatory answers, free in English and Bahasa Melayu. Optional activities let you explore further; no sign-in or purchase is needed.',chapterQuestion:'Each lens offers an explanatory answer. Read all six below, or choose a subject.',hub:'Browse all 86 threads',thread:'Story thread',verse:'Read the verse'},ms:{loading:'Sedang membuka jawapan…',failed:'Jawapan belum dapat dimuatkan. Semak sambungan internet dan cuba lagi.',practice:'Aktiviti pilihan',all:'Lihat keenam-enam jawapan',free:'Semua jawapan boleh dibaca secara percuma. Tidak perlu log masuk atau membeli.',readAll:'Baca kesemua 516 jawapan',allNav:'Semua jawapan',guideBanner:'Kesemua 86 tema dan enam lensa menyediakan jawapan penerangan secara percuma dalam bahasa Inggeris dan Bahasa Melayu. Aktiviti pilihan membantu anda meneroka lebih lanjut; tidak perlu log masuk atau membeli.',chapterQuestion:'Setiap lensa menawarkan jawapan penerangan. Baca keenam-enam jawapan di bawah atau pilih satu bidang.',hub:'Terokai kesemua 86 tema',thread:'Tema cerita',verse:'Baca ayat'}};
+ const language=()=>((window.MercyLanguage?.getLanguage()||document.documentElement.lang)==='ms'?'ms':'en');
+ const cache=new Map(),states=new WeakMap(),panels=new Set();let sequence=0;
+ const el=(tag,text)=>{const node=document.createElement(tag);if(text!==undefined)node.textContent=text;return node};
+ async function load(requested=language()){
+  const lang=requested==='ms'?'ms':'en';if(cache.has(lang))return cache.get(lang);
+  const task=(async()=>{const response=await fetch('/learn/answers.'+lang+'.json',{credentials:'omit'});if(!response.ok)throw Error('Answer data unavailable');const data=await response.json();
+   if(data.language!==lang||!Array.isArray(data.threads)||data.threads.length!==86||new Set(data.threads.map(x=>x.number)).size!==86||data.threads.some(t=>!Number.isInteger(t.number)||t.number<1||t.number>86||!t.title||!keys.every(k=>typeof t.lenses?.[k]?.answer==='string'&&t.lenses[k].answer.trim())))throw Error('Incomplete public answer data');
+   return data;
+  })();cache.set(lang,task);try{return await task}catch(error){cache.delete(lang);throw error}
  }
- window.MercyLearnBM={show};
- window.addEventListener('mercy-language-change',()=>{requestSequence++;const panel=document.querySelector('.lens-panel');if(panel){panel.hidden=true;panel.textContent=''}for(const button of document.querySelectorAll('.lens-buttons button'))button.setAttribute('aria-pressed','false')});
+ function answerSection(thread,key,lang){const section=el('section');section.className='learning-answer';section.dataset.lens=key;section.append(el('h3',names[lang][key]),el('p',thread.lenses[key].answer));const practice=thread.lenses[key].practice;if(typeof practice==='string'&&practice.trim()){const details=el('details');details.className='learning-practice';details.append(el('summary',strings[lang].practice),el('p',practice));section.append(details)}return section}
+ function refreshHeading(thread,lang,panel){if(document.querySelector('#lens-example')!==panel)return;for(const [selector,text] of [['#thread-dialog-title',thread.title],['#thread-dialog-note',thread.note],['#thread-dialog-kicker',strings[lang].thread+' '+thread.number]]){const node=document.querySelector(selector);if(node){node.setAttribute('translate','no');node.textContent=text}}
+  const verse=document.querySelector('#thread-dialog-verse');if(verse){verse.setAttribute('translate','no');const ref=String(thread.verse||'');verse.hidden=!/^[0-9:–-]+$/.test(ref);if(!verse.hidden){verse.href='https://quran.com/'+ref;verse.textContent=(lang==='ms'?'al-Quran ':'Qur’an ')+ref+' · '+strings[lang].verse}}
+ }
+ async function render(number,lens,panel,choices=[],all=false){const lang=language();if(!panel||!Number.isInteger(Number(number))||number<1||number>86||!all&&!keys.includes(lens))return false;const state={number:Number(number),lens,panel,choices:Array.from(choices||[]),all,sequence:++sequence};states.set(panel,state);panels.add(panel);panel.setAttribute('translate','no');panel.hidden=false;panel.textContent=strings[lang].loading;
+  try{const data=await load(lang);if(states.get(panel)!==state||language()!==lang)return false;const thread=data.threads.find(t=>t.number===state.number);if(!thread)throw Error('Unknown story thread');panel.replaceChildren(...(all?keys:[lens]).map(key=>answerSection(thread,key,lang)));state.choices.forEach(button=>button.setAttribute('aria-pressed',String(!all&&button.dataset.lens===lens)));refreshHeading(thread,lang,panel);return true}catch{if(states.get(panel)===state&&language()===lang){panel.replaceChildren(el('p',strings[lang].failed));return false}}
+ }
+ const show=(number,lens,panel,choices)=>render(number,lens,panel,choices,false);
+ const showAll=(number,panel,choices)=>render(number,null,panel,choices,true);
+ function open(number,panel,choices){panel.dataset.thread=String(number);const result=showAll(number,panel,choices);updateChapterControls();return result}
+ function updateStaticLabels(){for(const node of document.querySelectorAll('[data-learning-label]')){const value=strings[language()][node.dataset.learningLabel];if(value){node.setAttribute('translate','no');node.textContent=value}}}
+ function updateChapterControls(){updateStaticLabels();const panel=document.querySelector('#lens-example'),section=document.querySelector('#thread-dialog .lens-explorer');if(!panel||!section)return;let controls=section.querySelector('.learning-open-controls');if(!controls){controls=el('div');controls.className='learning-open-controls';controls.setAttribute('translate','no');const button=el('button');button.type='button';button.className='show-all-answers';button.addEventListener('click',()=>showAll(Number(panel.dataset.thread),panel,section.querySelectorAll('.lens-choice')));const link=el('a');link.className='all-thread-answers';link.href='/learn/answers/';controls.append(button,link);section.insertBefore(controls,panel)}let freeNote=section.querySelector('.learning-open-note');if(!freeNote){freeNote=el('p');freeNote.className='learning-open-note';freeNote.setAttribute('translate','no');section.insertBefore(freeNote,controls)}freeNote.textContent=strings[language()].free;controls.querySelector('button').textContent=strings[language()].all;controls.querySelector('a').textContent=strings[language()].hub;controls.querySelector('a').href='/learn/answers/?lang='+language()+(panel.dataset.thread?'&thread='+encodeURIComponent(panel.dataset.thread):'');
+  if(document.querySelector('#thread-dialog')?.open&&panel.dataset.thread&&!states.has(panel))open(Number(panel.dataset.thread),panel,section.querySelectorAll('.lens-choice'));
+ }
+ window.MercyLearning={show,showAll,open,load,answerSection,language,lensNames:names,strings};
+ // Compatibility for older pages; these aliases grant the same open access.
+ window.MercyLearnBM={show};window.mercyLens={show};
+ window.addEventListener('mercy-language-change',()=>{updateChapterControls();for(const panel of panels){const state=states.get(panel);if(state&&!panel.hidden)render(state.number,state.lens,panel,state.choices,state.all)}});
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',updateChapterControls);else updateChapterControls();
 })();
