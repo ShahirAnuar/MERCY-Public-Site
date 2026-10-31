@@ -133,13 +133,24 @@ function showSevenCouponTiers(issued){
 }
 async function loadCoupons(){
  try{
-  const result=await read('/api/affiliate/coupons');
+  let result=await read('/api/affiliate/coupons');
   if(result.affiliateId!==currentId||!Array.isArray(result.coupons))throw Error('Coupon ownership was not verified');
+  // Each affiliate should have all seven tiers. Ask the secure backend to
+  // complete missing ones automatically on first dashboard sign-in.
+  const levels=new Set(result.coupons.filter(c=>c.affiliateId===currentId&&c.active!==false).map(c=>c.discountAmountCents));
+  if(levels.size<7){
+   try{
+    const response=await fetch(api+'/api/affiliate/coupons/provision',{method:'POST',headers:{...authHeaders(),'content-type':'application/json'},body:'{}'});
+    const issued=await response.json().catch(()=>({}));
+    if(response.ok&&issued.affiliateId===currentId&&Array.isArray(issued.coupons)&&issued.coupons.length===7)result=issued;
+   }catch{}
+  }
   showSevenCouponTiers(result.coupons);
-  $('coupons-note').textContent='Only your own Stripe-issued codes are shown. All seven discount levels are listed independently.';
+  const confirmed=result.coupons.filter(c=>c.affiliateId===currentId&&c.active!==false).length;
+  $('coupons-note').textContent=confirmed===7?'All seven unique Stripe coupon levels are confirmed for your account.':'Only '+confirmed+' of seven codes are verified. The remaining levels are awaiting secure issuance.';
  }catch(e){
   showSevenCouponTiers([]);
-  $('coupons-note').textContent='No account-owned codes could be verified from the coupon service. The seven possible levels are shown without inventing codes.';
+  $('coupons-note').textContent='Secure coupon records are unavailable. All seven possible levels are shown, but no codes are being invented.';
  }
 }
 async function copyText(value,id){try{await navigator.clipboard.writeText(value);status(id,'Copied to your clipboard.')}catch{status(id,'Copy is unavailable on this device; select the link/code manually.',true)}}
