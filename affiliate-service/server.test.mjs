@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 
 process.env.MERCY_TEST_MODE='1';
 process.env.STRIPE_RESTRICTED_KEY='rk_test_do_not_use';
-const {couponId,codeFor,validAffiliate,tier,stripeFind,issueOne}=await import('./server.mjs');
+const {couponId,codeFor,validAffiliate,tier,stripeFind,issueOne,checkGuideOrder}=await import('./server.mjs');
 const owner='AFF-DDE33B64C781';
 const program='MERCY_GUIDE_DIGITAL_2026';
 const reply=(body,ok=true,status=200)=>({ok,status,json:async()=>body});
@@ -80,5 +80,39 @@ test('coupon with a different owner fails closed before any write',async()=>{
    return reply({data:[{code:codeFor(owner,4),id:'promo_conflict',active:true,metadata:{affiliate_id:'AFF-WRONG123456',discount_sen:'400',program},promotion:{coupon:couponId(4)}}]});
   };
   await assert.rejects(issueOne(owner,4),/owner or amount mismatch/);
+ }finally{globalThis.fetch=original}
+});
+
+
+test('paid digital order with a verified RM3 affiliate code records real fee and correct owner',async()=>{
+ const original=globalThis.fetch;
+ try{
+  globalThis.fetch=async(url,options={})=>{
+   const path=new URL(url).pathname;
+   if(path==='/v1/checkout/sessions/cs_paid')return reply({id:'cs_paid',payment_status:'paid',currency:'myr',amount_total:1300,total_details:{amount_discount:300,breakdown:{discounts:[{amount:300,discount:{promotion_code:'promo_paid'}}]}},payment_intent:'pi_paid'});
+   if(path==='/v1/checkout/sessions/cs_paid/line_items')return reply({data:[{quantity:1,price:{product:'prod_VXRT8IIXbvXctI'}}]});
+   if(path==='/v1/promotion_codes/promo_paid')return reply({id:'promo_paid',active:true,metadata:{affiliate_id:owner,program,discount_sen:'300'}});
+   if(path==='/v1/payment_intents/pi_paid')return reply({id:'pi_paid',status:'succeeded',latest_charge:{balance_transaction:{fee:139},refunded:false}});
+   throw Error('Unexpected API request '+url);
+  };
+  const order=await checkGuideOrder('cs_paid');
+  assert.equal(order.owner,owner);
+  assert.equal(order.source,'verified_promotion');
+  assert.equal(order.financials.affiliateCents,461);
+  assert.equal(order.financials.publisherCents,700);
+ }finally{globalThis.fetch=original}
+});
+
+test('invalid or generic coupon ownership cannot get an affiliate credited',async()=>{
+ const original=globalThis.fetch;
+ try{
+  globalThis.fetch=async(url)=>{
+   const path=new URL(url).pathname;
+   if(path==='/v1/checkout/sessions/cs_generic')return reply({id:'cs_generic',payment_status:'paid',currency:'myr',amount_total:1300,total_details:{amount_discount:300,breakdown:{discounts:[{amount:300,discount:{promotion_code:'promo_generic'}}]}},payment_intent:'pi_generic',client_reference_id:owner});
+   if(path==='/v1/checkout/sessions/cs_generic/line_items')return reply({data:[{quantity:1,price:{product:'prod_VXRT8IIXbvXctI'}}]});
+   if(path==='/v1/promotion_codes/promo_generic')return reply({id:'promo_generic',active:true,metadata:{}});
+   throw Error('Unexpected API request '+url);
+  };
+  assert.equal(await checkGuideOrder('cs_generic'),null);
  }finally{globalThis.fetch=original}
 });
