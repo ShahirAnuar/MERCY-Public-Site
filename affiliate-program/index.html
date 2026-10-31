@@ -136,7 +136,7 @@
           </label>
           <button class="button" type="submit" id="request-coupon">Request my unique coupon</button>
           <p id="coupon-status" class="small" role="status" aria-live="polite"></p>
-          <label class="field" id="coupon-result" hidden>My coupon code <input id="coupon-code" type="text" readonly></label>
+          <label class="field" id="coupon-result" hidden>My coupon code <input id="coupon-code" type="text" readonly></label><p class="small">A coupon code appears here only after Stripe confirms successful issuance. Your affiliate account may be active even if coupons are not available yet.</p>
         </form>
       </div>
       <p class="terms">The email-based application route is open to eligible Malaysian adults. Your email provider will process the details you choose to send. The secure account and coupon forms remain disabled until the backend is available. No affiliate ID, coupon, purchase attribution or commission is active merely because an application email was sent. Direct-sales activity remains restricted pending applicable Malaysian legal checks.</p>
@@ -233,7 +233,7 @@
           document.querySelector('#coupon-code').value=String(result.couponCode);
           document.querySelector('#coupon-result').hidden=false;
           couponStatus.textContent='Your individual RM'+(amount/100)+' coupon is ready. Give buyers your code to enter during Stripe Checkout and your affiliate purchase link. Never share a buyer activation serial.';
-        }catch(error){document.querySelector('#coupon-result').hidden=true;couponStatus.textContent=error.message}
+        }catch(error){document.querySelector('#coupon-result').hidden=true;document.querySelector('#coupon-code').value='';couponStatus.textContent='Coupon not issued. '+error.message+' Your affiliate account remains active; please try again once coupon issuing is connected.'}
         finally{button.disabled=false}
       });
       function publicApplicationMessage(){
@@ -275,6 +275,8 @@
           emailApplicationStatus.textContent='Unable to copy automatically. Please use the email submission button or email shahir@mercyseries.com directly.';
         }
       });
+      document.querySelector("#coupon-result").hidden=true;
+      document.querySelector("#coupon-code").value="";
       checkRegistration();
     })();
   </script>
