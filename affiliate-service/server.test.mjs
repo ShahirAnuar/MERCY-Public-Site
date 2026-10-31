@@ -116,3 +116,22 @@ test('invalid or generic coupon ownership cannot get an affiliate credited',asyn
   assert.equal(await checkGuideOrder('cs_generic'),null);
  }finally{globalThis.fetch=original}
 });
+
+
+test('full-price affiliate link with a Stripe-verified owner earns the maximum RM7.52',async()=>{
+ const original=globalThis.fetch;
+ try{
+  globalThis.fetch=async url=>{
+   const path=new URL(url).pathname;
+   if(path==='/v1/checkout/sessions/cs_full')return reply({id:'cs_full',payment_status:'paid',currency:'myr',amount_total:1600,total_details:{amount_discount:0,breakdown:{discounts:[]}},client_reference_id:owner,payment_intent:'pi_full'});
+   if(path==='/v1/checkout/sessions/cs_full/line_items')return reply({data:[{quantity:1,price:{product:'prod_VXRT8IIXbvXctI'}}]});
+   if(path==='/v1/promotion_codes')return reply({data:[{id:'promo_r1',active:true,code:codeFor(owner,1),metadata:{affiliate_id:owner,discount_sen:'100',program},promotion:{coupon:couponId(1)}}]});
+   if(path==='/v1/payment_intents/pi_full')return reply({id:'pi_full',status:'succeeded',latest_charge:{balance_transaction:{fee:148},refunded:false}});
+   throw Error('Unexpected API request '+url);
+  };
+  const order=await checkGuideOrder('cs_full');
+  assert.equal(order.owner,owner);
+  assert.equal(order.financials.affiliateCents,752);
+  assert.equal(order.source,'verified_affiliate_link');
+ }finally{globalThis.fetch=original}
+});
