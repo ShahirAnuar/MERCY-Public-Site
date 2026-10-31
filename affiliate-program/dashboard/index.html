@@ -106,10 +106,33 @@ function couponCard(obj,container){
  const el=document.createElement('div');el.className='coupon-row';const left=document.createElement('div');const name=document.createElement('strong');name.textContent=obj.couponCode;const label=document.createElement('div');label.className='micro';label.textContent=money(obj.discountAmountCents)+' off · '+(obj.active===false?'Inactive':'Issued by server');left.append(name,label);
  const copy=document.createElement('button');copy.type='button';copy.className='button ghost';copy.textContent='Copy code';copy.addEventListener('click',()=>copyText(obj.couponCode,'coupon-state'));el.append(left,copy);container.append(el);
 }
+function showSevenCouponTiers(issued){
+ const container=$('coupons-list');container.replaceChildren();
+ const byTier=new Map();
+ for(const item of issued){if(item.affiliateId===currentId&&[100,200,300,400,500,600,700].includes(item.discountAmountCents)&&/^[A-Z0-9-]{3,48}$/.test(String(item.couponCode||''))&&item.active!==false){byTier.set(item.discountAmountCents,item)}}
+ for(let d=1;d<=7;d++){
+  const amount=d*100,entry=byTier.get(amount),price=16-d,fee=Math.round(price*3)/100+1,commission=price-fee-7;
+  const row=document.createElement('div');row.className='coupon-row';
+  const info=document.createElement('div'),head=document.createElement('strong'),description=document.createElement('div');
+  head.textContent='RM'+d+' off'+(entry?' · '+entry.couponCode:' · Awaiting code');
+  description.className='micro';
+  description.textContent='Buyer RM'+price.toFixed(2)+' · Affiliate RM'+commission.toFixed(2)+(entry?' · Issued':' · Not issued');
+  info.append(head,description);row.append(info);
+  if(entry){const copy=document.createElement('button');copy.type='button';copy.className='button ghost';copy.textContent='Copy';copy.addEventListener('click',()=>copyText(entry.couponCode,'coupon-state'));row.append(copy)}
+  container.append(row);
+ }
+ $('coupon-submit').disabled=issued.length>=7&&byTier.size===7;
+}
 async function loadCoupons(){
- const container=$('coupons-list');container.replaceChildren();let arr=[];
- try{const result=await read('/api/affiliate/coupons');if(result.affiliateId!==currentId||!Array.isArray(result.coupons))throw Error('Coupon history not verified.');arr=result.coupons;for(const c of arr)couponCard(c,container);if(!container.children.length){const p=document.createElement('p');p.className='empty';p.textContent='No coupons have been issued to your account yet.';container.append(p)}$('coupons-note').textContent='Your account-owned coupon records were loaded from the secure server.'}
- catch(e){const p=document.createElement('p');p.className='empty';p.textContent='Coupon service is not connected. Each of your seven discount levels will appear here once your personal Stripe codes are confirmed.';container.append(p);$('coupons-note').textContent='The coupon service must confirm each code before it can be shared.'}
+ try{
+  const result=await read('/api/affiliate/coupons');
+  if(result.affiliateId!==currentId||!Array.isArray(result.coupons))throw Error('Coupon ownership was not verified');
+  showSevenCouponTiers(result.coupons);
+  $('coupons-note').textContent='Only your own Stripe-issued codes are shown. All seven discount levels are listed independently.';
+ }catch(e){
+  showSevenCouponTiers([]);
+  $('coupons-note').textContent='No account-owned codes could be verified from the coupon service. The seven possible levels are shown without inventing codes.';
+ }
 }
 async function copyText(value,id){try{await navigator.clipboard.writeText(value);status(id,'Copied to your clipboard.')}catch{status(id,'Copy is unavailable on this device; select the link/code manually.',true)}}
 $('copy-link').addEventListener('click',()=>shareLink&&copyText(shareLink,'link-state'));
