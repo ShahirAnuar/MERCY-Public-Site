@@ -131,12 +131,20 @@ function showSevenCouponTiers(issued){
  }
  $('coupon-submit').disabled=issued.length>=7&&byTier.size===7;
 }
+async function verifiedStripeSnapshot(){
+ const response=await fetch('/affiliate-program/dashboard/verified-stripe-coupons.json',{cache:'no-store'});
+ if(!response.ok)throw Error('Verified coupon snapshot unavailable');
+ const data=await response.json();
+ const account=Array.isArray(data.accounts)?data.accounts.find(a=>a.affiliateId===currentId):null;
+ if(!account||!Array.isArray(account.coupons))throw Error('No verified Stripe coupon record for this affiliate');
+ const coupons=account.coupons.filter(c=>c.affiliateId===currentId&&c.active===true&&[100,200,300,400,500,600,700].includes(c.discountAmountCents)&&/^[A-Z0-9-]{3,48}$/.test(c.couponCode));
+ if(new Set(coupons.map(c=>c.discountAmountCents)).size!==7)throw Error('Verified snapshot incomplete');
+ return {affiliateId:currentId,coupons,verifiedAt:data.verifiedAt};
+}
 async function loadCoupons(){
  try{
   let result=await read('/api/affiliate/coupons');
   if(result.affiliateId!==currentId||!Array.isArray(result.coupons))throw Error('Coupon ownership was not verified');
-  // Each affiliate should have all seven tiers. Ask the secure backend to
-  // complete missing ones automatically on first dashboard sign-in.
   const levels=new Set(result.coupons.filter(c=>c.affiliateId===currentId&&c.active!==false).map(c=>c.discountAmountCents));
   if(levels.size<7){
    try{
@@ -145,12 +153,26 @@ async function loadCoupons(){
     if(response.ok&&issued.affiliateId===currentId&&Array.isArray(issued.coupons)&&issued.coupons.length===7)result=issued;
    }catch{}
   }
+  if(new Set(result.coupons.filter(c=>c.affiliateId===currentId&&c.active!==false).map(c=>c.discountAmountCents)).size!==7){
+   try{
+    const snapshot=await verifiedStripeSnapshot();
+    const found=new Set(result.coupons.map(c=>c.discountAmountCents));
+    result.coupons=result.coupons.concat(snapshot.coupons.filter(c=>!found.has(c.discountAmountCents)));
+   }catch{}
+  }
   showSevenCouponTiers(result.coupons);
-  const confirmed=result.coupons.filter(c=>c.affiliateId===currentId&&c.active!==false).length;
-  $('coupons-note').textContent=confirmed===7?'All seven unique Stripe coupon levels are confirmed for your account.':'Only '+confirmed+' of seven codes are verified. The remaining levels are awaiting secure issuance.';
+  const levelsVerified=new Set(result.coupons.filter(c=>c.affiliateId===currentId&&c.active!==false).map(c=>c.discountAmountCents)).size;
+  $('coupons-note').textContent=levelsVerified===7?'Seven Stripe-issued coupon levels are listed for this account. Codes must remain valid at Stripe checkout.':'Only '+levelsVerified+' of seven coupons are verified. Remaining tiers await secure issuance.';
  }catch(e){
-  showSevenCouponTiers([]);
-  $('coupons-note').textContent='Secure coupon records are unavailable. All seven possible levels are shown, but no codes are being invented.';
+  try{
+   const snapshot=await verifiedStripeSnapshot();
+   showSevenCouponTiers(snapshot.coupons);
+   $('coupons-note').textContent='Seven live Stripe promotion codes verified '+snapshot.verifiedAt+'. This is a dated Stripe verification; confirm validity at checkout. Commission accounting is separate.';
+   status('coupon-state','Your seven Stripe discount codes have been verified and are ready to copy or share.');
+  }catch{
+   showSevenCouponTiers([]);
+   $('coupons-note').textContent='No Stripe-issued codes were found for this account. The coupon server must issue seven unique codes.';
+  }
  }
 }
 async function copyText(value,id){try{await navigator.clipboard.writeText(value);status(id,'Copied to your clipboard.')}catch{status(id,'Copy is unavailable on this device; select the link/code manually.',true)}}
@@ -173,7 +195,15 @@ $('coupon-request').addEventListener('submit',async event=>{
   if(!data.coupons.every(c=>c.affiliateId===currentId&&[100,200,300,400,500,600,700].includes(c.discountAmountCents)&&/^[A-Z0-9-]{3,48}$/.test(c.couponCode)))throw Error('Coupon ownership could not be verified.');
   status('coupon-state','All seven of your codes were confirmed. Copy them from your personal coupon list.');
   await loadCoupons();
- }catch(e){status('coupon-state','Coupon setup cannot be confirmed yet: '+e.message+'. Your RM16 affiliate purchase link remains available.',true)}
+ }catch(e){
+  try{
+   const saved=await verifiedStripeSnapshot();
+   showSevenCouponTiers(saved.coupons);
+   status('coupon-state','Your seven Stripe-issued codes are displayed below. You may copy or share them.');
+  }catch{
+   status('coupon-state','Automatic issuance has not been connected for this affiliate. You can still share your RM16 affiliate link. No coupon is being invented.',true);
+  }
+ }
  finally{button.disabled=false}
 });
 $('reload').addEventListener('click',()=>{if(credential)Promise.all([loadReports(),loadCoupons()])});
