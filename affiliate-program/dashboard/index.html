@@ -118,7 +118,15 @@ function showSevenCouponTiers(issued){
   description.className='micro';
   description.textContent='Buyer RM'+price.toFixed(2)+' · Affiliate RM'+commission.toFixed(2)+(entry?' · Issued':' · Not issued');
   info.append(head,description);row.append(info);
-  if(entry){const copy=document.createElement('button');copy.type='button';copy.className='button ghost';copy.textContent='Copy';copy.addEventListener('click',()=>copyText(entry.couponCode,'coupon-state'));row.append(copy)}
+  if(entry){
+   const copy=document.createElement('button');copy.type='button';copy.className='button ghost';copy.textContent='Copy code';copy.addEventListener('click',()=>copyText(entry.couponCode,'coupon-state'));row.append(copy);
+   const share=document.createElement('button');share.type='button';share.className='button secondary';share.textContent='WhatsApp';
+   share.addEventListener('click',()=>{
+     const url=new URL(shareLink);url.searchParams.set('coupon',entry.couponCode);
+     const msg='Assalamualaikum! The Guide MERCY app is RM16, and my personal coupon '+entry.couponCode+' gives you RM'+d+' off on Stripe checkout.\n\n'+url.href+'\n\nDisclosure: I may earn an affiliate commission from eligible purchases.';
+     window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank','noopener');
+   });row.append(share);
+  }
   container.append(row);
  }
  $('coupon-submit').disabled=issued.length>=7&&byTier.size===7;
