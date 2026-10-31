@@ -239,7 +239,7 @@
       function publicApplicationMessage(){
         if(!emailApplication.reportValidity())return '';
         const x=Object.fromEntries(new FormData(emailApplication).entries());
-        const line=v=>String(v||'').replace(/[\\r\\n]+/g,' ').trim();
+        const line=v=>String(v||'').replace(/[\r\n]+/g,' ').trim();
         return [
           'MERCY Digital Affiliate Programme — Public Application',
           '',
@@ -256,7 +256,7 @@
           'Privacy Notice read and email submission consented: Yes',
           '',
           'I understand this email is an application, NOT an active affiliate account. Please advise on secure verification and onboarding; I will not send passwords or OTPs.'
-        ].join('\\n');
+        ].join('\n');
       }
       emailApplication.addEventListener('submit',event=>{
         event.preventDefault();
