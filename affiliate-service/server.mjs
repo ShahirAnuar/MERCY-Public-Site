@@ -2,6 +2,7 @@
 // Run on a trusted server with STRIPE_RESTRICTED_KEY stored as a secret.
 // This server NEVER uses the buyer's app activation serial as an affiliate ID.
 import { createServer } from 'node:http';
+import {verifyStripeSignature,calculateCommission,resolvePromotionOwner} from './ledger.mjs';
 
 const apiKey=process.env.STRIPE_RESTRICTED_KEY;
 const identityApi='https://mercy-malaysia-orders-reviews.shahiranuar.chatgpt.site';
@@ -74,17 +75,140 @@ async function collectBody(req,max=1024){
  let body='';for await(const chunk of req){body+=chunk.toString();if(body.length>max)throw Error('Request too large')}
  if(!body)return {};try{return JSON.parse(body)}catch{throw Error('Invalid JSON')}
 }
+
+async function checkGuideOrder(sessionId){
+ const q=new URLSearchParams();q.append('expand[]','total_details.breakdown');
+ const session=await stripeRequest('checkout/sessions/'+encodeURIComponent(sessionId)+'?'+q);
+ if(session.payment_status!=='paid'||session.currency!=='myr'||!Number.isInteger(session.amount_total)||session.amount_total<900||session.amount_total>1600)return null;
+ const lines=await stripeRequest('checkout/sessions/'+encodeURIComponent(sessionId)+'/line_items?limit=20');
+ if(lines.data?.length!==1||lines.data[0].quantity!==1||lines.data[0].price?.product!==guideProduct)return null;
+ const discountLines=session.total_details?.breakdown?.discounts||[];
+ let owner=null;
+ if(discountLines.length){
+  let promo=null;
+  try{promo=await resolvePromotionOwner(discountLines,id=>stripeRequest('promotion_codes/'+encodeURIComponent(id)))}catch{return null}
+  if(!promo||session.total_details?.amount_discount!==promo.discountCents)return null;
+  owner=promo.affiliateId;
+ }else if(validAffiliate(session.client_reference_id)){
+  const confirmed=await stripeFind(session.client_reference_id,1);
+  if(!confirmed)return null;
+  owner=session.client_reference_id;
+ }
+ if(!owner||!session.payment_intent)return null;
+ const piId=typeof session.payment_intent==='string'?session.payment_intent:session.payment_intent.id;
+ const piQuery=new URLSearchParams();piQuery.append('expand[]','latest_charge.balance_transaction');
+ const pi=await stripeRequest('payment_intents/'+encodeURIComponent(piId)+'?'+piQuery);
+ if(pi.status!=='succeeded')throw Error('Payment is not yet final');
+ const latestCharge=pi.latest_charge;
+ let fee;
+ if(latestCharge&&typeof latestCharge==='object'&&latestCharge.balance_transaction&&typeof latestCharge.balance_transaction==='object'){
+  if(latestCharge.refunded||latestCharge.amount_refunded>0)return null;
+  fee=latestCharge.balance_transaction.fee;
+ }else if(typeof latestCharge==='string'){
+  const chargeQuery=new URLSearchParams();chargeQuery.append('expand[]','balance_transaction');
+  const charge=await stripeRequest('charges/'+encodeURIComponent(latestCharge)+'?'+chargeQuery);
+  if(charge.refunded||charge.amount_refunded>0)return null;
+  fee=typeof charge.balance_transaction==='object'?charge.balance_transaction.fee:undefined;
+ }
+ if(!Number.isInteger(fee))throw Error('Final Stripe processing fee is not available yet');
+ const financials=calculateCommission(session.amount_total,fee);
+ return {session,piId,owner,financials,source:discountLines.length?'verified_promotion':'verified_affiliate_link'};
+}
+async function processPaidSession(sessionId){
+ const order=await checkGuideOrder(sessionId);
+ if(!order)return;
+ const {session,piId,owner,financials,source}=order;
+ // Every retry updates the SAME PaymentIntent metadata: no duplicate rewards.
+ const current=await stripeRequest('payment_intents/'+encodeURIComponent(piId));
+ if(current.metadata?.mercy_affiliate_status==='reversed')return;
+ const form={
+  'metadata[mercy_affiliate_id]':owner,
+  'metadata[mercy_affiliate_publisher_sen]':'700',
+  'metadata[mercy_affiliate_commission_sen]':String(financials.affiliateCents),
+  'metadata[mercy_affiliate_fee_sen]':String(financials.feeCents),
+  'metadata[mercy_affiliate_sale_sen]':String(session.amount_total),
+  'metadata[mercy_affiliate_session]':session.id,
+  'metadata[mercy_affiliate_status]':'pending',
+  'metadata[mercy_affiliate_source]':source,
+  'metadata[mercy_affiliate_program]':program
+ };
+ await stripeRequest('payment_intents/'+encodeURIComponent(piId),{form,idempotencyKey:'mercy-affiliate-ledger-'+session.id});
+}
+async function processRefund(charge){
+ const piId=typeof charge.payment_intent==='string'?charge.payment_intent:charge.payment_intent?.id;
+ if(!piId||!(charge.refunded||charge.amount_refunded>0))return;
+ const intent=await stripeRequest('payment_intents/'+encodeURIComponent(piId));
+ if(intent.metadata?.mercy_affiliate_program!==program)return;
+ const form={'metadata[mercy_affiliate_status]':'reversed'};
+ await stripeRequest('payment_intents/'+encodeURIComponent(piId),{form,idempotencyKey:'mercy-affiliate-refund-'+charge.id});
+}
+async function handleWebhook(req,res){
+ if(req.method!=='POST')return json(res,405,{error:'Method not allowed'});
+ const secret=process.env.STRIPE_WEBHOOK_SECRET;
+ if(!secret)return json(res,503,{error:'Webhook signing secret is not configured'});
+ const chunks=[];let size=0;
+ try{
+  for await(const chunk of req){size+=chunk.length;if(size>1024*1024)throw Error('Event too large');chunks.push(chunk)}
+  const event=verifyStripeSignature(Buffer.concat(chunks),req.headers['stripe-signature'],secret);
+  if(['checkout.session.completed','checkout.session.async_payment_succeeded'].includes(event.type)){
+   if(event.data?.object?.payment_status==='paid')await processPaidSession(event.data.object.id);
+  }else if(event.type==='charge.refunded'){
+   await processRefund(event.data?.object||{});
+  }
+  return json(res,200,{received:true});
+ }catch(e){
+  console.error('Stripe webhook failed:',e.code||e.message||'error');
+  return json(res,e.message?.includes('signature')||e.message?.includes('timestamp')?400:503,{error:'Webhook could not be verified or processed'});
+ }
+}
+async function affiliateDashboard(affiliate){
+ const query="metadata['mercy_affiliate_id']:'"+affiliate+"'";
+ const rows=[];let page=null;
+ for(let k=0;k<10;k++){
+  const params=new URLSearchParams({query,limit:'100'});if(page)params.set('page',page);
+  const result=await stripeRequest('payment_intents/search?'+params);
+  for(const pi of result.data||[]){
+   if(pi.metadata?.mercy_affiliate_id===affiliate&&pi.metadata?.mercy_affiliate_program===program){
+    const m=pi.metadata;
+    rows.push({
+     date:new Date(pi.created*1000).toISOString(),
+     reference:String(pi.id).slice(-12),
+     saleCents:Number(m.mercy_affiliate_sale_sen),
+     commissionCents:Number(m.mercy_affiliate_commission_sen),
+     status:m.mercy_affiliate_status,
+     created:pi.created
+    });
+   }
+  }
+  if(!result.has_more){page=null;break}
+  page=result.next_page;if(!page)throw Error('Stripe payment search pagination incomplete');
+ }
+ if(page)throw Error('Affiliate report exceeds verified pagination limit');
+ if(rows.some(r=>!Number.isInteger(r.saleCents)||!Number.isInteger(r.commissionCents)))throw Error('Malformed affiliate ledger metadata');
+ const safeRows=rows.filter(r=>['pending','review','reversed','paid'].includes(r.status));
+ const pending=safeRows.filter(r=>r.status==='pending');
+ const paid=safeRows.filter(r=>r.status==='paid');
+ const available=pending.filter(r=>Date.now()-r.created*1000>=14*86400000);
+ const sum=items=>items.reduce((total,r)=>total+r.commissionCents,0);
+ return {affiliateId:affiliate,asOf:new Date().toISOString(),
+  summary:{verifiedSales:pending.length+paid.length,pendingCents:sum(pending.filter(r=>Date.now()-r.created*1000<14*86400000)),availableCents:sum(available),paidCents:sum(paid)},
+  sales:safeRows.slice().sort((a,b)=>b.created-a.created).slice(0,30).map(({created,...r})=>r),
+  payoutStatus:'Commissions are recorded in Stripe. Bank/DuitNow payment requires separate merchant verification; balances shown here are not evidence that money has been transferred.'};
+}
+
 async function handle(req,res){
  const origin=req.headers.origin;
  if(origin&&allowedOrigins.has(origin)){res.setHeader('Access-Control-Allow-Origin',origin);res.setHeader('Vary','Origin');res.setHeader('Access-Control-Allow-Headers','Authorization, Content-Type');res.setHeader('Access-Control-Allow-Methods','GET, POST, OPTIONS')}
  if(req.method==='OPTIONS'){res.statusCode=origin&&!allowedOrigins.has(origin)?403:204;return res.end()}
  if(origin&&!allowedOrigins.has(origin))return json(res,403,{error:'Not an approved MERCY origin'});
  const path=new URL(req.url,'http://localhost').pathname;
+ if(path==='/api/stripe/webhook')return handleWebhook(req,res);
  if(path==='/healthz')return json(res,apiKey?200:503,{service:'mercy-affiliate-coupons',configured:Boolean(apiKey)});
- if(!path.startsWith('/api/affiliate/coupons'))return json(res,404,{error:'Not found'});
+ if(!path.startsWith('/api/affiliate/coupons')&&path!=='/api/affiliate/dashboard')return json(res,404,{error:'Not found'});
  let affiliate;
  try{affiliate=await verifyAffiliate(req)}catch(e){return json(res,401,{error:errorText(e)})}
  try{
+  if(req.method==='GET'&&path==='/api/affiliate/dashboard')return json(res,200,await affiliateDashboard(affiliate));
   if(req.method==='GET'&&path==='/api/affiliate/coupons'){
    const coupons=[];for(let n=1;n<=7;n++){const found=await stripeFind(affiliate,n);if(found)coupons.push(found)}
    return json(res,200,{affiliateId:affiliate,coupons});
@@ -105,5 +229,5 @@ async function handle(req,res){
   return json(res,503,{error:'Stripe could not confirm the requested coupon(s). Please retry.'});
  }
 }
-export {couponId,codeFor,validAffiliate,tier,stripeFind,issueOne,verifyAffiliate,handle};
+export {couponId,codeFor,validAffiliate,tier,stripeFind,issueOne,verifyAffiliate,handle,affiliateDashboard,checkGuideOrder};
 if(process.env.MERCY_TEST_MODE!=='1')createServer((req,res)=>{handle(req,res).catch(()=>json(res,500,{error:'Service temporarily unavailable'}))}).listen(port,'0.0.0.0',()=>console.log('MERCY coupons listening on port',port));
