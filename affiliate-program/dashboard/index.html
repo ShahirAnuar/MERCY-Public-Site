@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#061b39">
+<title>My Affiliate Dashboard | MERCY Series</title>
+<meta name="description" content="A private MERCY affiliate dashboard for personal sales links, individual coupon requests, verified commissions, earnings history and payouts.">
+<meta name="robots" content="noindex,nofollow"><link rel="canonical" href="https://mercyseries.com/affiliate-program/dashboard/">
+<style>
+:root{color-scheme:dark;--navy:#06182f;--navy2:#0b294b;--panel:#102d50;--gold:#ecc677;--border:#ddbd7869;--light:#fff7e8;--muted:#c6d5e4}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at top right,#254269 0,transparent 38%),var(--navy);color:var(--light);font:16px/1.55 system-ui,-apple-system,sans-serif;min-height:100vh}
+a{color:var(--gold);text-underline-offset:3px}button,input,select{font:inherit}button,a,input,select{touch-action:manipulation}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #fff;outline-offset:3px}
+[hidden]{display:none!important}.muted{color:var(--muted)}.micro{color:var(--muted);font-size:.84rem}.eyebrow{color:var(--gold);font-weight:850;letter-spacing:.14em;text-transform:uppercase;font-size:.72rem}
+.top{border-bottom:1px solid var(--border);background:#071b38ed;position:sticky;top:0;z-index:4;backdrop-filter:blur(14px)}
+.top-inner{max-width:1220px;min-height:70px;margin:auto;padding:.7rem 1.2rem;display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
+.logo{font:800 1.4rem Georgia,serif;color:var(--gold);letter-spacing:.16em;text-decoration:none;margin-right:auto}
+.top-links{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem}.top-links a{border:1px solid #c7a66955;border-radius:999px;padding:.5rem .8rem;min-height:43px;display:inline-flex;align-items:center;text-decoration:none;color:var(--light);font-size:.89rem;font-weight:750}.top-links a.active{background:var(--gold);color:#07182d;border-color:var(--gold)}
+main{max-width:1220px;margin:auto;padding:2rem 1.2rem 5rem}
+.hero{background:linear-gradient(125deg,#14385f,#091c38 75%);border:1px solid var(--border);border-radius:23px;padding:clamp(1.3rem,3.6vw,2.5rem);display:flex;align-items:center;gap:1.3rem;justify-content:space-between;box-shadow:0 12px 38px #0004}
+.hero h1{font:700 clamp(2rem,4vw,3.1rem)/1.14 Georgia,serif;margin:.3rem 0;color:#ffebbb}.hero p{max-width:65ch;margin:.3rem 0}.hero img{width:90px;aspect-ratio:2/3;object-fit:cover;border:1px solid var(--gold);border-radius:7px}
+.button{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;border:1px solid var(--gold);background:var(--gold);color:#061831;border-radius:999px;min-height:44px;padding:.68rem 1.08rem;font-weight:850;text-decoration:none;cursor:pointer}.button.secondary{background:transparent;color:var(--light)}.button.ghost{border-color:#e2c37e74;background:#173457;color:#fff8eb}.button:disabled{opacity:.52;cursor:not-allowed}
+.login-panel{margin-top:1.5rem;border-radius:17px;background:#0d2746;border:1px solid var(--border);padding:1.5rem;display:grid;gap:.7rem}.login-panel h2{margin:0;font:700 1.55rem Georgia,serif;color:var(--gold)}
+#signin-state,.notice{border-left:4px solid var(--gold);background:#163758;padding:.8rem 1rem;border-radius:0 9px 9px 0;line-height:1.5}.error{border-left-color:#f4a0a0}.notice{margin-top:1rem}
+.dashboard{display:grid;grid-template-columns:205px minmax(0,1fr);gap:1.25rem;margin-top:1.4rem}
+.sidebar{display:flex;flex-direction:column;gap:.3rem;align-self:start;position:sticky;top:88px;border:1px solid var(--border);border-radius:16px;padding:.7rem;background:#0b2644}
+.sidebar a{color:var(--light);text-decoration:none;font-weight:720;padding:.72rem .78rem;min-height:44px;border-radius:10px;display:flex;align-items:center;gap:.5rem}.sidebar a:hover,.sidebar a:focus-visible{background:#284665;color:#ffefcc}
+.panels{display:grid;gap:1.25rem;min-width:0}.panel{border:1px solid var(--border);border-radius:17px;background:#0c2544;padding:clamp(1rem,2.2vw,1.45rem);scroll-margin-top:95px;min-width:0}
+.panel h2{font:700 clamp(1.4rem,2.5vw,1.9rem) Georgia,serif;margin:0 0 .3rem;color:#f9dc9e}.panel h3{font:750 1rem system-ui;margin:.7rem 0;color:#ffe0a2}.panel p{margin:.45rem 0 .85rem}
+.sectionhead{display:flex;align-items:flex-start;justify-content:space-between;gap:.8rem;flex-wrap:wrap;margin-bottom:.7rem}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.75rem}.metric{padding:1rem;border:1px solid #ecd08a3b;border-radius:14px;background:#163354;min-width:0}.metric .value{font-size:clamp(1.25rem,2.2vw,2rem);font-weight:800;line-height:1.3;color:#ffdf91;font-variant-numeric:tabular-nums}.metric .kicker{font-size:.81rem;color:#d4dfeb;margin-top:.35rem}
+.split{display:grid;grid-template-columns:1.3fr .7fr;gap:1rem}.box{background:#112e4d;border:1px solid #e3c57d47;border-radius:13px;padding:1rem;min-width:0}
+.field{display:grid;gap:.4rem;font-size:.92rem;font-weight:750}input,select{border-radius:9px;border:1px solid #bfccdb;padding:.78rem .75rem;min-height:45px;background:#fffaf1;color:#081d3c;max-width:100%;width:100%}input[readonly]{color:#0a2950}button{max-width:100%}.actions{display:flex;gap:.55rem;flex-wrap:wrap;margin:.85rem 0}
+.chip{display:inline-flex;align-items:center;gap:.35rem;color:#ffe0a3;border:1px solid #caa66388;background:#2c3a53;padding:.25rem .65rem;border-radius:999px;font-weight:730;font-size:.81rem}
+.table-wrap{overflow:auto;border-radius:12px;border:1px solid #e3c57d55}table{width:100%;border-collapse:collapse;min-width:590px}th,td{padding:.85rem .8rem;text-align:left;border-bottom:1px solid #fff2d921;vertical-align:middle}th{color:#f8d996;background:#183754;font-size:.83rem}td{font-size:.92rem}tr:last-child td{border:0}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.empty{border:1px dashed #e3c57d78;border-radius:12px;padding:1.1rem;color:#dfebf9;background:#102e4d;margin:.8rem 0}.status{font-size:.88rem;color:#e8d49d;min-height:1.4em}.status.negative{color:#ffd0d0}
+.coupon-list{display:grid;gap:.6rem}.coupon-row{border:1px solid #e3c57d66;background:#142f50;border-radius:12px;padding:.8rem;display:flex;justify-content:space-between;gap:.7rem;align-items:center;flex-wrap:wrap}.coupon-row strong{color:#ffe2a6}
+details{background:#112f50;border-radius:12px;padding:.8rem 1rem;margin:.6rem 0;border:1px solid #ecd08a44}summary{cursor:pointer;font-weight:760}details p{color:var(--muted)}
+footer{text-align:center;border-top:1px solid var(--border);padding:1.4rem;color:var(--muted);font-size:.87rem}
+@media(max-width:970px){.dashboard{grid-template-columns:minmax(0,1fr)}.sidebar{position:static;display:flex;flex-direction:row;overflow-x:auto;white-space:nowrap}.sidebar a{flex:0 0 auto}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){main{padding:1.1rem .8rem 3rem}.top-inner{padding:.6rem .8rem}.top-links{width:100%;justify-content:space-between}.top-links a{font-size:.82rem}.hero img{width:65px}.hero{padding:1.05rem}.split,.grid2{grid-template-columns:minmax(0,1fr)}.metrics{gap:.55rem}.metric{padding:.85rem}.panel{padding:1rem}.sidebar{margin:0 -.1rem}.actions .button{flex:1}.hero h1{font-size:1.9rem}}
+@media(prefers-reduced-motion:no-preference){.button,.top-links a,.sidebar a{transition:background .18s,transform .18s}.button:hover{transform:translateY(-1px)}}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-inner"><a class="logo" href="/">MERCY</a><nav class="top-links" aria-label="Affiliate navigation"><a href="/buy/">Buy The Guide</a><a href="/affiliate-program/">Programme details</a><a class="active" href="/affiliate-program/dashboard/" aria-current="page">My dashboard</a></nav></div></header>
+<main>
+<section class="hero"><div><span class="eyebrow">Affiliate workspace · Malaysia</span><h1>My MERCY Dashboard</h1><p>Your sales link, personal coupons, verified earnings and payment information in one place.</p><p class="micro">Your affiliate ID is never your private book activation serial.</p></div><img src="/buy/the-guide-cover.jpg" alt="The Guide book cover" width="90" height="135"></section>
+<section class="login-panel" id="login"><h2>Secure sign-in</h2><p class="muted">Use the Google account connected to your MERCY affiliate registration. Account balances and sales are private and verified by the MERCY server.</p><div id="google-signin"></div><p id="signin-state" role="status" aria-live="polite">Preparing sign-in…</p><div class="actions"><button class="button secondary" id="refresh-account" type="button" disabled>Refresh my account</button><a class="button ghost" href="/affiliate-program/#registration">Not registered? Apply here</a></div></section>
+<div id="dashboard" class="dashboard" hidden>
+<nav class="sidebar" aria-label="Dashboard sections"><a href="#overview">◉ Overview</a><a href="#share">↗ Share my link</a><a href="#coupons">◇ My coupons</a><a href="#earnings">▤ Sales & earnings</a><a href="#payouts">▣ Payouts</a><a href="#help">ⓘ Help & account</a></nav>
+<div class="panels">
+<section class="panel" id="overview"><div class="sectionhead"><div><span class="eyebrow">Personal overview</span><h2>Welcome back</h2><p class="muted" id="account-message">Your account is linked to this session.</p></div><button class="button secondary" id="reload" type="button">Refresh reports</button></div><div class="metrics" aria-label="Verified affiliate statistics"><div class="metric"><div id="metric-sales" class="value">—</div><div class="kicker">Verified sales</div></div><div class="metric"><div id="metric-pending" class="value">—</div><div class="kicker">Pending earnings</div></div><div class="metric"><div id="metric-available" class="value">—</div><div class="kicker">Available to pay</div></div><div class="metric"><div id="metric-paid" class="value">—</div><div class="kicker">Total paid</div></div></div><p id="reports-state" class="micro" role="status">Figures appear only when verified payment reports are available; a dash does not mean zero.</p></section>
+<section class="panel" id="share"><div class="sectionhead"><div><span class="eyebrow">Start promoting</span><h2>My affiliate link</h2></div><span class="chip">No coupon required</span></div><div class="split"><div class="box"><label class="field" for="affiliate-link">Your personal purchase link<input id="affiliate-link" readonly aria-label="Unique affiliate purchase link"></label><div class="actions"><button class="button" id="copy-link" type="button">Copy my link</button><button class="button secondary" id="whatsapp" type="button">Share on WhatsApp</button></div><p class="status" id="link-state" aria-live="polite"></p></div><div class="box"><h3>How it works</h3><p class="micro">At full RM16 price, your potential commission is up to <strong>RM7.52</strong> under the assumed domestic Stripe fee. You can offer a discount later with your own coupon.</p><p class="micro">Always disclose that purchases through your link may earn you a commission.</p></div></div></section>
+<section class="panel" id="coupons"><div class="sectionhead"><div><span class="eyebrow">Optional customer discounts</span><h2>My coupons</h2><p class="muted">Request a unique code, then tell customers to enter it <strong>during Stripe checkout</strong>.</p></div></div><div class="grid2"><div class="box"><form id="coupon-request"><label class="field" for="discount">Choose the discount<select id="discount" name="discount" required><option value="100">RM1 off</option><option value="200">RM2 off</option><option value="300">RM3 off</option><option value="400">RM4 off</option><option value="500">RM5 off</option><option value="600">RM6 off</option><option value="700">RM7 off</option></select></label><p class="micro" id="coupon-preview">Buyer pays RM15; estimated commission RM6.55 under the assumed fee.</p><button class="button" id="coupon-submit" type="submit">Request my code</button><p class="status" id="coupon-state" role="status" aria-live="polite"></p></form></div><div class="box"><h3>My issued codes</h3><div id="coupons-list" class="coupon-list"><p class="empty">Coupon history not loaded yet.</p></div><p id="coupons-note" class="micro">Only Stripe-issued, account-owned codes are displayed. Your activation serial is not a coupon.</p></div></div></section>
+<section class="panel" id="earnings"><div class="sectionhead"><div><span class="eyebrow">Verified transactions only</span><h2>Sales & earnings</h2></div><a class="button ghost" href="#payouts">Payout details</a></div><div class="table-wrap"><table><thead><tr><th>Date</th><th>Transaction reference</th><th>Sale price</th><th>Commission</th><th>Status</th></tr></thead><tbody id="sales-body"><tr><td colspan="5">Sales reporting is not connected yet.</td></tr></tbody></table></div><p class="micro">Click counts are not purchases. Refunds and disputes may reverse commission. Other customers' private information is never shown.</p></section>
+<section class="panel" id="payouts"><span class="eyebrow">Money received</span><h2>My payouts</h2><div class="grid2"><div class="box"><h3>Payment status</h3><p id="payout-state" class="muted">Payout reporting is not connected yet. No transfer is claimed as paid without verified records.</p><a class="button ghost" href="mailto:shahir@mercyseries.com?subject=MERCY%20Affiliate%20Payout%20Enquiry">Ask about payouts</a></div><div class="box"><h3>Bank details</h3><p class="muted">For your security, do not send bank account numbers or identification documents through public referral links. Payout onboarding will use a secure account-only service once available.</p><p class="micro">Keep your own income records for tax purposes.</p></div></div></section>
+<section class="panel" id="help"><span class="eyebrow">Answers and support</span><h2>Help & account</h2><p>Affiliate account: <strong id="affiliate-id">—</strong></p><p class="micro">Programme terms and privacy rules apply to all sales. No rewards are paid for recruitment.</p><div class="actions"><a class="button ghost" href="/affiliate-program/terms/">Affiliate terms</a><a class="button ghost" href="/affiliate-program/privacy/">Privacy notice</a><a class="button secondary" href="mailto:shahir@mercyseries.com?subject=MERCY%20Affiliate%20Support">Contact support</a></div><details><summary>Why can't I see my earnings?</summary><p>Earnings and sales are shown only after verified information is returned by MERCY's secure reports service. A missing number does not imply zero sales. Contact support if you expect a report.</p></details><details><summary>Where do buyers use my coupon?</summary><p>On Stripe's secure payment page, not on mercyseries.com. A valid coupon can reduce the RM16 price by RM1–RM7. Coupons must first be issued and registered to your own account.</p></details><details><summary>When can I withdraw money?</summary><p>A payout schedule and bank verification are required before withdrawals can be processed. This dashboard will display verified payout status when connected.</p></details><details><summary>Can I share the link without a coupon?</summary><p>Yes. Your personal sales link opens the standard RM16 Stripe checkout and can carry your affiliate reference for reconciliation.</p></details></section>
+</div></div></main>
+<footer>MERCY Series Global · <a href="/affiliate-program/">Affiliate programme</a> · <a href="mailto:shahir@mercyseries.com">shahir@mercyseries.com</a></footer>
+<script>
+(()=>{'use strict';
+const api='https://mercy-malaysia-orders-reviews.shahiranuar.chatgpt.site';
+const googleClientId='493511900191-agm17paeu1tm85reir024doegb0go88p.apps.googleusercontent.com';
+const $=id=>document.getElementById(id);
+let credential='',currentId='',shareLink='';
+const money=cents=>'RM'+(cents/100).toFixed(2);
+const status=(id,message,error=false)=>{const el=$(id);el.textContent=message;el.classList.toggle('negative',error)};
+const authHeaders=()=>({authorization:'Bearer '+credential});
+function validateLink(s){try{const u=new URL(s);return u.protocol==='https:'&&['mercyseries.com','www.mercyseries.com'].includes(u.hostname)&&u.pathname==='/buy/'&&u.searchParams.get('affiliate')===currentId?u.href:''}catch{return ''}}
+function clearReports(){for(const id of ['metric-sales','metric-pending','metric-available','metric-paid'])$(id).textContent='—';$('reports-state').textContent='Verified reports not connected; dashes do not mean zero.';$('sales-body').replaceChildren();const tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=5;td.textContent='No verified sales report is available yet.';tr.append(td);$('sales-body').append(tr);$('payout-state').textContent='Payout reporting is not connected. No transfer is claimed as paid.'}
+function showAccount(data){
+ if(data?.status!=='active'||!/^AFF-[A-Z0-9]{8,20}$/.test(String(data.affiliateId||'')))throw Error('An active affiliate account was not verified.');
+ currentId=data.affiliateId;shareLink=validateLink(data.shareUrl||'');
+ if(!shareLink)throw Error('Your affiliate purchase link could not be validated. Contact support.');
+ $('affiliate-link').value=shareLink;$('affiliate-id').textContent=currentId;
+ $('account-message').textContent='Active affiliate account · '+currentId;
+ $('dashboard').hidden=false;status('signin-state','Account verified. Your personal dashboard is open.');
+ $('refresh-account').disabled=false;clearReports();
+}
+async function read(path){const r=await fetch(api+path,{headers:authHeaders(),cache:'no-store'});if(r.status===401||r.status===403)throw Error('Account verification or access expired. Sign in again.');if(!r.ok)throw Error('Not available ('+r.status+').');return r.json()}
+async function loadAccount(){if(!credential){status('signin-state','Please sign in with your registered Google account.',true);return}
+ status('signin-state','Checking your private affiliate account…');
+ try{const data=await read('/api/affiliate/me');showAccount(data);await Promise.all([loadReports(),loadCoupons()])}
+ catch(e){$('dashboard').hidden=true;status('signin-state',e.message+' If you only submitted an email application, you may not have an active account yet.',true)}}
+async function loadReports(){
+ clearReports();
+ try{
+  const d=await read('/api/affiliate/dashboard');
+  if(d.affiliateId!==currentId||!d.summary)throw Error('Report identity could not be verified.');
+  const summary=d.summary;
+  const metrics=[['metric-sales',summary.verifiedSales],['metric-pending',summary.pendingCents],['metric-available',summary.availableCents],['metric-paid',summary.paidCents]];
+  for(const [id,val] of metrics){if(!Number.isInteger(val)||val<0)throw Error('Report data is incomplete.');$(id).textContent=id==='metric-sales'?String(val):money(val)}
+  $('reports-state').textContent='Verified commission report · '+(d.asOf?new Date(d.asOf).toLocaleString('en-MY'):'Last refreshed');
+  const rows=Array.isArray(d.sales)?d.sales:[];$('sales-body').replaceChildren();
+  if(rows.length===0){const tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=5;td.textContent='No sales in this verified report yet.';tr.append(td);$('sales-body').append(tr)}
+  for(const order of rows.slice(0,30)){
+    if(!Number.isInteger(order.saleCents)||!Number.isInteger(order.commissionCents))continue;
+    const tr=document.createElement('tr');
+    const values=[order.date?new Date(order.date).toLocaleDateString('en-MY'):'—',String(order.reference||'').slice(0,48)||'—',money(order.saleCents),money(order.commissionCents),String(order.status||'Pending')];
+    for(const v of values){const td=document.createElement('td');td.textContent=v;tr.append(td)}$('sales-body').append(tr)
+  }
+  if(d.payoutStatus&&typeof d.payoutStatus==='string')$('payout-state').textContent=d.payoutStatus;
+ }catch(e){$('reports-state').textContent='Verified sales and payout reporting is not connected or could not be checked ('+e.message+'). No figures are being estimated.'}
+}
+function couponCard(obj,container){
+ if(obj.affiliateId!==currentId||!Number.isInteger(obj.discountAmountCents)||obj.discountAmountCents<100||obj.discountAmountCents>700||obj.discountAmountCents%100||!/^[A-Z0-9-]{3,48}$/.test(String(obj.couponCode||'')))return;
+ const el=document.createElement('div');el.className='coupon-row';const left=document.createElement('div');const name=document.createElement('strong');name.textContent=obj.couponCode;const label=document.createElement('div');label.className='micro';label.textContent=money(obj.discountAmountCents)+' off · '+(obj.active===false?'Inactive':'Issued by server');left.append(name,label);
+ const copy=document.createElement('button');copy.type='button';copy.className='button ghost';copy.textContent='Copy code';copy.addEventListener('click',()=>copyText(obj.couponCode,'coupon-state'));el.append(left,copy);container.append(el);
+}
+async function loadCoupons(){
+ const container=$('coupons-list');container.replaceChildren();let arr=[];
+ try{const result=await read('/api/affiliate/coupons');if(result.affiliateId!==currentId||!Array.isArray(result.coupons))throw Error('Coupon history not verified.');arr=result.coupons;for(const c of arr)couponCard(c,container);if(!container.children.length){const p=document.createElement('p');p.className='empty';p.textContent='No coupons have been issued to your account yet.';container.append(p)}$('coupons-note').textContent='Your account-owned coupon records were loaded from the secure server.'}
+ catch(e){const p=document.createElement('p');p.className='empty';p.textContent='Coupon history is not yet connected. If you requested a code, do not assume it was issued until confirmed.';container.append(p);$('coupons-note').textContent='The coupon service must confirm each code before it can be shared.'}
+}
+async function copyText(value,id){try{await navigator.clipboard.writeText(value);status(id,'Copied to your clipboard.')}catch{status(id,'Copy is unavailable on this device; select the link/code manually.',true)}}
+$('copy-link').addEventListener('click',()=>shareLink&&copyText(shareLink,'link-state'));
+$('whatsapp').addEventListener('click',()=>{
+ if(!shareLink)return;
+ const message=['Assalamualaikum! I’m sharing The Guide from the MERCY Series, a story-based digital reading experience about kindness, faith and family.','The digital app is RM16. You may use a valid coupon during Stripe checkout, if one is available.',shareLink,'Disclosure: Purchases using my link may earn me an affiliate commission. Please share with other parents and educators who may benefit.'].join('\n\n');
+ window.open('https://wa.me/?text='+encodeURIComponent(message),'_blank','noopener');
+});
+$('discount').addEventListener('change',()=>{const discount=Number($('discount').value)/100,price=16-discount,fee=Math.round(price*.03*100)/100+1; $('coupon-preview').textContent='Buyer pays '+money(Math.round(price*100))+'; estimated commission '+money(Math.round((price-fee-7)*100))+' under the assumed fee.'});
+$('coupon-request').addEventListener('submit',async event=>{
+ event.preventDefault();if(!credential||!currentId){status('coupon-state','Sign in to your affiliate account first.',true);return}
+ const amount=Number($('discount').value),button=$('coupon-submit');if(![100,200,300,400,500,600,700].includes(amount))return;
+ button.disabled=true;status('coupon-state','Requesting your individual Stripe coupon…');
+ try{
+  const response=await fetch(api+'/api/affiliate/coupons/request',{method:'POST',headers:{...authHeaders(),'content-type':'application/json'},body:JSON.stringify({discountAmountCents:amount})});
+  const data=await response.json().catch(()=>({}));
+  if(!response.ok)throw Error(data.error||'Coupon service unavailable ('+response.status+').');
+  if(data.affiliateId!==currentId||data.discountAmountCents!==amount||!/^[A-Z0-9-]{3,48}$/.test(String(data.couponCode||'')))throw Error('Coupon issuance could not be verified.');
+  status('coupon-state','Coupon issued and associated with your affiliate account. You can copy it below.');
+  await loadCoupons();
+  if(!$('coupons-list').querySelector('.coupon-row')){const box=$('coupons-list');box.replaceChildren();couponCard(data,box)}
+ }catch(e){status('coupon-state','No coupon was confirmed: '+e.message+' You can still share your full-price affiliate link.',true)}
+ finally{button.disabled=false}
+});
+$('reload').addEventListener('click',()=>{if(credential)Promise.all([loadReports(),loadCoupons()])});
+$('refresh-account').addEventListener('click',loadAccount);
+function startGoogle(){
+ const script=document.createElement('script');script.src='https://accounts.google.com/gsi/client';script.async=true;script.onload=()=>{try{google.accounts.id.initialize({client_id:googleClientId,callback:r=>{credential=r.credential||'';loadAccount()}});google.accounts.id.renderButton($('google-signin'),{theme:'outline',size:'large',text:'signin_with',shape:'pill'});status('signin-state','Choose your Google account to access your private dashboard.')}catch{status('signin-state','Google sign-in could not start. Check your browser settings.',true)}};
+ script.onerror=()=>status('signin-state','Google sign-in is unavailable right now. Try again after checking your connection.',true);
+ document.head.append(script);
+}
+startGoogle();
+})();
+</script>
+</body></html>
