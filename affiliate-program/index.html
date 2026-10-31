@@ -50,8 +50,8 @@
       <p class="eyebrow">Simple, transparent commissions</p><h2 id="earnings-heading">You choose the discount</h2>
       <div class="grid">
         <article class="card"><h3>App list price</h3><p><strong>RM16.00</strong> per digital copy</p></article>
-        <article class="card"><h3>Publisher's allocation</h3><p><strong>RM7.00</strong> per sale after the assumed 3% + RM1 processing fee (before other expenses)</p></article>
-        <article class="card"><h3>Affiliate earning</h3><p><strong>Up to RM7.52</strong> without a coupon, decreasing as discounts increase</p></article>
+        <article class="card"><h3>Publisher's allocation</h3><p><strong>Up to RM5.00</strong> after processing fees. Reduced when needed so the affiliate earns more.</p></article>
+        <article class="card"><h3>Affiliate earning</h3><p><strong>RM9.52 estimated</strong> without a coupon. Your share stays higher than the publisher’s share.</p></article>
       </div>
       <div class="calc">
         <label for="discount">Try a customer discount
@@ -61,17 +61,17 @@
             <option value="4">RM4 off</option><option value="5">RM5 off</option><option value="6">RM6 off</option><option value="7">RM7 off</option>
           </select>
         </label>
-        <p id="simulation" class="calc-result" aria-live="polite">Buyer pays RM16 · Stripe fee RM1.48 · Affiliate earns RM7.52 · Publisher receives RM7</p>
+        <p id="simulation" class="calc-result" aria-live="polite">Buyer pays RM16.00 · Estimated fee RM1.48 · Affiliate earns RM9.52 · Publisher receives RM5.00</p>
       </div>
-      <div class="table-wrap" style="margin-top:1rem"><table><thead><tr><th>Coupon</th><th>Buyer pays</th><th>3% + RM1 fee</th><th>Affiliate earns</th><th>Publisher receives</th></tr></thead><tbody><tr><td>None</td><td>RM16.00</td><td>RM1.48</td><td>RM7.52</td><td>RM7.00</td></tr>
-<tr><td>RM1 off</td><td>RM15.00</td><td>RM1.45</td><td>RM6.55</td><td>RM7.00</td></tr>
-<tr><td>RM2 off</td><td>RM14.00</td><td>RM1.42</td><td>RM5.58</td><td>RM7.00</td></tr>
-<tr><td>RM3 off</td><td>RM13.00</td><td>RM1.39</td><td>RM4.61</td><td>RM7.00</td></tr>
-<tr><td>RM4 off</td><td>RM12.00</td><td>RM1.36</td><td>RM3.64</td><td>RM7.00</td></tr>
-<tr><td>RM5 off</td><td>RM11.00</td><td>RM1.33</td><td>RM2.67</td><td>RM7.00</td></tr>
-<tr><td>RM6 off</td><td>RM10.00</td><td>RM1.30</td><td>RM1.70</td><td>RM7.00</td></tr>
-<tr><td>RM7 off</td><td>RM9.00</td><td>RM1.27</td><td>RM0.73</td><td>RM7.00</td></tr></tbody></table></div>
-      <p class="note"><strong>Fee assumption:</strong> These figures assume a domestic Stripe payment fee of 3% + RM1 per sale. The publisher receives RM7 <em>after this processing fee</em>, not necessarily after other taxes, international card fees, refunds or operating costs. Commissions are calculated after successful paid sales, with appropriate adjustments for refunds and fraud.</p>
+      <div class="table-wrap" style="margin-top:1rem"><table><thead><tr><th>Coupon</th><th>Buyer pays</th><th>3% + RM1 fee</th><th>Affiliate earns</th><th>Publisher receives</th></tr></thead><tbody><tr data-discount="0"><td>None</td><td>RM16.00</td><td>RM1.48</td><td>RM9.52</td><td>RM5.00</td></tr>
+<tr data-discount="1"><td>RM1 off</td><td>RM15.00</td><td>RM1.45</td><td>RM8.55</td><td>RM5.00</td></tr>
+<tr data-discount="2"><td>RM2 off</td><td>RM14.00</td><td>RM1.42</td><td>RM7.58</td><td>RM5.00</td></tr>
+<tr data-discount="3"><td>RM3 off</td><td>RM13.00</td><td>RM1.39</td><td>RM6.61</td><td>RM5.00</td></tr>
+<tr data-discount="4"><td>RM4 off</td><td>RM12.00</td><td>RM1.36</td><td>RM5.64</td><td>RM5.00</td></tr>
+<tr data-discount="5"><td>RM5 off</td><td>RM11.00</td><td>RM1.33</td><td>RM4.84</td><td>RM4.83</td></tr>
+<tr data-discount="6"><td>RM6 off</td><td>RM10.00</td><td>RM1.30</td><td>RM4.36</td><td>RM4.34</td></tr>
+<tr data-discount="7"><td>RM7 off</td><td>RM9.00</td><td>RM1.27</td><td>RM3.87</td><td>RM3.86</td></tr></tbody></table></div>
+      <p class="note"><strong>Fee assumption:</strong> These are estimates using a domestic processing fee of 3% + RM1. Settled commission uses the actual fee. After that fee, the publisher receives at most RM5. If that would leave the affiliate with the same amount or less, the publisher’s share is reduced so the affiliate receives more, to the nearest sen. Refunds, disputes and other adjustments may change payable earnings.</p>
     </section>
     <section class="section" id="registration" aria-labelledby="register-title">
       <p class="eyebrow">Applications open to individuals in Malaysia</p><h2 id="register-title">Apply to become a MERCY Digital affiliate</h2>
@@ -115,7 +115,7 @@
     <section class="section" aria-labelledby="faq-heading">
       <h2 id="faq-heading">Affiliate questions</h2>
       <div class="grid">
-        <article class="card"><h3>Can I sell without offering a discount?</h3><p>Yes. Registered affiliates may share their link at RM16 and earn up to RM7.52 per eligible domestic-card sale under the stated fee assumptions.</p></article>
+        <article class="card"><h3>Can I sell without offering a discount?</h3><p>Yes. Registered affiliates may share their link at RM16 and earn an estimated RM9.52 per eligible full-price domestic-card sale under the stated fee assumption. Actual fees determine settled commission.</p></article>
         <article class="card"><h3>Are there limits on commissions?</h3><p>No per-affiliate sales cap is planned. Each genuine eligible purchase is tracked independently, with anti-fraud checks and refund adjustments.</p></article>
         <article class="card"><h3>Are coupons the app's serial numbers?</h3><p>No. Affiliate identifiers and coupons are for promotion and commission attribution. Purchase activation uses a private serial and email code, separate from affiliate Google sign-in. Each app copy supports two registered devices.</p></article>
       </div>
@@ -127,8 +127,8 @@
       const api='https://mercy-malaysia-orders-reviews.shahiranuar.chatgpt.site';
       const googleClientId='493511900191-agm17paeu1tm85reir024doegb0go88p.apps.googleusercontent.com';
       const discount=document.querySelector('#discount'),simulation=document.querySelector('#simulation');
-      discount.addEventListener('change',()=>{const d=Number(discount.value),price=16-d,fee=Math.round(price*3)/100+1,affiliate=(price-fee-7).toFixed(2);
-        simulation.textContent='Buyer pays RM'+price.toFixed(2)+' · Stripe fee RM'+fee.toFixed(2)+' · Affiliate earns RM'+affiliate+' · Publisher receives RM7.00';
+      discount.addEventListener('change',()=>{const d=Number(discount.value),paid=1600-d*100,fee=Math.round(paid*.03)+100,net=paid-fee,publisher=Math.min(500,Math.floor((net-1)/2)),affiliate=net-publisher;
+        simulation.textContent='Buyer pays RM'+(paid/100).toFixed(2)+' · Estimated fee RM'+(fee/100).toFixed(2)+' · Affiliate earns RM'+(affiliate/100).toFixed(2)+' · Publisher receives RM'+(publisher/100).toFixed(2);
       });
       const registrationFallback=document.querySelector('#registration-fallback');
       const form=document.querySelector('#affiliate-form'),status=document.querySelector('#application-status'),fields=document.querySelector('#registration-fields'),apply=document.querySelector('#apply-button'),submitStatus=document.querySelector('#submit-status'),signinStatus=document.querySelector('#signin-status'),account=document.querySelector('#affiliate-account');
@@ -167,7 +167,7 @@
           const response=await fetch(api+'/api/affiliate/status',{cache:'no-store'});
           if(!response.ok)throw Error('Registration unavailable');
           const data=await response.json();
-          if(data.registrationOpen!==true||data.termsVersion!=='2026-10-31')throw Error('Registration disabled');
+          if(data.registrationOpen!==true||data.termsVersion!=='2026-10-31-v2')throw Error('Registration disabled');
           registrationOpen=true;registrationFallback.hidden=true;form.hidden=false;status.className='status success';status.textContent='Secure online registration is available. Sign in with Google and complete the form.';
           initGoogle();updateForm();
         }catch{registrationOpen=false;form.hidden=true;registrationFallback.hidden=false;updateForm();status.className='status';status.textContent='The registration service could not be reached. Please refresh or use the support link below. No account has been registered by this page.'}
@@ -176,7 +176,7 @@
         event.preventDefault();if(!registrationOpen||!googleCredential||!form.reportValidity())return;
         apply.disabled=true;submitStatus.textContent='Registering your affiliate account…';
         const values=Object.fromEntries(new FormData(form).entries());
-        const payload={fullName:values.fullName,email:values.email,phone:values.phone,country:values.country,channel:values.channel,audience:values.audience||'',marketingConsent:values.marketing==='on',adultConfirmed:values.adult==='on',termsAccepted:values.terms==='on',privacyAcknowledged:values.privacy==='on',termsVersion:'2026-10-31'};
+        const payload={fullName:values.fullName,email:values.email,phone:values.phone,country:values.country,channel:values.channel,audience:values.audience||'',marketingConsent:values.marketing==='on',adultConfirmed:values.adult==='on',termsAccepted:values.terms==='on',privacyAcknowledged:values.privacy==='on',termsVersion:'2026-10-31-v2'};
         try{
           const response=await fetch(api+'/api/affiliate/register',{method:'POST',headers:{'content-type':'application/json',authorization:'Bearer '+googleCredential},body:JSON.stringify(payload)});
           const result=await response.json();
