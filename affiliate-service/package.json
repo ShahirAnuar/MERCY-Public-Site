@@ -1,0 +1,14 @@
+{
+  "name": "mercy-affiliate-coupon-api",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Verified account-owned seven-tier MERCY Stripe Promotion Code provisioning",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
