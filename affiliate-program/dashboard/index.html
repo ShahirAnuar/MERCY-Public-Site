@@ -16,7 +16,7 @@ a{color:var(--gold);text-underline-offset:3px}button,input,select{font:inherit}b
 .top-links{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem}.top-links a{border:1px solid #c7a66955;border-radius:999px;padding:.5rem .8rem;min-height:43px;display:inline-flex;align-items:center;text-decoration:none;color:var(--light);font-size:.89rem;font-weight:750}.top-links a.active{background:var(--gold);color:#07182d;border-color:var(--gold)}
 main{max-width:1220px;margin:auto;padding:2rem 1.2rem 5rem}
 .hero{background:linear-gradient(125deg,#14385f,#091c38 75%);border:1px solid var(--border);border-radius:23px;padding:clamp(1.3rem,3.6vw,2.5rem);display:flex;align-items:center;gap:1.3rem;justify-content:space-between;box-shadow:0 12px 38px #0004}
-.hero h1{font:700 clamp(2rem,4vw,3.1rem)/1.14 Georgia,serif;margin:.3rem 0;color:#ffebbb}.hero p{max-width:65ch;margin:.3rem 0}.hero img{width:90px;aspect-ratio:2/3;object-fit:cover;border:1px solid var(--gold);border-radius:7px}
+.hero h1{font:700 clamp(2rem,4vw,3.1rem)/1.14 Georgia,serif;margin:.3rem 0;color:#ffebbb}.hero p{max-width:65ch;margin:.3rem 0}.hero-brand{display:flex;flex-direction:column;justify-content:center;align-items:center;min-width:90px;min-height:110px;border:1px solid var(--gold);border-radius:12px;background:linear-gradient(160deg,#183e67,#061831);color:var(--gold);font:800 1rem Georgia,serif;letter-spacing:.12em}.hero-brand span{font-size:2.3rem}
 .button{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;border:1px solid var(--gold);background:var(--gold);color:#061831;border-radius:999px;min-height:44px;padding:.68rem 1.08rem;font-weight:850;text-decoration:none;cursor:pointer}.button.secondary{background:transparent;color:var(--light)}.button.ghost{border-color:#e2c37e74;background:#173457;color:#fff8eb}.button:disabled{opacity:.52;cursor:not-allowed}
 .login-panel{margin-top:1.5rem;border-radius:17px;background:#0d2746;border:1px solid var(--border);padding:1.5rem;display:grid;gap:.7rem}.login-panel h2{margin:0;font:700 1.55rem Georgia,serif;color:var(--gold)}
 #signin-state,.notice{border-left:4px solid var(--gold);background:#163758;padding:.8rem 1rem;border-radius:0 9px 9px 0;line-height:1.5}.error{border-left-color:#f4a0a0}.notice{margin-top:1rem}
@@ -36,21 +36,21 @@ main{max-width:1220px;margin:auto;padding:2rem 1.2rem 5rem}
 details{background:#112f50;border-radius:12px;padding:.8rem 1rem;margin:.6rem 0;border:1px solid #ecd08a44}summary{cursor:pointer;font-weight:760}details p{color:var(--muted)}
 footer{text-align:center;border-top:1px solid var(--border);padding:1.4rem;color:var(--muted);font-size:.87rem}
 @media(max-width:970px){.dashboard{grid-template-columns:minmax(0,1fr)}.sidebar{position:static;display:flex;flex-direction:row;overflow-x:auto;white-space:nowrap}.sidebar a{flex:0 0 auto}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:640px){main{padding:1.1rem .8rem 3rem}.top-inner{padding:.6rem .8rem}.top-links{width:100%;justify-content:space-between}.top-links a{font-size:.82rem}.hero img{width:65px}.hero{padding:1.05rem}.split,.grid2{grid-template-columns:minmax(0,1fr)}.metrics{gap:.55rem}.metric{padding:.85rem}.panel{padding:1rem}.sidebar{margin:0 -.1rem}.actions .button{flex:1}.hero h1{font-size:1.9rem}}
+@media(max-width:640px){main{padding:1.1rem .8rem 3rem}.top-inner{padding:.6rem .8rem}.top-links{width:100%;justify-content:space-between}.top-links a{font-size:.82rem}.hero-brand{min-width:72px;min-height:90px;font-size:.72rem}.hero{padding:1.05rem}.split,.grid2{grid-template-columns:minmax(0,1fr)}.metrics{gap:.55rem}.metric{padding:.85rem}.panel{padding:1rem}.sidebar{margin:0 -.1rem}.actions .button{flex:1}.hero h1{font-size:1.9rem}}
 @media(prefers-reduced-motion:no-preference){.button,.top-links a,.sidebar a{transition:background .18s,transform .18s}.button:hover{transform:translateY(-1px)}}
 </style>
 </head>
 <body>
 <header class="top"><div class="top-inner"><a class="logo" href="/">MERCY</a><nav class="top-links" aria-label="Affiliate navigation"><a href="/buy/">Buy The Guide</a><a href="/affiliate-program/">Programme details</a><a class="active" href="/affiliate-program/dashboard/" aria-current="page">My dashboard</a></nav></div></header>
 <main>
-<section class="hero"><div><span class="eyebrow">Affiliate workspace · Malaysia</span><h1>My MERCY Dashboard</h1><p>Your sales link, personal coupons, verified earnings and payment information in one place.</p><p class="micro">Your affiliate ID is never your private book activation serial.</p></div><img src="/buy/the-guide-cover.jpg" alt="The Guide book cover" width="90" height="135"></section>
+<section class="hero"><div><span class="eyebrow">Affiliate workspace · Malaysia</span><h1>My MERCY Dashboard</h1><p>Your sales link, personal coupons, verified earnings and payment information in one place.</p><p class="micro">Your affiliate ID is never your private book activation serial.</p></div><div class="hero-brand" aria-label="MERCY Series Global brand"><span aria-hidden="true">✦</span><strong>MERCY</strong></div></section>
 <section class="login-panel" id="login"><h2>Secure sign-in</h2><p class="muted">Use the Google account connected to your MERCY affiliate registration. Account balances and sales are private and verified by the MERCY server.</p><div id="google-signin"></div><p id="signin-state" role="status" aria-live="polite">Preparing sign-in…</p><div class="actions"><button class="button secondary" id="refresh-account" type="button" disabled>Refresh my account</button><a class="button ghost" href="/affiliate-program/#registration">Not registered? Apply here</a></div></section>
 <div id="dashboard" class="dashboard" hidden>
 <nav class="sidebar" aria-label="Dashboard sections"><a href="#overview">◉ Overview</a><a href="#share">↗ Share my link</a><a href="#coupons">◇ My coupons</a><a href="#earnings">▤ Sales & earnings</a><a href="#payouts">▣ Payouts</a><a href="#help">ⓘ Help & account</a></nav>
 <div class="panels">
 <section class="panel" id="overview"><div class="sectionhead"><div><span class="eyebrow">Personal overview</span><h2>Welcome back</h2><p class="muted" id="account-message">Your account is linked to this session.</p></div><button class="button secondary" id="reload" type="button">Refresh reports</button></div><div class="metrics" aria-label="Verified affiliate statistics"><div class="metric"><div id="metric-sales" class="value">—</div><div class="kicker">Verified sales</div></div><div class="metric"><div id="metric-pending" class="value">—</div><div class="kicker">Pending earnings</div></div><div class="metric"><div id="metric-available" class="value">—</div><div class="kicker">Available to pay</div></div><div class="metric"><div id="metric-paid" class="value">—</div><div class="kicker">Total paid</div></div></div><p id="reports-state" class="micro" role="status">Figures appear only when verified payment reports are available; a dash does not mean zero.</p></section>
 <section class="panel" id="share"><div class="sectionhead"><div><span class="eyebrow">Start promoting</span><h2>My affiliate link</h2></div><span class="chip">No coupon required</span></div><div class="split"><div class="box"><label class="field" for="affiliate-link">Your personal purchase link<input id="affiliate-link" readonly aria-label="Unique affiliate purchase link"></label><div class="actions"><button class="button" id="copy-link" type="button">Copy my link</button><button class="button secondary" id="whatsapp" type="button">Share on WhatsApp</button></div><p class="status" id="link-state" aria-live="polite"></p></div><div class="box"><h3>How it works</h3><p class="micro">At full RM16 price, your potential commission is up to <strong>RM7.52</strong> under the assumed domestic Stripe fee. You can offer a discount later with your own coupon.</p><p class="micro">Always disclose that purchases through your link may earn you a commission.</p></div></div></section>
-<section class="panel" id="coupons"><div class="sectionhead"><div><span class="eyebrow">Optional customer discounts</span><h2>My coupons</h2><p class="muted">Request a unique code, then tell customers to enter it <strong>during Stripe checkout</strong>.</p></div></div><div class="grid2"><div class="box"><form id="coupon-request"><label class="field" for="discount">Choose the discount<select id="discount" name="discount" required><option value="100">RM1 off</option><option value="200">RM2 off</option><option value="300">RM3 off</option><option value="400">RM4 off</option><option value="500">RM5 off</option><option value="600">RM6 off</option><option value="700">RM7 off</option></select></label><p class="micro" id="coupon-preview">Buyer pays RM15; estimated commission RM6.55 under the assumed fee.</p><button class="button" id="coupon-submit" type="submit">Request my code</button><p class="status" id="coupon-state" role="status" aria-live="polite"></p></form></div><div class="box"><h3>My issued codes</h3><div id="coupons-list" class="coupon-list"><p class="empty">Coupon history not loaded yet.</p></div><p id="coupons-note" class="micro">Only Stripe-issued, account-owned codes are displayed. Your activation serial is not a coupon.</p></div></div></section>
+<section class="panel" id="coupons"><div class="sectionhead"><div><span class="eyebrow">Optional customer discounts</span><h2>My coupons</h2><p class="muted">Every affiliate has seven personal discounts. Each Stripe promotion code must be uniquely linked to your account. Customers apply codes on <strong>Stripe checkout</strong>.</p></div></div><div class="grid2"><div class="box"><form id="coupon-request"><p class="micro">One activation request covers all seven discount levels. Codes are assigned to your affiliate ID and can be reused for eligible sales.</p><p class="micro" id="coupon-preview">Your seven discounts run from RM1 to RM7. Your commission varies from RM6.55 to RM0.73 after the assumed payment fee.</p><button class="button" id="coupon-submit" type="submit">Activate my 7 unique coupons</button><p class="status" id="coupon-state" role="status" aria-live="polite"></p></form></div><div class="box"><h3>My issued codes</h3><div id="coupons-list" class="coupon-list" aria-live="polite"><p class="empty">Checking your seven personal coupon tiers…</p></div><p id="coupons-note" class="micro">Only Stripe-issued, account-owned codes are displayed. Your activation serial is not a coupon.</p></div></div></section>
 <section class="panel" id="earnings"><div class="sectionhead"><div><span class="eyebrow">Verified transactions only</span><h2>Sales & earnings</h2></div><a class="button ghost" href="#payouts">Payout details</a></div><div class="table-wrap"><table><thead><tr><th>Date</th><th>Transaction reference</th><th>Sale price</th><th>Commission</th><th>Status</th></tr></thead><tbody id="sales-body"><tr><td colspan="5">Sales reporting is not connected yet.</td></tr></tbody></table></div><p class="micro">Click counts are not purchases. Refunds and disputes may reverse commission. Other customers' private information is never shown.</p></section>
 <section class="panel" id="payouts"><span class="eyebrow">Money received</span><h2>My payouts</h2><div class="grid2"><div class="box"><h3>Payment status</h3><p id="payout-state" class="muted">Payout reporting is not connected yet. No transfer is claimed as paid without verified records.</p><a class="button ghost" href="mailto:shahir@mercyseries.com?subject=MERCY%20Affiliate%20Payout%20Enquiry">Ask about payouts</a></div><div class="box"><h3>Bank details</h3><p class="muted">For your security, do not send bank account numbers or identification documents through public referral links. Payout onboarding will use a secure account-only service once available.</p><p class="micro">Keep your own income records for tax purposes.</p></div></div></section>
 <section class="panel" id="help"><span class="eyebrow">Answers and support</span><h2>Help & account</h2><p>Affiliate account: <strong id="affiliate-id">—</strong></p><p class="micro">Programme terms and privacy rules apply to all sales. No rewards are paid for recruitment.</p><div class="actions"><a class="button ghost" href="/affiliate-program/terms/">Affiliate terms</a><a class="button ghost" href="/affiliate-program/privacy/">Privacy notice</a><a class="button secondary" href="mailto:shahir@mercyseries.com?subject=MERCY%20Affiliate%20Support">Contact support</a></div><details><summary>Why can't I see my earnings?</summary><p>Earnings and sales are shown only after verified information is returned by MERCY's secure reports service. A missing number does not imply zero sales. Contact support if you expect a report.</p></details><details><summary>Where do buyers use my coupon?</summary><p>On Stripe's secure payment page, not on mercyseries.com. A valid coupon can reduce the RM16 price by RM1–RM7. Coupons must first be issued and registered to your own account.</p></details><details><summary>When can I withdraw money?</summary><p>A payout schedule and bank verification are required before withdrawals can be processed. This dashboard will display verified payout status when connected.</p></details><details><summary>Can I share the link without a coupon?</summary><p>Yes. Your personal sales link opens the standard RM16 Stripe checkout and can carry your affiliate reference for reconciliation.</p></details></section>
@@ -106,10 +106,52 @@ function couponCard(obj,container){
  const el=document.createElement('div');el.className='coupon-row';const left=document.createElement('div');const name=document.createElement('strong');name.textContent=obj.couponCode;const label=document.createElement('div');label.className='micro';label.textContent=money(obj.discountAmountCents)+' off · '+(obj.active===false?'Inactive':'Issued by server');left.append(name,label);
  const copy=document.createElement('button');copy.type='button';copy.className='button ghost';copy.textContent='Copy code';copy.addEventListener('click',()=>copyText(obj.couponCode,'coupon-state'));el.append(left,copy);container.append(el);
 }
+function showSevenCouponTiers(issued){
+ const container=$('coupons-list');container.replaceChildren();
+ const byTier=new Map();
+ for(const item of issued){if(item.affiliateId===currentId&&[100,200,300,400,500,600,700].includes(item.discountAmountCents)&&/^[A-Z0-9-]{3,48}$/.test(String(item.couponCode||''))&&item.active!==false){byTier.set(item.discountAmountCents,item)}}
+ for(let d=1;d<=7;d++){
+  const amount=d*100,entry=byTier.get(amount),price=16-d,fee=Math.round(price*3)/100+1,commission=price-fee-7;
+  const row=document.createElement('div');row.className='coupon-row';
+  const info=document.createElement('div'),head=document.createElement('strong'),description=document.createElement('div');
+  head.textContent='RM'+d+' off'+(entry?' · '+entry.couponCode:' · Awaiting code');
+  description.className='micro';
+  description.textContent='Buyer RM'+price.toFixed(2)+' · Affiliate RM'+commission.toFixed(2)+(entry?' · Issued':' · Not issued');
+  info.append(head,description);row.append(info);
+  if(entry){
+   const copy=document.createElement('button');copy.type='button';copy.className='button ghost';copy.textContent='Copy code';copy.addEventListener('click',()=>copyText(entry.couponCode,'coupon-state'));row.append(copy);
+   const share=document.createElement('button');share.type='button';share.className='button secondary';share.textContent='WhatsApp';
+   share.addEventListener('click',()=>{
+     const url=new URL(shareLink);url.searchParams.set('coupon',entry.couponCode);
+     const msg='Assalamualaikum! The Guide MERCY app is RM16, and my personal coupon '+entry.couponCode+' gives you RM'+d+' off on Stripe checkout.\n\n'+url.href+'\n\nDisclosure: I may earn an affiliate commission from eligible purchases.';
+     window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank','noopener');
+   });row.append(share);
+  }
+  container.append(row);
+ }
+ $('coupon-submit').disabled=issued.length>=7&&byTier.size===7;
+}
 async function loadCoupons(){
- const container=$('coupons-list');container.replaceChildren();let arr=[];
- try{const result=await read('/api/affiliate/coupons');if(result.affiliateId!==currentId||!Array.isArray(result.coupons))throw Error('Coupon history not verified.');arr=result.coupons;for(const c of arr)couponCard(c,container);if(!container.children.length){const p=document.createElement('p');p.className='empty';p.textContent='No coupons have been issued to your account yet.';container.append(p)}$('coupons-note').textContent='Your account-owned coupon records were loaded from the secure server.'}
- catch(e){const p=document.createElement('p');p.className='empty';p.textContent='Coupon history is not yet connected. If you requested a code, do not assume it was issued until confirmed.';container.append(p);$('coupons-note').textContent='The coupon service must confirm each code before it can be shared.'}
+ try{
+  let result=await read('/api/affiliate/coupons');
+  if(result.affiliateId!==currentId||!Array.isArray(result.coupons))throw Error('Coupon ownership was not verified');
+  // Each affiliate should have all seven tiers. Ask the secure backend to
+  // complete missing ones automatically on first dashboard sign-in.
+  const levels=new Set(result.coupons.filter(c=>c.affiliateId===currentId&&c.active!==false).map(c=>c.discountAmountCents));
+  if(levels.size<7){
+   try{
+    const response=await fetch(api+'/api/affiliate/coupons/provision',{method:'POST',headers:{...authHeaders(),'content-type':'application/json'},body:'{}'});
+    const issued=await response.json().catch(()=>({}));
+    if(response.ok&&issued.affiliateId===currentId&&Array.isArray(issued.coupons)&&issued.coupons.length===7)result=issued;
+   }catch{}
+  }
+  showSevenCouponTiers(result.coupons);
+  const confirmed=result.coupons.filter(c=>c.affiliateId===currentId&&c.active!==false).length;
+  $('coupons-note').textContent=confirmed===7?'All seven unique Stripe coupon levels are confirmed for your account.':'Only '+confirmed+' of seven codes are verified. The remaining levels are awaiting secure issuance.';
+ }catch(e){
+  showSevenCouponTiers([]);
+  $('coupons-note').textContent='Secure coupon records are unavailable. All seven possible levels are shown, but no codes are being invented.';
+ }
 }
 async function copyText(value,id){try{await navigator.clipboard.writeText(value);status(id,'Copied to your clipboard.')}catch{status(id,'Copy is unavailable on this device; select the link/code manually.',true)}}
 $('copy-link').addEventListener('click',()=>shareLink&&copyText(shareLink,'link-state'));
@@ -118,20 +160,20 @@ $('whatsapp').addEventListener('click',()=>{
  const message=['Assalamualaikum! I’m sharing The Guide from the MERCY Series, a story-based digital reading experience about kindness, faith and family.','The digital app is RM16. You may use a valid coupon during Stripe checkout, if one is available.',shareLink,'Disclosure: Purchases using my link may earn me an affiliate commission. Please share with other parents and educators who may benefit.'].join('\n\n');
  window.open('https://wa.me/?text='+encodeURIComponent(message),'_blank','noopener');
 });
-$('discount').addEventListener('change',()=>{const discount=Number($('discount').value)/100,price=16-discount,fee=Math.round(price*.03*100)/100+1; $('coupon-preview').textContent='Buyer pays '+money(Math.round(price*100))+'; estimated commission '+money(Math.round((price-fee-7)*100))+' under the assumed fee.'});
+
 $('coupon-request').addEventListener('submit',async event=>{
- event.preventDefault();if(!credential||!currentId){status('coupon-state','Sign in to your affiliate account first.',true);return}
- const amount=Number($('discount').value),button=$('coupon-submit');if(![100,200,300,400,500,600,700].includes(amount))return;
- button.disabled=true;status('coupon-state','Requesting your individual Stripe coupon…');
+ event.preventDefault();
+ if(!credential||!currentId){status('coupon-state','Sign in to your affiliate account first.',true);return}
+ const button=$('coupon-submit');button.disabled=true;status('coupon-state','Checking Stripe issuance of your seven account-owned codes…');
  try{
-  const response=await fetch(api+'/api/affiliate/coupons/request',{method:'POST',headers:{...authHeaders(),'content-type':'application/json'},body:JSON.stringify({discountAmountCents:amount})});
+  const response=await fetch(api+'/api/affiliate/coupons/provision',{method:'POST',headers:{...authHeaders(),'content-type':'application/json'},body:JSON.stringify({})});
   const data=await response.json().catch(()=>({}));
-  if(!response.ok)throw Error(data.error||'Coupon service unavailable ('+response.status+').');
-  if(data.affiliateId!==currentId||data.discountAmountCents!==amount||!/^[A-Z0-9-]{3,48}$/.test(String(data.couponCode||'')))throw Error('Coupon issuance could not be verified.');
-  status('coupon-state','Coupon issued and associated with your affiliate account. You can copy it below.');
+  if(!response.ok)throw Error(data.error||'Secure coupon provisioning is not connected ('+response.status+').');
+  if(data.affiliateId!==currentId||!Array.isArray(data.coupons)||data.coupons.length!==7)throw Error('Seven verified account-owned coupon records were not returned.');
+  if(!data.coupons.every(c=>c.affiliateId===currentId&&[100,200,300,400,500,600,700].includes(c.discountAmountCents)&&/^[A-Z0-9-]{3,48}$/.test(c.couponCode)))throw Error('Coupon ownership could not be verified.');
+  status('coupon-state','All seven of your codes were confirmed. Copy them from your personal coupon list.');
   await loadCoupons();
-  if(!$('coupons-list').querySelector('.coupon-row')){const box=$('coupons-list');box.replaceChildren();couponCard(data,box)}
- }catch(e){status('coupon-state','No coupon was confirmed: '+e.message+' You can still share your full-price affiliate link.',true)}
+ }catch(e){status('coupon-state','Coupon setup cannot be confirmed yet: '+e.message+'. Your RM16 affiliate purchase link remains available.',true)}
  finally{button.disabled=false}
 });
 $('reload').addEventListener('click',()=>{if(credential)Promise.all([loadReports(),loadCoupons()])});
