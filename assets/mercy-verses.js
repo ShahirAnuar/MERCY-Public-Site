@@ -50,7 +50,7 @@
       function copyChildren(source,target){for(const child of source.childNodes){if(child.nodeType===3)target.append(document.createTextNode(child.textContent));else if(child.nodeType===1){const tag=child.tagName.toLowerCase();if(['br','sup','sub','em','strong','b','i'].includes(tag)){const element=document.createElement(tag);copyChildren(child,element);target.append(element);}else if(!['script','style','iframe'].includes(tag))copyChildren(child,target);}}}
       copyChildren(parsedHTML.body,parent);
     }
-    function labels() {const t=copy[getLanguage()];control.textContent=(getLanguage()==='ms'?'al-Quran ':'Qur’an ')+parsed.reference+' · '+(expanded?t.hide:t.show);return t;}
+    function labels() {const language=getLanguage(),t=copy[language],reference=(language==='ms'?'al-Quran ':'Qur’an ')+parsed.reference;control.textContent=reference;control.setAttribute('aria-label',(expanded?t.hide:t.show)+' · '+reference);return t;}
     function render(data,t,language) {
       content.replaceChildren();
       for(const key of parsed.keys){
