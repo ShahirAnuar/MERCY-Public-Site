@@ -1,0 +1,872 @@
+{
+  "version": "2026-11-01",
+  "source": {
+    "name": "Tanzil Quran Text (Uthmani, Version 1.1)",
+    "url": "https://tanzil.net/",
+    "downloadUrl": "https://tanzil.net/pub/download/index.php?quranType=uthmani&outType=txt-2&agree=true",
+    "license": "Creative Commons Attribution 3.0",
+    "licenseUrl": "https://tanzil.net/docs/Text_License",
+    "notice": "# PLEASE DO NOT REMOVE OR CHANGE THIS COPYRIGHT BLOCK\n#====================================================================\n#\n#  Tanzil Quran Text (Uthmani, Version 1.1)\n#  Copyright (C) 2007-2026 Tanzil Project\n#  License: Creative Commons Attribution 3.0\n#\n#  This copy of the Quran text is carefully produced, highly \n#  verified and continuously monitored by a group of specialists \n#  at Tanzil Project.\n#\n#  TERMS OF USE:\n#\n#  - Permission is granted to copy and distribute verbatim copies \n#    of this text, but CHANGING IT IS NOT ALLOWED.\n#\n#  - This Quran text can be used in any website or application, \n#    provided that its source (Tanzil Project) is clearly indicated, \n#    and a link is made to tanzil.net to enable users to keep\n#    track of changes.\n#\n#  - This copyright notice shall be included in all verbatim copies \n#    of the text, and shall be reproduced appropriately in all files \n#    derived from or containing substantial portion of this text.\n#\n#  Please check updates at: http://tanzil.net/updates/\n#\n#===================================================================="
+  },
+  "verses": {
+    "10:58": {
+      "arabic": "قُلْ بِفَضْلِ ٱللَّهِ وَبِرَحْمَتِهِۦ فَبِذَٰلِكَ فَلْيَفْرَحُوا۟ هُوَ خَيْرٌ مِّمَّا يَجْمَعُونَ",
+      "en": {
+        "text": "Say, “By Allah’s grace and His mercy let them therefore rejoice. It is much better than what they accumulate[1].”",
+        "footnotes": "[1] “The mercy of your Lord is better than what they accumulate” See 43:32."
+      },
+      "ms": {
+        "text": "Katakanlah (wahai Muhammad) “kedatangan Al-Quran itu adalah semata-mata dengan limpah kurnia Allah dan kasih sayangNya, maka dengan isi kandungan Al-Quran itulah hendaknya mereka bersukacita (bukan dengan yang lainnya), kerana ia lebih baik daripada apa yang mereka himpunkan dari segala benda dan perkara yang tidak kekal)”.",
+        "footnotes": null
+      }
+    },
+    "12:86": {
+      "arabic": "قَالَ إِنَّمَآ أَشْكُوا۟ بَثِّى وَحُزْنِىٓ إِلَى ٱللَّهِ وَأَعْلَمُ مِنَ ٱللَّهِ مَا لَا تَعْلَمُونَ",
+      "en": {
+        "text": "He said, “I only complain of my anguish and sorrow to Allah, and I know from Allah what you do not know.",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "(Nabi Yaakub) menjawab: “Sesungguhnya aku hanyalah mengadukan kesusahan dan dukacitaku kepada Allah dan aku mengetahui (dengan perantaraan wahyu) dari Allah, apa yang kamu tidak mengetahuinya.",
+        "footnotes": null
+      }
+    },
+    "14:7": {
+      "arabic": "وَإِذْ تَأَذَّنَ رَبُّكُمْ لَئِن شَكَرْتُمْ لَأَزِيدَنَّكُمْ وَلَئِن كَفَرْتُمْ إِنَّ عَذَابِى لَشَدِيدٌ",
+      "en": {
+        "text": "And [remember] when your Lord declared, ‘If you are grateful, I will surely give you more; but if you are ungrateful, My punishment is severe indeed.’”",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "Dan (ingatlah) ketika Tuhan kamu memberitahu: “Demi sesungguhnya! Jika kamu bersyukur nescaya Aku akan tambahi nikmatKu kepada kamu, dan demi sesungguhnya, jika kamu kufur ingkar sesungguhnya azabKu amatlah keras”.",
+        "footnotes": null
+      }
+    },
+    "16:125": {
+      "arabic": "ٱدْعُ إِلَىٰ سَبِيلِ رَبِّكَ بِٱلْحِكْمَةِ وَٱلْمَوْعِظَةِ ٱلْحَسَنَةِ وَجَٰدِلْهُم بِٱلَّتِى هِىَ أَحْسَنُ إِنَّ رَبَّكَ هُوَ أَعْلَمُ بِمَن ضَلَّ عَن سَبِيلِهِۦ وَهُوَ أَعْلَمُ بِٱلْمُهْتَدِينَ",
+      "en": {
+        "text": "Call to the way of your Lord with wisdom[1] and goodly exhortation[2], and reason with them in the best manner[3]. Your Lord knows best who has strayed from His way and knows best those who are rightly guided.",
+        "footnotes": "[1] Accordingly, taking into account the circumstance of the addressee.\n [2] That endears good to people.\n [3] Being kind, well-spoken, and tolerant to win hearts."
+      },
+      "ms": {
+        "text": "Serulah ke jalan Tuhanmu (wahai Muhammad) dengan hikmat kebijaksanaan dan nasihat pengajaran yang baik, dan berbahaslah dengan mereka (yang engkau serukan itu) dengan cara yang lebih baik; sesungguhnya Tuhanmu Dia lah jua yang lebih mengetahui akan orang yang sesat dari jalanNya, dan Dia lah jua yang lebih mengetahui akan orang-orang yang mendapat hidayah petunjuk.",
+        "footnotes": null
+      }
+    },
+    "16:18": {
+      "arabic": "وَإِن تَعُدُّوا۟ نِعْمَةَ ٱللَّهِ لَا تُحْصُوهَآ إِنَّ ٱللَّهَ لَغَفُورٌ رَّحِيمٌ",
+      "en": {
+        "text": "If you try to count Allah’s favors, you will not be able to enumerate them. Indeed, Allah is All-Forgiving, Most Merciful.",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "Dan jika kamu menghitung nikmat Allah (yang dilimpahkannya kepada kamu), tiadalah kamu akan dapat menghitungnya satu persatu; sesungguhnya Allah Maha Pengampun, lagi Maha Mengasihani.",
+        "footnotes": null
+      }
+    },
+    "16:43": {
+      "arabic": "وَمَآ أَرْسَلْنَا مِن قَبْلِكَ إِلَّا رِجَالًا نُّوحِىٓ إِلَيْهِمْ فَسْـَٔلُوٓا۟ أَهْلَ ٱلذِّكْرِ إِن كُنتُمْ لَا تَعْلَمُونَ",
+      "en": {
+        "text": "We did not send before you except men to whom We sent revelation. Ask the people of knowledge[1], if you do not know.",
+        "footnotes": "[1] People of the knowledge (ahl al-dhikr) are the People of the Book, the Jews and Christians. They are mentioned here for the Makkan Arabs because they were generally regarded as possessors of knowledge before the advent of Islam."
+      },
+      "ms": {
+        "text": "Dan tidaklah Kami mengutus Rasul-rasul sebelummu (wahai Muhammad), melainkan dari kalangan orang-orang lelaki, yang Kami wahyukan kepada mereka. Oleh itu bertanyalah kamu (wahai golongan musyrik) kepada orang-orang yang berpengetahuan ugama jika kamu tidak mengetahui.",
+        "footnotes": null
+      }
+    },
+    "16:53": {
+      "arabic": "وَمَا بِكُم مِّن نِّعْمَةٍ فَمِنَ ٱللَّهِ ثُمَّ إِذَا مَسَّكُمُ ٱلضُّرُّ فَإِلَيْهِ تَجْـَٔرُونَ",
+      "en": {
+        "text": "Whatever blessing you have, it is from Allah. Then when you are afflicted with hardship, to Him alone you cry out for help[1].",
+        "footnotes": "[1] The One Who grants favors and removes hardship is to be worshiped alone."
+      },
+      "ms": {
+        "text": "Dan apa-apa nikmat yang ada pada kamu maka adalah ia dari Allah; kemudian, apabila kamu ditimpa kesusahan maka kepadaNyalah kamu meraung meminta pertolongan.",
+        "footnotes": null
+      }
+    },
+    "16:71": {
+      "arabic": "وَٱللَّهُ فَضَّلَ بَعْضَكُمْ عَلَىٰ بَعْضٍ فِى ٱلرِّزْقِ فَمَا ٱلَّذِينَ فُضِّلُوا۟ بِرَآدِّى رِزْقِهِمْ عَلَىٰ مَا مَلَكَتْ أَيْمَٰنُهُمْ فَهُمْ فِيهِ سَوَآءٌ أَفَبِنِعْمَةِ ٱللَّهِ يَجْحَدُونَ",
+      "en": {
+        "text": "Allah has favored some of you over others in provision. Those who are favored will not share their provision with their slaves, so that they may become equal to them[1]. Do they then deny the favors of Allah?",
+        "footnotes": "[1] If they would not accept to equally share their provision with their slaves, how would then they set up associates with Allah in worship?"
+      },
+      "ms": {
+        "text": "Dan Allah telah melebihkan sebahagian dari kamu atas sebahagian yang lain pada rezeki yang dikurniakanNya; dalam pada itu, orang-orang yang diberi kelebihan itu tidak mahu memberikan sebahagian dari kelebihan hartanya kepada hamba-hamba mereka, supaya orang-orang itu dapat sama mempunyai harta. Maka mengapa mereka tergamak mengingkari nikmat Allah itu dengan perbuatan syirik?",
+        "footnotes": null
+      }
+    },
+    "17:23": {
+      "arabic": "وَقَضَىٰ رَبُّكَ أَلَّا تَعْبُدُوٓا۟ إِلَّآ إِيَّاهُ وَبِٱلْوَٰلِدَيْنِ إِحْسَٰنًا إِمَّا يَبْلُغَنَّ عِندَكَ ٱلْكِبَرَ أَحَدُهُمَآ أَوْ كِلَاهُمَا فَلَا تَقُل لَّهُمَآ أُفٍّ وَلَا تَنْهَرْهُمَا وَقُل لَّهُمَا قَوْلًا كَرِيمًا",
+      "en": {
+        "text": "Your Lord has ordained that you worship none but Him, and show kindness to parents. If one or both of them reach old age in your care, do not say to them a word of annoyance[1] nor scold them, rather speak to them noble words,",
+        "footnotes": "[1] ’uff: an expression of irritation and disapproval."
+      },
+      "ms": {
+        "text": "Dan Tuhanmu telah perintahkan, supaya engkau tidak menyembah melainkan kepadaNya semata-mata, dan hendaklah engkau berbuat baik kepada ibu bapa. Jika salah seorang dari keduanya, atau kedua-duanya sekali, sampai kepada umur tua dalam jagaan dan peliharaanmu, maka janganlah engkau berkata kepada mereka (sebarang perkataan kasar) sekalipun perkataan “Ha”, dan janganlah engkau menengking menyergah mereka, tetapi katakanlah kepada mereka perkataan yang mulia (yang bersopan santun).",
+        "footnotes": null
+      }
+    },
+    "17:36": {
+      "arabic": "وَلَا تَقْفُ مَا لَيْسَ لَكَ بِهِۦ عِلْمٌ إِنَّ ٱلسَّمْعَ وَٱلْبَصَرَ وَٱلْفُؤَادَ كُلُّ أُو۟لَٰٓئِكَ كَانَ عَنْهُ مَسْـُٔولًا",
+      "en": {
+        "text": "Do not follow[1] that of which you have no knowledge. Indeed, the hearing, the sight, and the heart, all of them will be called to account.",
+        "footnotes": "[1] i.e., do not say or assume."
+      },
+      "ms": {
+        "text": "Dan janganlah engkau mengikut apa yang engkau tidak mempunyai pengetahuan mengenainya; sesungguhnya pendengaran dan penglihatan serta hati, semua anggota-anggota itu tetap akan ditanya tentang apa yang dilakukannya.",
+        "footnotes": null
+      }
+    },
+    "17:70": {
+      "arabic": "وَلَقَدْ كَرَّمْنَا بَنِىٓ ءَادَمَ وَحَمَلْنَٰهُمْ فِى ٱلْبَرِّ وَٱلْبَحْرِ وَرَزَقْنَٰهُم مِّنَ ٱلطَّيِّبَٰتِ وَفَضَّلْنَٰهُمْ عَلَىٰ كَثِيرٍ مِّمَّنْ خَلَقْنَا تَفْضِيلًا",
+      "en": {
+        "text": "We have honored the children of Adam, carried them on land and sea, provided for them good things[1] and favored them above many of those whom We have created.",
+        "footnotes": "[1] By bestowing them with intellectual abilities and making angels prostrate to their father, Adam. Furthermore, Allah subjected other creatures to them, as they mount with dignity their means of transportation both on land and in the sea. Allah also provided them with good food, drinks, and spouses, etc."
+      },
+      "ms": {
+        "text": "Dan sesungguhnya Kami telah memuliakan anak-anak Adam; dan Kami telah beri mereka menggunakan berbagai-bagai kenderaan di darat dan di laut; dan Kami telah memberikan rezeki kepada mereka dari benda-benda yang baik-baik serta Kami telah lebihkan mereka dengan selebih-lebihnya atas banyak makhluk-makhluk yang telah Kami ciptakan.",
+        "footnotes": null
+      }
+    },
+    "20:114": {
+      "arabic": "فَتَعَٰلَى ٱللَّهُ ٱلْمَلِكُ ٱلْحَقُّ وَلَا تَعْجَلْ بِٱلْقُرْءَانِ مِن قَبْلِ أَن يُقْضَىٰٓ إِلَيْكَ وَحْيُهُۥ وَقُل رَّبِّ زِدْنِى عِلْمًا",
+      "en": {
+        "text": "So Exalted is Allah, the True Sovereign[1]. Do not hasten to [recite] the Qur’an before its revelation to you is concluded[2], and say, “My Lord, increase me in knowledge.”",
+        "footnotes": "[1] Of everything in existence.\n [2] Prophet Muhammad (ﷺ) was eager to recite the Qur’an while it was being revealed, so Allah Almighty told him to avoid being in haste in order to learn them before the verses are properly delivered; rather, listen to them attentively."
+      },
+      "ms": {
+        "text": "Maka Maha Tinggilah Allah, yang Menguasai seluruh alam, lagi Yang Benar (pada segala-galanya). Dan janganlah engkau (wahai Muhammad) tergesa-gesa membaca Al-Quran sebelum selesai dibacakan oleh Jibril kepadamu, dan berdoalah dengan berkata: “Wahai Tuhanku, tambahilah ilmuku”.",
+        "footnotes": null
+      }
+    },
+    "20:25": {
+      "arabic": "قَالَ رَبِّ ٱشْرَحْ لِى صَدْرِى",
+      "en": {
+        "text": "He said, “My Lord, reassure my heart for me,",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "Nabi Musa berdoa dengan berkata: “Wahai Tuhanku, lapangkanlah bagiku, dadaku;",
+        "footnotes": null
+      }
+    },
+    "20:26": {
+      "arabic": "وَيَسِّرْ لِىٓ أَمْرِى",
+      "en": {
+        "text": "and ease my task for me,",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "“Dan mudahkanlah bagiku, tugasku;",
+        "footnotes": null
+      }
+    },
+    "20:27": {
+      "arabic": "وَٱحْلُلْ عُقْدَةً مِّن لِّسَانِى",
+      "en": {
+        "text": "and loosen the knot from my tongue[1],",
+        "footnotes": "[1] When Moses (ﷺ) was being tested by Pharaoh, he took an amber and put it in his mouth, which hindered his speech when he grew up. So, he asked Allah to help him overcome this hurdle, and Allah answered his prayer."
+      },
+      "ms": {
+        "text": "“Dan lepaskanlah simpulan dari lidahku,",
+        "footnotes": null
+      }
+    },
+    "20:28": {
+      "arabic": "يَفْقَهُوا۟ قَوْلِى",
+      "en": {
+        "text": "so that they may understand my speech.",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "“Supaya mereka faham perkataanku;",
+        "footnotes": null
+      }
+    },
+    "20:44": {
+      "arabic": "فَقُولَا لَهُۥ قَوْلًا لَّيِّنًا لَّعَلَّهُۥ يَتَذَكَّرُ أَوْ يَخْشَىٰ",
+      "en": {
+        "text": "But speak to him gently, so that he may take heed or fear Allah.”",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "“Kemudian hendaklah kamu berkata kepadanya, dengan kata-kata yang lemah-lembut, semoga ia beringat atau takut”.",
+        "footnotes": null
+      }
+    },
+    "25:63": {
+      "arabic": "وَعِبَادُ ٱلرَّحْمَٰنِ ٱلَّذِينَ يَمْشُونَ عَلَى ٱلْأَرْضِ هَوْنًا وَإِذَا خَاطَبَهُمُ ٱلْجَٰهِلُونَ قَالُوا۟ سَلَٰمًا",
+      "en": {
+        "text": "The slaves of the Most Compassionate are those who walk on earth humbly[1], and when the ignorant address them, they only say words of peace[2];",
+        "footnotes": "[1] i.e., without arrogance, but with dignity.\n [2] i.e., words free from evil."
+      },
+      "ms": {
+        "text": "Dan hamba-hamba (Allah) Ar-Rahman (yang diredhaiNya), ialah mereka yang berjalan di bumi dengan sopan santun, dan apabila orang-orang yang berkelakuan kurang adab, hadapkan kata-kata kepada mereka, mereka menjawab dengan perkataan yang selamat dari perkara yang tidak diingini;",
+        "footnotes": null
+      }
+    },
+    "25:67": {
+      "arabic": "وَٱلَّذِينَ إِذَآ أَنفَقُوا۟ لَمْ يُسْرِفُوا۟ وَلَمْ يَقْتُرُوا۟ وَكَانَ بَيْنَ ذَٰلِكَ قَوَامًا",
+      "en": {
+        "text": "And those who neither spend wastefully nor stingily, but are moderate between them;",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "Dan juga mereka (yang diredhai Allah itu ialah) yang apabila membelanjakan hartanya, tiadalah melampaui batas dan tiada bakhil kedekut; dan (sebaliknya) perbelanjaan mereka adalah betul sederhana di antara kedua-dua cara (boros dan bakhil) itu.",
+        "footnotes": null
+      }
+    },
+    "26:80": {
+      "arabic": "وَإِذَا مَرِضْتُ فَهُوَ يَشْفِينِ",
+      "en": {
+        "text": "and when I am ill He heals me;",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "“Dan apabila aku sakit, maka Dia lah yang menyembuhkan penyakitku;",
+        "footnotes": null
+      }
+    },
+    "28:24": {
+      "arabic": "فَسَقَىٰ لَهُمَا ثُمَّ تَوَلَّىٰٓ إِلَى ٱلظِّلِّ فَقَالَ رَبِّ إِنِّى لِمَآ أَنزَلْتَ إِلَىَّ مِنْ خَيْرٍ فَقِيرٌ",
+      "en": {
+        "text": "So he watered [their flocks] for them, then he turned to the shade and said, “My Lord, I am desperately in need of whatever good You may send down to me[1].”",
+        "footnotes": "[1] Moses left Egypt having nothing until he arrived in Midian. As soon as he sought Allah's help, Allah gave him a wife, a livelihood, and a home."
+      },
+      "ms": {
+        "text": "Maka Musa pun memberi minum kepada binatang-binatang ternak mereka, kemudian ia pergi ke tempat teduh lalu berdoa dengan berkata: “Wahai Tuhanku, sesungguhnya aku sangat berhajat kepada sebarang rezeki pemberian yang Engkau berikan”.",
+        "footnotes": null
+      }
+    },
+    "28:83": {
+      "arabic": "تِلْكَ ٱلدَّارُ ٱلْـَٔاخِرَةُ نَجْعَلُهَا لِلَّذِينَ لَا يُرِيدُونَ عُلُوًّا فِى ٱلْأَرْضِ وَلَا فَسَادًا وَٱلْعَٰقِبَةُ لِلْمُتَّقِينَ",
+      "en": {
+        "text": "That is the abode of the Hereafter We will assign to those who neither seek superiority nor corruption on earth. The best outcome is for those who fear Allah.",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "Negeri akhirat (yang telah diterangkan nikmat-nikmatnya) itu, Kami sediakan bagi orang-orang yang tidak bertujuan hendak mendapat pengaruh atau kelebihan di muka bumi dan tidak ingat hendak melakukan kerosakan; dan kesudahan yang baik adalah bagi orang-orang yang bertaqwa.",
+        "footnotes": null
+      }
+    },
+    "29:69": {
+      "arabic": "وَٱلَّذِينَ جَٰهَدُوا۟ فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا وَإِنَّ ٱللَّهَ لَمَعَ ٱلْمُحْسِنِينَ",
+      "en": {
+        "text": "As for those who strive in Our cause, We will surely guide them to Our ways[1], for Allah is certainly with those who do good.",
+        "footnotes": "[1] i.e., various ways and means of attaining Allah’s pleasure."
+      },
+      "ms": {
+        "text": "Dan orang-orang yang berusaha dengan bersungguh-sungguh kerana memenuhi kehendak ugama Kami, sesungguhnya Kami akan memimpin mereka ke jalan-jalan Kami (yang menjadikan mereka bergembira serta beroleh keredaan); dan sesungguhnya (pertolongan dan bantuan) Allah adalah berserta orang-orang yang berusaha membaiki amalannya.",
+        "footnotes": null
+      }
+    },
+    "2:144": {
+      "arabic": "قَدْ نَرَىٰ تَقَلُّبَ وَجْهِكَ فِى ٱلسَّمَآءِ فَلَنُوَلِّيَنَّكَ قِبْلَةً تَرْضَىٰهَا فَوَلِّ وَجْهَكَ شَطْرَ ٱلْمَسْجِدِ ٱلْحَرَامِ وَحَيْثُ مَا كُنتُمْ فَوَلُّوا۟ وُجُوهَكُمْ شَطْرَهُۥ وَإِنَّ ٱلَّذِينَ أُوتُوا۟ ٱلْكِتَٰبَ لَيَعْلَمُونَ أَنَّهُ ٱلْحَقُّ مِن رَّبِّهِمْ وَمَا ٱللَّهُ بِغَٰفِلٍ عَمَّا يَعْمَلُونَ",
+      "en": {
+        "text": "We see the turning of your face [O Prophet] towards heaven[1]; We will surely make you turn towards a prayer direction that will please you. So turn your face towards the Sacred Mosque [in Makkah], and wherever you are, turn your faces towards it. Those who were given the Scripture know that this is the truth from their Lord, and Allah is not unaware of what they do.",
+        "footnotes": "[1] The Prophet (ﷺ) was awaiting the command to change the qiblah; so he used to look up at the sky."
+      },
+      "ms": {
+        "text": "Kerap kali Kami melihat engkau (wahai Muhammad), berulang-ulang menengadah ke langit, maka Kami benarkan engkau berpaling mengadap kiblat yang engkau sukai. Oleh itu palingkanlah mukamu ke arah masjid Al-Haraam (tempat letaknya Kaabah); dan di mana sahaja kamu berada maka hadapkanlah muka kamu ke arahnya. Dan sesungguhnya orang-orang (Yahudi dan Nasrani) yang telah diberikan Kitab, mereka mengetahui bahawa perkara (berkiblat ke Kaabah) itu adalah perintah yang benar dari Tuhan mereka; dan Allah tidak sekali-kali lalai akan apa yang mereka lakukan.",
+        "footnotes": null
+      }
+    },
+    "2:148": {
+      "arabic": "وَلِكُلٍّ وِجْهَةٌ هُوَ مُوَلِّيهَا فَٱسْتَبِقُوا۟ ٱلْخَيْرَٰتِ أَيْنَ مَا تَكُونُوا۟ يَأْتِ بِكُمُ ٱللَّهُ جَمِيعًا إِنَّ ٱللَّهَ عَلَىٰ كُلِّ شَىْءٍ قَدِيرٌ",
+      "en": {
+        "text": "Every nation has a direction to which it turns, so compete with one another in good deeds. Wherever you are, Allah will bring you all together, for Allah is Most Capable of all things.",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "Dan bagi tiap-tiap umat ada arah (kiblat) yang masing-masing menujunya; oleh itu berlumba-lumbalah kamu mengerjakan kebaikan; kerana di mana sahaja kamu berada maka Allah tetap akan membawa kamu semua (berhimpun pada hari kiamat untuk menerima balasan); sesungguhnya Allah Maha Kuasa atas tiap-tiap sesuatu.",
+        "footnotes": null
+      }
+    },
+    "2:153": {
+      "arabic": "يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوا۟ ٱسْتَعِينُوا۟ بِٱلصَّبْرِ وَٱلصَّلَوٰةِ إِنَّ ٱللَّهَ مَعَ ٱلصَّٰبِرِينَ",
+      "en": {
+        "text": "O you who believe, seek help in patience and prayer, for Allah is with those who are patient[1].",
+        "footnotes": "[1] Allah is with them; by guiding and supporting them."
+      },
+      "ms": {
+        "text": "Wahai sekalian orang-orang yang beriman! Mintalah pertolongan (untuk menghadapi susah payah dalam menyempurnakan sesuatu perintah Tuhan) dengan bersabar dan dengan (mengerjakan) sembahyang; kerana sesungguhnya Allah menyertai (menolong) orang-orang yang sabar",
+        "footnotes": null
+      }
+    },
+    "2:156": {
+      "arabic": "ٱلَّذِينَ إِذَآ أَصَٰبَتْهُم مُّصِيبَةٌ قَالُوٓا۟ إِنَّا لِلَّهِ وَإِنَّآ إِلَيْهِ رَٰجِعُونَ",
+      "en": {
+        "text": "Those who, when afflicted by a calamity, say, “We belong to Allah, and to Him we will return.”",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "(Iaitu) orang-orang yang apabila mereka ditimpa oleh sesuatu kesusahan, mereka berkata: “Sesungguhnya kami adalah kepunyaan Allah dan kepada Allah jualah kami kembali.”",
+        "footnotes": null
+      }
+    },
+    "2:170": {
+      "arabic": "وَإِذَا قِيلَ لَهُمُ ٱتَّبِعُوا۟ مَآ أَنزَلَ ٱللَّهُ قَالُوا۟ بَلْ نَتَّبِعُ مَآ أَلْفَيْنَا عَلَيْهِ ءَابَآءَنَآ أَوَلَوْ كَانَ ءَابَآؤُهُمْ لَا يَعْقِلُونَ شَيْـًٔا وَلَا يَهْتَدُونَ",
+      "en": {
+        "text": "When it is said to them, “Follow what Allah has sent down,” they say, “Instead, we follow what we found our forefathers doing.” [Would they do so] even though their forefathers had no understanding, nor were they guided?",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "Dan apabila dikatakan kepada mereka” Turutlah akan apa yang telah diturunkan oleh Allah” mereka menjawab: “(Tidak), bahkan kami (hanya) menurut apa yang kami dapati datuk nenek kami melakukannya”. Patutkah (mereka menurutnya) sekalipun datuk neneknya itu tidak faham sesuatu (apa pun tentang perkara-perkara ugama), dan tidak pula mendapat petunjuk hidayah (dari Allah)?",
+        "footnotes": null
+      }
+    },
+    "2:186": {
+      "arabic": "وَإِذَا سَأَلَكَ عِبَادِى عَنِّى فَإِنِّى قَرِيبٌ أُجِيبُ دَعْوَةَ ٱلدَّاعِ إِذَا دَعَانِ فَلْيَسْتَجِيبُوا۟ لِى وَلْيُؤْمِنُوا۟ بِى لَعَلَّهُمْ يَرْشُدُونَ",
+      "en": {
+        "text": "When My slaves ask you concerning Me, I am indeed near[1]. I respond to the call of the supplicant when he calls upon Me; so they should respond to Me and believe in Me, so that they may be guided.",
+        "footnotes": "[1] Allah’s nearness means that one does not need to raise his voice or to ask for intercession in order that his prayers be answered."
+      },
+      "ms": {
+        "text": "Dan apabila hamba-hambaKu bertanya kepadamu mengenai Aku maka (beritahu kepada mereka): sesungguhnya Aku (Allah) sentiasa hampir (kepada mereka); Aku perkenankan permohonan orang yang berdoa apabila ia berdoa kepadaKu. Maka hendaklah mereka menyahut seruanku (dengan mematuhi perintahKu), dan hendaklah mereka beriman kepadaKu supaya mereka menjadi baik serta betul.",
+        "footnotes": null
+      }
+    },
+    "2:195": {
+      "arabic": "وَأَنفِقُوا۟ فِى سَبِيلِ ٱللَّهِ وَلَا تُلْقُوا۟ بِأَيْدِيكُمْ إِلَى ٱلتَّهْلُكَةِ وَأَحْسِنُوٓا۟ إِنَّ ٱللَّهَ يُحِبُّ ٱلْمُحْسِنِينَ",
+      "en": {
+        "text": "Spend in the way of Allah[1] and do not throw yourselves into destruction[2], and do good, for Allah loves those who do good.",
+        "footnotes": "[1] Raise funds to prepare for a just fight.\n [2] By not making preparations."
+      },
+      "ms": {
+        "text": "Dan belanjakanlah (apa yang ada pada kamu) kerana (menegakkan) ugama Allah, dan janganlah kamu sengaja mencampakkan diri kamu ke dalam bahaya kebinasaan (dengan bersikap bakhil); dan baikilah (dengan sebaik-baiknya segala usaha dan) perbuatan kamu; kerana sesungguhnya Allah mengasihi orang-orang yang berusaha memperbaiki amalannya.",
+        "footnotes": null
+      }
+    },
+    "2:286": {
+      "arabic": "لَا يُكَلِّفُ ٱللَّهُ نَفْسًا إِلَّا وُسْعَهَا لَهَا مَا كَسَبَتْ وَعَلَيْهَا مَا ٱكْتَسَبَتْ رَبَّنَا لَا تُؤَاخِذْنَآ إِن نَّسِينَآ أَوْ أَخْطَأْنَا رَبَّنَا وَلَا تَحْمِلْ عَلَيْنَآ إِصْرًا كَمَا حَمَلْتَهُۥ عَلَى ٱلَّذِينَ مِن قَبْلِنَا رَبَّنَا وَلَا تُحَمِّلْنَا مَا لَا طَاقَةَ لَنَا بِهِۦ وَٱعْفُ عَنَّا وَٱغْفِرْ لَنَا وَٱرْحَمْنَآ أَنتَ مَوْلَىٰنَا فَٱنصُرْنَا عَلَى ٱلْقَوْمِ ٱلْكَٰفِرِينَ",
+      "en": {
+        "text": "Allah does not burden any soul beyond its capacity. In its favor is what it has earned, and against it is what it has incurred. “Our Lord, do not hold us accountable if we forget or fall into error. Our Lord, do not place on us a burden like the one You placed on those before us. Our Lord, do not burden us with that which we cannot bear. Pardon us, forgive us, and have mercy on us. You are our Protector, so give us victory over the disbelieving people[1].”[2]",
+        "footnotes": "[1] Allah Almighty concludes this Surah by instructing His servants how to supplicate Him, just as He taught them in Surah al-Fātihah to praise Him and ask for guidance.\n [2] Allah’s Messenger (ﷺ) said: “Whoever recites the last two verses of Surat al-Baqarah at night, they will suffice him.” [Al-Bukhāri: 5009, Muslim: 807]."
+      },
+      "ms": {
+        "text": "Allah tidak memberati seseorang melainkan apa yang terdaya olehnya. Ia mendapat pahala kebaikan yang diusahakannya, dan ia juga menanggung dosa kejahatan yang diusahakannya. (Mereka berdoa dengan berkata): “Wahai Tuhan kami! Janganlah Engkau mengirakan kami salah jika kami lupa atau kami tersalah. Wahai Tuhan kami! Janganlah Engkau bebankan kepada kami bebanan yang berat sebagaimana yang telah Engkau bebankan kepada orang-orang yang terdahulu daripada kami. Wahai Tuhan kami! Janganlah Engkau pikulkan kepada kami apa yang kami tidak terdaya memikulnya. Dan maafkanlah kesalahan kami, serta ampunkanlah dosa kami, dan berilah rahmat kepada kami. Engkaulah Penolong kami; oleh itu, tolonglah kami untuk mencapai kemenangan terhadap kaum-kaum yang kafir”.",
+        "footnotes": null
+      }
+    },
+    "30:22": {
+      "arabic": "وَمِنْ ءَايَٰتِهِۦ خَلْقُ ٱلسَّمَٰوَٰتِ وَٱلْأَرْضِ وَٱخْتِلَٰفُ أَلْسِنَتِكُمْ وَأَلْوَٰنِكُمْ إِنَّ فِى ذَٰلِكَ لَـَٔايَٰتٍ لِّلْعَٰلِمِينَ",
+      "en": {
+        "text": "And among His signs is the creation of the heavens and earth, and the diversity of your tongues and colors. Indeed, there are signs in this for those who have knowledge.",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "Dan di antara tanda-tanda yang membuktikan kekuasaanNya dan kebijaksanaanNya ialah kejadian langit dan bumi, dan perbezaan bahasa kamu dan warna kulit kamu. Sesungguhnya yang demikian itu mengandungi keterangan-keterangan bagi orang-orang yang berpengetahuan.",
+        "footnotes": null
+      }
+    },
+    "31:13": {
+      "arabic": "وَإِذْ قَالَ لُقْمَٰنُ لِٱبْنِهِۦ وَهُوَ يَعِظُهُۥ يَٰبُنَىَّ لَا تُشْرِكْ بِٱللَّهِ إِنَّ ٱلشِّرْكَ لَظُلْمٌ عَظِيمٌ",
+      "en": {
+        "text": "When Luqmān said to his son, while advising him, “O my dear son, do not associate partners with Allah. Indeed, associating partners with Allah is the worst wrongdoing.”",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "Dan (ingatlah) ketika Luqman berkata kepada anaknya, semasa ia memberi nasihat kepadanya: “Wahai anak kesayanganku, janganlah engkau mempersekutukan Allah (dengan sesuatu yang lain), sesungguhnya perbuatan syirik itu adalah satu kezaliman yang besar”.",
+        "footnotes": null
+      }
+    },
+    "31:14": {
+      "arabic": "وَوَصَّيْنَا ٱلْإِنسَٰنَ بِوَٰلِدَيْهِ حَمَلَتْهُ أُمُّهُۥ وَهْنًا عَلَىٰ وَهْنٍ وَفِصَٰلُهُۥ فِى عَامَيْنِ أَنِ ٱشْكُرْ لِى وَلِوَٰلِدَيْكَ إِلَىَّ ٱلْمَصِيرُ",
+      "en": {
+        "text": "We have enjoined upon man kindness to his parents. His mother bore him in weakness upon weakness, and his weaning took place within two years. Be grateful to Me and to your parents. To Me is the final return.",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "Dan Kami wajibkan manusia berbuat baik kepada kedua ibu bapanya; ibunya telah mengandungnya dengan menanggung kelemahan demi kelemahan (dari awal mengandung hingga akhir menyusunya), dan tempoh menceraikan susunya ialah dalam masa dua tahun; (dengan yang demikian) bersyukurlah kepadaKu dan kepada kedua ibubapamu; dan (ingatlah), kepada Akulah jua tempat kembali (untuk menerima balasan).",
+        "footnotes": null
+      }
+    },
+    "31:15": {
+      "arabic": "وَإِن جَٰهَدَاكَ عَلَىٰٓ أَن تُشْرِكَ بِى مَا لَيْسَ لَكَ بِهِۦ عِلْمٌ فَلَا تُطِعْهُمَا وَصَاحِبْهُمَا فِى ٱلدُّنْيَا مَعْرُوفًا وَٱتَّبِعْ سَبِيلَ مَنْ أَنَابَ إِلَىَّ ثُمَّ إِلَىَّ مَرْجِعُكُمْ فَأُنَبِّئُكُم بِمَا كُنتُمْ تَعْمَلُونَ",
+      "en": {
+        "text": "But if they strive to make you associate partners with Me of what you have no knowledge[1], then do not obey them. Yet keep company with them in this world with kindness, and follow the way of those who turn to Me [in repentance]. Then to Me is your return, and I will inform you of what you used to do.",
+        "footnotes": "[1] Of other false gods, while there is no partner with Me whatsoever."
+      },
+      "ms": {
+        "text": "Dan jika mereka berdua mendesakmu supaya engkau mempersekutukan denganKu sesuatu yang engkau - dengan fikiran sihatmu - tidak mengetahui sungguh adanya maka janganlah engkau taat kepada mereka; dan bergaulah dengan mereka di dunia dengan cara yang baik. Dan turutlah jalan orang-orang yang rujuk kembali kepadaKu (dengan tauhid dan amal-amal yang soleh). Kemudian kepada Akulah tempat kembali kamu semuanya, maka Aku akan menerangkan kepada kamu segala yang kamu telah kerjakan.",
+        "footnotes": null
+      }
+    },
+    "31:16": {
+      "arabic": "يَٰبُنَىَّ إِنَّهَآ إِن تَكُ مِثْقَالَ حَبَّةٍ مِّنْ خَرْدَلٍ فَتَكُن فِى صَخْرَةٍ أَوْ فِى ٱلسَّمَٰوَٰتِ أَوْ فِى ٱلْأَرْضِ يَأْتِ بِهَا ٱللَّهُ إِنَّ ٱللَّهَ لَطِيفٌ خَبِيرٌ",
+      "en": {
+        "text": "[Luqmān said], “O my dear son, even if a deed were the weight of a mustard seed – whether in a rock or in the heavens or in the earth – Allah will bring it forth. Indeed, Allah is Most Subtle, All-Aware.",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "(Luqman menasihati anaknya dengan berkata): “Wahai anak kesayanganku, sesungguhnya jika ada sesuatu perkara (yang baik atau yang buruk) sekalipun seberat bijih sawi, serta ia tersembunyi di dalam batu besar atau di langit atau pun di bumi, sudah tetap akan dibawa oleh Allah (untuk dihakimi dan dibalasNya); kerana sesungguhnya Allah Maha Halus pengetahuanNya; lagi Amat Meliputi akan segala yang tersembunyi.",
+        "footnotes": null
+      }
+    },
+    "31:17": {
+      "arabic": "يَٰبُنَىَّ أَقِمِ ٱلصَّلَوٰةَ وَأْمُرْ بِٱلْمَعْرُوفِ وَٱنْهَ عَنِ ٱلْمُنكَرِ وَٱصْبِرْ عَلَىٰ مَآ أَصَابَكَ إِنَّ ذَٰلِكَ مِنْ عَزْمِ ٱلْأُمُورِ",
+      "en": {
+        "text": "“O my dear son, establish prayer, enjoin what is right and forbid what is wrong, and be patient with whatever befalls you. This is a matter of firm resolve[1].",
+        "footnotes": "[1] For they are enjoined by Allah."
+      },
+      "ms": {
+        "text": "“Wahai anak kesayanganku, dirikanlah sembahyang, dan suruhlah berbuat kebaikan, serta laranglah daripada melakukan perbuatan yang mungkar, dan bersabarlah atas segala bala bencana yang menimpamu. Sesungguhnya yang demikian itu adalah dari perkara-perkara yang dikehendaki diambil berat melakukannya.",
+        "footnotes": null
+      }
+    },
+    "31:18": {
+      "arabic": "وَلَا تُصَعِّرْ خَدَّكَ لِلنَّاسِ وَلَا تَمْشِ فِى ٱلْأَرْضِ مَرَحًا إِنَّ ٱللَّهَ لَا يُحِبُّ كُلَّ مُخْتَالٍ فَخُورٍ",
+      "en": {
+        "text": "Do not turn your face away from people [in contempt][1], and do not walk on earth in arrogance. Indeed, Allah does not like anyone who is arrogant and boastful.",
+        "footnotes": "[1] Rather, direct your face and attention to them as a sign of respect."
+      },
+      "ms": {
+        "text": "“Dan janganlah engkau memalingkan mukamu (kerana memandang rendah) kepada manusia, dan janganlah engkau berjalan di bumi dengan berlagak sombong; sesungguhnya Allah tidak suka kepada tiap-tiap orang yang sombong takbur, lagi membanggakan diri.",
+        "footnotes": null
+      }
+    },
+    "31:19": {
+      "arabic": "وَٱقْصِدْ فِى مَشْيِكَ وَٱغْضُضْ مِن صَوْتِكَ إِنَّ أَنكَرَ ٱلْأَصْوَٰتِ لَصَوْتُ ٱلْحَمِيرِ",
+      "en": {
+        "text": "Be moderate in your gait and lower your voice. Indeed, the most repugnant of voices is the voice of donkeys.”",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "“Dan sederhanakanlah langkahmu semasa berjalan, juga rendahkanlah suaramu (semasa berkata-kata), sesungguhnya seburuk-buruk suara ialah suara keldai”.",
+        "footnotes": null
+      }
+    },
+    "35:28": {
+      "arabic": "وَمِنَ ٱلنَّاسِ وَٱلدَّوَآبِّ وَٱلْأَنْعَٰمِ مُخْتَلِفٌ أَلْوَٰنُهُۥ كَذَٰلِكَ إِنَّمَا يَخْشَى ٱللَّهَ مِنْ عِبَادِهِ ٱلْعُلَمَٰٓؤُا۟ إِنَّ ٱللَّهَ عَزِيزٌ غَفُورٌ",
+      "en": {
+        "text": "just as humans, animals and livestock are of various colors. Only the people of knowledge among His slaves fear Allah. Indeed, Allah is All-Mighty, All-Forgiving.",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "Dan demikian pula di antara manusia dan binatang-binatang yang melata serta binatang-binatang ternak, ada yang berlainan jenis dan warnanya? Sebenarnya yang menaruh bimbang dan takut (melanggar perintah) Allah dari kalangan hamba-hambaNya hanyalah orang-orang yang berilmu. Sesungguhnya Allah Maha Kuasa, lagi Maha Pengampun.",
+        "footnotes": null
+      }
+    },
+    "36:40": {
+      "arabic": "لَا ٱلشَّمْسُ يَنۢبَغِى لَهَآ أَن تُدْرِكَ ٱلْقَمَرَ وَلَا ٱلَّيْلُ سَابِقُ ٱلنَّهَارِ وَكُلٌّ فِى فَلَكٍ يَسْبَحُونَ",
+      "en": {
+        "text": "It is not for the sun to catch up with the moon, nor for the night to outstrip the day. Each is floating in its own orbit.",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "(Dengan ketentuan yang demikian), matahari tidak mudah baginya mengejar bulan, dan malam pula tidak dapat mendahului siang; kerana tiap-tiap satunya beredar terapung-apung di tempat edarannya masing-masing.",
+        "footnotes": null
+      }
+    },
+    "39:53": {
+      "arabic": "قُلْ يَٰعِبَادِىَ ٱلَّذِينَ أَسْرَفُوا۟ عَلَىٰٓ أَنفُسِهِمْ لَا تَقْنَطُوا۟ مِن رَّحْمَةِ ٱللَّهِ إِنَّ ٱللَّهَ يَغْفِرُ ٱلذُّنُوبَ جَمِيعًا إِنَّهُۥ هُوَ ٱلْغَفُورُ ٱلرَّحِيمُ",
+      "en": {
+        "text": "Say [Allah says], “O My slaves who have transgressed against themselves, do not despair of Allah’s mercy, for indeed Allah forgives all sins[1]. He is indeed the All-Forgiving, the Most Merciful.",
+        "footnotes": "[1] It is for those who repent and correct themselves, no matter how big the sins are. The only unforgivable sin in Islam is dying in disbelief in Allah or associating others with Him. See 4:48. The Prophet (ﷺ) reports that Allah Almighty says, \"O children of Adam! As long as you call upon Me, putting your hope in Me, I will forgive you for what you have done, and I will not mind. O children of Adam! If your sins were to reach the clouds of the sky and then you sought My forgiveness, I would forgive you. O children of Adam! If you were to come to Me with sins filling the whole world and then you came to Me without associating partners with Me, I would certainly match your sins with forgiveness.\" [At-Tirmidhi]"
+      },
+      "ms": {
+        "text": "Katakanlah (wahai Muhammad): “Wahai hamba-hambaKu yang telah melampaui batas terhadap diri mereka sendiri (dengan perbuatan-perbuatan maksiat), janganlah kamu berputus asa dari rahmat Allah, kerana sesungguhnya Allah mengampunkan segala dosa; sesungguhnya Dia lah jua Yang Maha Pengampun, lagi Maha Mengasihani.",
+        "footnotes": null
+      }
+    },
+    "3:134": {
+      "arabic": "ٱلَّذِينَ يُنفِقُونَ فِى ٱلسَّرَّآءِ وَٱلضَّرَّآءِ وَٱلْكَٰظِمِينَ ٱلْغَيْظَ وَٱلْعَافِينَ عَنِ ٱلنَّاسِ وَٱللَّهُ يُحِبُّ ٱلْمُحْسِنِينَ",
+      "en": {
+        "text": "those who spend in times of prosperity and adversity, and who restrain their anger[1] and pardon people; for Allah loves those who do good.",
+        "footnotes": "[1] Allah’s Messenger (ﷺ) said: \"The strong is not the one who overcomes others by strength, but the strong is the one who controls himself while in anger.\" [Sahih al-Bukhāri: 135]"
+      },
+      "ms": {
+        "text": "Iaitu orang-orang yang mendermakan hartanya pada masa senang dan susah, dan orang-orang yang menahan kemarahannya, dan orang-orang yang memaafkan kesalahan orang. Dan (ingatlah), Allah mengasihi orang-orang yang berbuat perkara-perkara yang baik;",
+        "footnotes": null
+      }
+    },
+    "3:135": {
+      "arabic": "وَٱلَّذِينَ إِذَا فَعَلُوا۟ فَٰحِشَةً أَوْ ظَلَمُوٓا۟ أَنفُسَهُمْ ذَكَرُوا۟ ٱللَّهَ فَٱسْتَغْفَرُوا۟ لِذُنُوبِهِمْ وَمَن يَغْفِرُ ٱلذُّنُوبَ إِلَّا ٱللَّهُ وَلَمْ يُصِرُّوا۟ عَلَىٰ مَا فَعَلُوا۟ وَهُمْ يَعْلَمُونَ",
+      "en": {
+        "text": "And those who, when they commit a shameful act or wrong themselves, remember Allah and seek forgiveness for their sins[1] – who can forgive sins except Allah? – and they do not persist in what they did knowingly.",
+        "footnotes": "[1] Abu Bakr (رضي الله عنه) reported that the Prophet (ﷺ) said: “There is no Muslim who commits a sin, then performs ablution, prays two rak‘ahs and asks Allah for forgiveness without Allah forgiving him”. [Abū Dāwūd: 1521, al-Tirmidhī: 406, Ibn Mājah: 1395]"
+      },
+      "ms": {
+        "text": "Dan juga orang-orang yang apabila melakukan perbuatan keji, atau menganiaya diri sendiri, mereka segera ingat kepada Allah lalu memohon ampun akan dosa mereka - dan sememangnya tidak ada yang mengampunkan dosa-dosa melainkan Allah -, dan mereka juga tidak meneruskan perbuatan keji yang mereka telah lakukan itu, sedang mereka mengetahui (akan salahnya dan akibatnya).",
+        "footnotes": null
+      }
+    },
+    "3:190": {
+      "arabic": "إِنَّ فِى خَلْقِ ٱلسَّمَٰوَٰتِ وَٱلْأَرْضِ وَٱخْتِلَٰفِ ٱلَّيْلِ وَٱلنَّهَارِ لَـَٔايَٰتٍ لِّأُو۟لِى ٱلْأَلْبَٰبِ",
+      "en": {
+        "text": "Indeed, in the creation of the heavens and earth and the alternation of the night and day are signs for people of understanding,",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "Sesungguhnya pada kejadian langit dan bumi, dan pada pertukaran malam dan siang, ada tanda-tanda (kekuasaan, kebijaksanaan, dan keluasan rahmat Allah) bagi orang-orang yang berakal;",
+        "footnotes": null
+      }
+    },
+    "3:191": {
+      "arabic": "ٱلَّذِينَ يَذْكُرُونَ ٱللَّهَ قِيَٰمًا وَقُعُودًا وَعَلَىٰ جُنُوبِهِمْ وَيَتَفَكَّرُونَ فِى خَلْقِ ٱلسَّمَٰوَٰتِ وَٱلْأَرْضِ رَبَّنَا مَا خَلَقْتَ هَٰذَا بَٰطِلًا سُبْحَٰنَكَ فَقِنَا عَذَابَ ٱلنَّارِ",
+      "en": {
+        "text": "those who remember Allah while standing, sitting, and lying on their sides, and reflect upon the creation of the heavens and earth [saying], “Our Lord, you have not created all this in vain. Glory be to You. Protect us from the punishment of the Fire.",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "(Iaitu) orang-orang yang menyebut dan mengingati Allah semasa mereka berdiri dan duduk dan semasa mereka berbaring mengiring, dan mereka pula memikirkan tentang kejadian langit dan bumi (sambil berkata): “Wahai Tuhan kami! Tidaklah Engkau menjadikan benda-benda ini dengan sia-sia, Maha Suci Engkau, maka peliharalah kami dari azab neraka.",
+        "footnotes": null
+      }
+    },
+    "47:24": {
+      "arabic": "أَفَلَا يَتَدَبَّرُونَ ٱلْقُرْءَانَ أَمْ عَلَىٰ قُلُوبٍ أَقْفَالُهَآ",
+      "en": {
+        "text": "Do they not reflect upon the Qur’an, or are there locks upon their hearts?",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "(Setelah diterangkan yang demikian) maka adakah mereka sengaja tidak berusaha memahami serta memikirkan isi Al-Quran? Atau telah ada di atas hati mereka kunci penutup (yang menghalangnya daripada menerima ajaran Al-Quran)?",
+        "footnotes": null
+      }
+    },
+    "48:17": {
+      "arabic": "لَّيْسَ عَلَى ٱلْأَعْمَىٰ حَرَجٌ وَلَا عَلَى ٱلْأَعْرَجِ حَرَجٌ وَلَا عَلَى ٱلْمَرِيضِ حَرَجٌ وَمَن يُطِعِ ٱللَّهَ وَرَسُولَهُۥ يُدْخِلْهُ جَنَّٰتٍ تَجْرِى مِن تَحْتِهَا ٱلْأَنْهَٰرُ وَمَن يَتَوَلَّ يُعَذِّبْهُ عَذَابًا أَلِيمًا",
+      "en": {
+        "text": "There is no blame on the blind, nor on the lame, nor on the sick [for remaining behind]. Whoever obeys Allah and His Messenger, He will admit him into gardens under which rivers flow. But whoever turns away, He will afflict him with a painful punishment.",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "Tidaklah menjadi salah kepada orang buta, dan tidaklah menjadi salah kepada orang tempang, dan tidaklah menjadi salah kepada orang sakit (tidak turut berperang, kerana masing-masing ada uzurnya). Dan (ingatlah), sesiapa yang taat kepada Allah dan RasulNya, akan dimasukkanNya ke dalam Syurga yang mengalir di bawahnya beberapa sungai; dan sesiapa yang berpaling ingkar, akan diseksaNya dengan azab yang tidak terperi sakitnya.",
+        "footnotes": null
+      }
+    },
+    "49:11": {
+      "arabic": "يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوا۟ لَا يَسْخَرْ قَوْمٌ مِّن قَوْمٍ عَسَىٰٓ أَن يَكُونُوا۟ خَيْرًا مِّنْهُمْ وَلَا نِسَآءٌ مِّن نِّسَآءٍ عَسَىٰٓ أَن يَكُنَّ خَيْرًا مِّنْهُنَّ وَلَا تَلْمِزُوٓا۟ أَنفُسَكُمْ وَلَا تَنَابَزُوا۟ بِٱلْأَلْقَٰبِ بِئْسَ ٱلِٱسْمُ ٱلْفُسُوقُ بَعْدَ ٱلْإِيمَٰنِ وَمَن لَّمْ يَتُبْ فَأُو۟لَٰٓئِكَ هُمُ ٱلظَّٰلِمُونَ",
+      "en": {
+        "text": "O you who believe, let not some men ridicule others, for it may be that they are better than them; nor let some women ridicule others, for it may be that they are better than them. Do not speak ill of one another, nor call one another by [offensive] nicknames. How evil is the name of wickedness after having faith! And whoever does not repent, it is they who are the wrongdoers.",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "Wahai orang-orang yang beriman! Janganlah sesuatu puak (dari kaum lelaki) mencemuh dan merendah-rendahkan puak lelaki yang lain, (kerana) harus puak yang dicemuhkan itu lebih baik daripada mereka; dan janganlah pula sesuatu puak dari kaum perempuan mencemuh dan merendah-rendahkan puak perempuan yang lain, (kerana) harus puak yang dicemuhkan itu lebih baik daripada mereka; dan janganlah setengah kamu menyatakan keaiban setengahnya yang lain; dan janganlah pula kamu panggil-memanggil antara satu dengan yang lain dengan gelaran yang buruk. (Larangan-larangan yang tersebut menyebabkan orang yang melakukannya menjadi fasik, maka) amatlah buruknya sebutan nama fasik (kepada seseorang) sesudah ia beriman. Dan (ingatlah), sesiapa yang tidak bertaubat (daripada perbuatan fasiknya) maka merekalah orang-orang yang zalim.",
+        "footnotes": null
+      }
+    },
+    "49:12": {
+      "arabic": "يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوا۟ ٱجْتَنِبُوا۟ كَثِيرًا مِّنَ ٱلظَّنِّ إِنَّ بَعْضَ ٱلظَّنِّ إِثْمٌ وَلَا تَجَسَّسُوا۟ وَلَا يَغْتَب بَّعْضُكُم بَعْضًا أَيُحِبُّ أَحَدُكُمْ أَن يَأْكُلَ لَحْمَ أَخِيهِ مَيْتًا فَكَرِهْتُمُوهُ وَٱتَّقُوا۟ ٱللَّهَ إِنَّ ٱللَّهَ تَوَّابٌ رَّحِيمٌ",
+      "en": {
+        "text": "O you who believe, avoid much of the suspicion, for some suspicions are sin. Do not spy on one another, nor backbite one another. Would any of you like to eat the flesh of his dead brother[1]? You would surely abhor it. So fear Allah. Indeed, Allah is Accepting of Repentance, Most Merciful.",
+        "footnotes": "[1] Backbiting people is likened to eating their dead bodies, for the dead do not feel the pain if their flesh is eaten; likewise, the one who is absent does not feel the pain of backbiting. So, backbiting someone is like eating his flesh while he is dead."
+      },
+      "ms": {
+        "text": "Wahai orang-orang yang beriman! Jauhilah kebanyakan dari sangkaan (supaya kamu tidak menyangka sangkaan yang dilarang) kerana sesungguhnya sebahagian dari sangkaan itu adalah dosa; dan janganlah kamu mengintip atau mencari-cari kesalahan dan keaiban orang; dan janganlah setengah kamu mengumpat setengahnya yang lain. Adakah seseorang dari kamu suka memakan daging saudaranya yang telah mati? (Jika demikian keadaan mengumpat) maka sudah tentu kamu jijik kepadanya. (Oleh itu, patuhilah larangan-larangan yang tersebut) dan bertaqwalah kamu kepada Allah; sesungguhnya Allah Penerima taubat, lagi Maha mengasihani.",
+        "footnotes": null
+      }
+    },
+    "49:13": {
+      "arabic": "يَٰٓأَيُّهَا ٱلنَّاسُ إِنَّا خَلَقْنَٰكُم مِّن ذَكَرٍ وَأُنثَىٰ وَجَعَلْنَٰكُمْ شُعُوبًا وَقَبَآئِلَ لِتَعَارَفُوٓا۟ إِنَّ أَكْرَمَكُمْ عِندَ ٱللَّهِ أَتْقَىٰكُمْ إِنَّ ٱللَّهَ عَلِيمٌ خَبِيرٌ",
+      "en": {
+        "text": "O people, We have created you from a male and a female and made you into nations and tribes so that you may recognize one another. Indeed, the most noble of you before Allah is the most righteous[1] among you. Indeed, Allah is All-Knowing, All-Aware.",
+        "footnotes": "[1] Lit., \"the one who has the most taqwā among you,\" i.e., consciousness, piety, and fear of Allah."
+      },
+      "ms": {
+        "text": "Wahai umat manusia! Sesungguhnya Kami telah menciptakan kamu dari lelaki dan perempuan, dan Kami telah menjadikan kamu berbagai bangsa dan bersuku puak, supaya kamu berkenal-kenalan (dan beramah mesra antara satu dengan yang lain). Sesungguhnya semulia-mulia kamu di sisi Allah ialah orang yang lebih taqwanya di antara kamu, (bukan yang lebih keturunan atau bangsanya). Sesungguhnya Allah Maha Mengetahui, lagi Maha Mendalam PengetahuanNya (akan keadaan dan amalan kamu).",
+        "footnotes": null
+      }
+    },
+    "53:32": {
+      "arabic": "ٱلَّذِينَ يَجْتَنِبُونَ كَبَٰٓئِرَ ٱلْإِثْمِ وَٱلْفَوَٰحِشَ إِلَّا ٱللَّمَمَ إِنَّ رَبَّكَ وَٰسِعُ ٱلْمَغْفِرَةِ هُوَ أَعْلَمُ بِكُمْ إِذْ أَنشَأَكُم مِّنَ ٱلْأَرْضِ وَإِذْ أَنتُمْ أَجِنَّةٌ فِى بُطُونِ أُمَّهَٰتِكُمْ فَلَا تُزَكُّوٓا۟ أَنفُسَكُمْ هُوَ أَعْلَمُ بِمَنِ ٱتَّقَىٰٓ",
+      "en": {
+        "text": "those who avoid major sins and shameful acts, except for minor lapses. Indeed, your Lord is ample in forgiveness. He knows you best, as He created you from the earth[1] and when you were fetuses in the wombs of your mothers[2]. So do not claim purity for yourselves, for He knows best who is truly righteous.",
+        "footnotes": "[1] i.e., created your father, Adam.\n [2] See footnote 31:34."
+      },
+      "ms": {
+        "text": "(Iaitu) orang-orang yang menjauhi dosa-dosa besar serta perbuatan-perbuatan yang keji, kecuali salah silap yang kecil-kecil (yang mereka terlanjur melakukannya, maka itu dimaafkan). Sesungguhnya Tuhanmu Maha Luas keampunanNya. Ia lebih mengetahui akan keadaan kamu semenjak Ia mencipta kamu (berasal) dari tanah, dan semasa kamu berupa anak yang sedang melalui berbagai peringkat kejadian dalam perut ibu kamu; maka janganlah kamu memuji-muji diri kamu (bahawa kamu suci bersih dari dosa). Dia lah sahaja yang lebih mengetahui akan orang-orang yang bertaqwa.",
+        "footnotes": null
+      }
+    },
+    "53:39": {
+      "arabic": "وَأَن لَّيْسَ لِلْإِنسَٰنِ إِلَّا مَا سَعَىٰ",
+      "en": {
+        "text": "and that man will not receive except what he strives for,",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "Dan bahawa sesungguhnya tidak ada (balasan) bagi seseorang melainkan (balasan) apa yang diusahakannya;",
+        "footnotes": null
+      }
+    },
+    "58:11": {
+      "arabic": "يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوٓا۟ إِذَا قِيلَ لَكُمْ تَفَسَّحُوا۟ فِى ٱلْمَجَٰلِسِ فَٱفْسَحُوا۟ يَفْسَحِ ٱللَّهُ لَكُمْ وَإِذَا قِيلَ ٱنشُزُوا۟ فَٱنشُزُوا۟ يَرْفَعِ ٱللَّهُ ٱلَّذِينَ ءَامَنُوا۟ مِنكُمْ وَٱلَّذِينَ أُوتُوا۟ ٱلْعِلْمَ دَرَجَٰتٍ وَٱللَّهُ بِمَا تَعْمَلُونَ خَبِيرٌ",
+      "en": {
+        "text": "O you who believe, when you are told to make room in your gatherings, then make room; Allah will give you abundance[1]. And when you are told to rise, then rise; Allah will raise in ranks those who believed from among you and those who are given knowledge. And Allah is All-Aware of what you do.",
+        "footnotes": "[1] In this life or in the Hereafter."
+      },
+      "ms": {
+        "text": "Wahai orang-orang yang beriman! Apabila diminta kepada kamu memberi lapang dari tempat duduk kamu (untuk orang lain) maka lapangkanlah seboleh-bolehnya supaya Allah melapangkan (segala halnya) untuk kamu. Dan apabila diminta kamu bangun maka bangunlah, supaya Allah meninggikan darjat orang-orang yang beriman di antara kamu, dan orang-orang yang diberi ilmu pengetahuan ugama (dari kalangan kamu) - beberapa darjat. Dan (ingatlah), Allah Maha Mendalam PengetahuanNya tentang apa yang kamu lakukan.",
+        "footnotes": null
+      }
+    },
+    "5:2": {
+      "arabic": "يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوا۟ لَا تُحِلُّوا۟ شَعَٰٓئِرَ ٱللَّهِ وَلَا ٱلشَّهْرَ ٱلْحَرَامَ وَلَا ٱلْهَدْىَ وَلَا ٱلْقَلَٰٓئِدَ وَلَآ ءَآمِّينَ ٱلْبَيْتَ ٱلْحَرَامَ يَبْتَغُونَ فَضْلًا مِّن رَّبِّهِمْ وَرِضْوَٰنًا وَإِذَا حَلَلْتُمْ فَٱصْطَادُوا۟ وَلَا يَجْرِمَنَّكُمْ شَنَـَٔانُ قَوْمٍ أَن صَدُّوكُمْ عَنِ ٱلْمَسْجِدِ ٱلْحَرَامِ أَن تَعْتَدُوا۟ وَتَعَاوَنُوا۟ عَلَى ٱلْبِرِّ وَٱلتَّقْوَىٰ وَلَا تَعَاوَنُوا۟ عَلَى ٱلْإِثْمِ وَٱلْعُدْوَٰنِ وَٱتَّقُوا۟ ٱللَّهَ إِنَّ ٱللَّهَ شَدِيدُ ٱلْعِقَابِ",
+      "en": {
+        "text": "O you who believe, do not violate the sanctity of the rituals of Allah, nor of the sacred month[1], nor the sacrificial animals, nor the garlands[2], nor those [pilgrims] proceeding to the Sacred House seeking their Lord’s grace and pleasure. When your pilgrimage has ended, you may hunt. However, do not let the hatred of a people who barred you from the Sacred Mosque lead you to transgress. Cooperate with one another in goodness and righteousness, and do not cooperate in sin and transgression. And fear Allah, for Allah is severe in punishment.",
+        "footnotes": "[1] The four sacrosanct months are Dhul-Qi‘dah, Dhul-Hijjah, Muḥarram, and Rajab. [Al-Bukhārī: 4662, Muslim: 1679].\n [2] Al-Qalā’id is hady (gifted offerings): garlands were put around the necks of unaccompanied offerings; hence, they were safe to roam and graze freely. [cf. Ibn Qutaybah, Gharīb al-Qur’ān; Ibn Fāris, Maqāyīs al-Lughah]."
+      },
+      "ms": {
+        "text": "Wahai orang-orang yang beriman, janganlah kamu ingat halal membuat sesuka hati mengenai syiar-syiar ugama Allah, dan mengenai bulan-bulan yang dihormati, dan mengenai binatang-binatang yang dihadiahkan (ke Makkah untuk korban), dan mengenai kalong-kalong binatang hadiah itu, dan mengenai orang-orang yang menuju ke Baitullah Al-Haraam, yang bertujuan mencari limpah kurnia dari Tuhan mereka (dengan jalan perniagaan) dan mencari keredaanNya (dengan mengerjakan ibadat Haji di Tanah Suci); dan apabila kamu telah selesai dari ihram maka bolehlah kamu berburu. Dan jangan sekali-kali kebencian kamu kepada suatu kaum kerana mereka pernah menghalangi kamu dari masjid Al-Haraam itu - mendorong kamu menceroboh. Dan hendaklah kamu bertolong-tolongan untuk membuat kebajikan dan bertaqwa, dan janganlah kamu bertolong-tolongan pada melakukan dosa (maksiat) dan pencerobohan. Dan bertaqwalah kepada Allah, kerana sesungguhnya Allah Maha Berat azab seksaNya (bagi sesiapa yang melanggar perintahNya).",
+        "footnotes": null
+      }
+    },
+    "64:11": {
+      "arabic": "مَآ أَصَابَ مِن مُّصِيبَةٍ إِلَّا بِإِذْنِ ٱللَّهِ وَمَن يُؤْمِنۢ بِٱللَّهِ يَهْدِ قَلْبَهُۥ وَٱللَّهُ بِكُلِّ شَىْءٍ عَلِيمٌ",
+      "en": {
+        "text": "No calamity befalls except with Allah’s permission. Whoever believes in Allah, He will guide his heart. And Allah is All-Knowing of everything.",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "Tidak ada kesusahan (atau bala bencana) yang menimpa (seseorang) melainkan dengan izin Allah; dan sesiapa yang beriman kepada Allah, Allah akan memimpin hatinya (untuk menerima apa yang telah berlaku itu dengan tenang dan sabar); dan (ingatlah), Allah Maha Mengetahui akan tiap-tiap sesuatu.",
+        "footnotes": null
+      }
+    },
+    "66:8": {
+      "arabic": "يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوا۟ تُوبُوٓا۟ إِلَى ٱللَّهِ تَوْبَةً نَّصُوحًا عَسَىٰ رَبُّكُمْ أَن يُكَفِّرَ عَنكُمْ سَيِّـَٔاتِكُمْ وَيُدْخِلَكُمْ جَنَّٰتٍ تَجْرِى مِن تَحْتِهَا ٱلْأَنْهَٰرُ يَوْمَ لَا يُخْزِى ٱللَّهُ ٱلنَّبِىَّ وَٱلَّذِينَ ءَامَنُوا۟ مَعَهُۥ نُورُهُمْ يَسْعَىٰ بَيْنَ أَيْدِيهِمْ وَبِأَيْمَٰنِهِمْ يَقُولُونَ رَبَّنَآ أَتْمِمْ لَنَا نُورَنَا وَٱغْفِرْ لَنَآ إِنَّكَ عَلَىٰ كُلِّ شَىْءٍ قَدِيرٌ",
+      "en": {
+        "text": "O you who believe, turn to Allah in sincere repentance. It may be that your Lord will absolve you of your bad deeds and admit you to gardens under which rivers flow, on the Day when Allah will not disgrace the Prophet and those who believed with him. Their light will stream ahead of them and on their right. They will say, “Our Lord, complete our light for us and forgive us, for You are Most Capable of all things.”",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "Wahai orang-orang yang beriman! Bertaubatlah kamu kepada Allah dengan “Taubat Nasuha”, mudah-mudahan Tuhan kamu akan menghapuskan kesalahan-kesalahan kamu dan memasukkan kamu ke dalam Syurga yang mengalir di bawahnya beberapa sungai, pada hari Allah tidak akan menghinakan Nabi dan orang-orang yang beriman bersama-sama dengannya; cahaya (iman dan amal soleh) mereka, bergerak cepat di hadapan mereka dan di sebelah kanan mereka (semasa mereka berjalan); mereka berkata (ketika orang-orang munafik meraba-raba dalam gelap-gelita): “Wahai Tuhan kami! Sempurnakanlah bagi kami cahaya kami, dan limpahkanlah keampunan kepada kami; sesungguhnya Engkau Maha Kuasa atas tiap-tiap sesuatu”.",
+        "footnotes": null
+      }
+    },
+    "6:76": {
+      "arabic": "فَلَمَّا جَنَّ عَلَيْهِ ٱلَّيْلُ رَءَا كَوْكَبًا قَالَ هَٰذَا رَبِّى فَلَمَّآ أَفَلَ قَالَ لَآ أُحِبُّ ٱلْـَٔافِلِينَ",
+      "en": {
+        "text": "When the night grew dark upon him, he saw a star and said, “This is my Lord.” But when it set, he said, “I do not like those that set.”[1]",
+        "footnotes": "[1] Abraham wanted to show them futility and folly of worshiping mere idols by a logical conclusion."
+      },
+      "ms": {
+        "text": "Maka ketika ia berada pada waktu malam yang gelap, ia melihat sebuah bintang (bersinar-sinar), lalu ia berkata: “Inikah Tuhanku?” Kemudian apabila bintang itu terbenam, ia berkata pula: “Aku tidak suka kepada yang terbenam hilang”.",
+        "footnotes": null
+      }
+    },
+    "6:77": {
+      "arabic": "فَلَمَّا رَءَا ٱلْقَمَرَ بَازِغًا قَالَ هَٰذَا رَبِّى فَلَمَّآ أَفَلَ قَالَ لَئِن لَّمْ يَهْدِنِى رَبِّى لَأَكُونَنَّ مِنَ ٱلْقَوْمِ ٱلضَّآلِّينَ",
+      "en": {
+        "text": "Then when he saw the moon rising, he said, “This is my Lord.” But when it set, he said, “Unless my Lord guides me, I will surely be among the misguided people.”",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "Kemudian apabila dilihatnya bulan terbit (menyinarkan cahayanya), dia berkata: “Inikah Tuhanku?” Maka setelah bulan itu terbenam, berkatalah dia: “Demi sesungguhnya, jika aku tidak diberikan petunjuk oleh Tuhanku, nescaya menjadilah aku dari kaum yang sesat”.",
+        "footnotes": null
+      }
+    },
+    "6:78": {
+      "arabic": "فَلَمَّا رَءَا ٱلشَّمْسَ بَازِغَةً قَالَ هَٰذَا رَبِّى هَٰذَآ أَكْبَرُ فَلَمَّآ أَفَلَتْ قَالَ يَٰقَوْمِ إِنِّى بَرِىٓءٌ مِّمَّا تُشْرِكُونَ",
+      "en": {
+        "text": "Then when he saw the sun rising, he said, “This is my Lord; this is greater.” But when it set, he said, “O my people, I disown all what you associate with Allah.",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "Kemudian apabila dia melihat matahari sedang terbit (menyinarkan cahayanya), berkatalah dia: “Inikah Tuhanku? Ini lebih besar”. Setelah matahari terbenam, dia berkata pula: ‘Wahai kaumku, sesungguhnya aku berlepas diri (bersih) dari apa yang kamu sekutukan (Allah dengannya).",
+        "footnotes": null
+      }
+    },
+    "6:79": {
+      "arabic": "إِنِّى وَجَّهْتُ وَجْهِىَ لِلَّذِى فَطَرَ ٱلسَّمَٰوَٰتِ وَٱلْأَرْضَ حَنِيفًا وَمَآ أَنَا۠ مِنَ ٱلْمُشْرِكِينَ",
+      "en": {
+        "text": "I turn my face towards the One Who originated the heavens and earth, inclining to true faith, and I am not one of those who associate partners with Allah.”",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "“Sesungguhnya aku hadapkan muka dan diriku kepada Allah yang menciptakan langit dan bumi, sedang aku tetap di atas dasar tauhid dan bukanlah aku dari orang-orang yang menyekutukan Allah (dengan sesuatu yang lain)”.",
+        "footnotes": null
+      }
+    },
+    "6:99": {
+      "arabic": "وَهُوَ ٱلَّذِىٓ أَنزَلَ مِنَ ٱلسَّمَآءِ مَآءً فَأَخْرَجْنَا بِهِۦ نَبَاتَ كُلِّ شَىْءٍ فَأَخْرَجْنَا مِنْهُ خَضِرًا نُّخْرِجُ مِنْهُ حَبًّا مُّتَرَاكِبًا وَمِنَ ٱلنَّخْلِ مِن طَلْعِهَا قِنْوَانٌ دَانِيَةٌ وَجَنَّٰتٍ مِّنْ أَعْنَابٍ وَٱلزَّيْتُونَ وَٱلرُّمَّانَ مُشْتَبِهًا وَغَيْرَ مُتَشَٰبِهٍ ٱنظُرُوٓا۟ إِلَىٰ ثَمَرِهِۦٓ إِذَآ أَثْمَرَ وَيَنْعِهِۦٓ إِنَّ فِى ذَٰلِكُمْ لَـَٔايَٰتٍ لِّقَوْمٍ يُؤْمِنُونَ",
+      "en": {
+        "text": "It is He Who sends down water from the sky and We produce thereby vegetation of all kinds. We produce from it greenery from which We bring forth clustered grains. From the spathes of palm trees emerge clusters of dates hanging within reach and gardens of grapevines, olives, and pomegranates – similar [in shape] yet different [in taste]. Look at their fruit when they bear fruit and ripen. Indeed, there are signs in these for people who believe.",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "Dan Dia lah yang menurunkan hujan dari langit lalu Kami tumbuhkan dengan air hujan itu segala jenis tumbuh-tumbuhan, kemudian Kami keluarkan daripadanya tanaman yang menghijau, Kami keluarkan pula dari tanaman itu butir-butir (buah) yang bergugus-gugus; dan dari pohon-pohon tamar (kurma), dari mayang-mayangnya (Kami keluarkan) tandan-tandan buah yang mudah dicapai dan dipetik; dan (Kami jadikan) kebun-kebun dari anggur dan zaiton serta buah delima, yang bersamaan (bentuk, rupa dan rasanya) dan yang tidak bersamaan. Perhatikanlah kamu kepada buahnya apabila ia berbuah, dan ketika masaknya. Sesungguhnya yang demikian itu mengandungi tanda-tanda (yang menunjukkan kekuasaan Kami) bagi orang-orang yang beriman.",
+        "footnotes": null
+      }
+    },
+    "7:12": {
+      "arabic": "قَالَ مَا مَنَعَكَ أَلَّا تَسْجُدَ إِذْ أَمَرْتُكَ قَالَ أَنَا۠ خَيْرٌ مِّنْهُ خَلَقْتَنِى مِن نَّارٍ وَخَلَقْتَهُۥ مِن طِينٍ",
+      "en": {
+        "text": "Allah said, “What prevented you from prostrating when I ordered you?” He said, “I am better than him; You created me from fire and created him from clay.”",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "Allah berfirman: “Apakah penghalangnya yang menyekatmu daripada sujud ketika Aku perintahmu?” Iblis menjawab: “Aku lebih baik daripada Adam, Engkau (wahai Tuhan) jadikan daku dari api sedang dia Engkau jadikan dari tanah.”",
+        "footnotes": null
+      }
+    },
+    "7:146": {
+      "arabic": "سَأَصْرِفُ عَنْ ءَايَٰتِىَ ٱلَّذِينَ يَتَكَبَّرُونَ فِى ٱلْأَرْضِ بِغَيْرِ ٱلْحَقِّ وَإِن يَرَوْا۟ كُلَّ ءَايَةٍ لَّا يُؤْمِنُوا۟ بِهَا وَإِن يَرَوْا۟ سَبِيلَ ٱلرُّشْدِ لَا يَتَّخِذُوهُ سَبِيلًا وَإِن يَرَوْا۟ سَبِيلَ ٱلْغَىِّ يَتَّخِذُوهُ سَبِيلًا ذَٰلِكَ بِأَنَّهُمْ كَذَّبُوا۟ بِـَٔايَٰتِنَا وَكَانُوا۟ عَنْهَا غَٰفِلِينَ",
+      "en": {
+        "text": "I will turn away from My signs those who are arrogant[1] in the land without any right. Even if they see every sign, they will still not believe in it; if they see the way of guidance, they will not follow it, but if they see the way of misguidance, they will follow it as their way. That is because they have rejected Our signs and were heedless of them.",
+        "footnotes": "[1] Arrogance is pointed out as a major cause for disbelief, as the arrogant will not hearken to admonition or to advice."
+      },
+      "ms": {
+        "text": "Aku akan memalingkan (hati) orang-orang yang sombong takbur di muka bumi dengan tiada alasan yang benar dari (memahami) ayat-ayatKu (yang menunjukkan kekuasaanKu); dan mereka (yang bersifat demikian) jika mereka melihat sebarang keterangan (bukti), mereka tidak beriman kepadanya, dan jika mereka melihat jalan yang (membawa kepada) hidayah petunjuk, mereka tidak mengambilnya sebagai jalan yang dilalui. Dan sebaliknya jika mereka melihat jalan kesesatan, mereka terus mengambilnya sebagai jalan yang dilalui. Yang demikian itu, kerana mereka mendustakan ayat-ayat Kami dan mereka sentiasa lalai daripadanya.",
+        "footnotes": null
+      }
+    },
+    "91:9": {
+      "arabic": "قَدْ أَفْلَحَ مَن زَكَّىٰهَا",
+      "en": {
+        "text": "Indeed, he who purifies his soul will attain success,",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "Sesungguhnya berjayalah orang yang menjadikan dirinya - yang sedia bersih - bertambah-tambah bersih (dengan iman dan amal kebajikan),",
+        "footnotes": null
+      }
+    },
+    "91:10": {
+      "arabic": "وَقَدْ خَابَ مَن دَسَّىٰهَا",
+      "en": {
+        "text": "and he who corrupts it will be doomed.",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "Dan sesungguhnya hampalah orang yang menjadikan dirinya - yang sedia bersih - itu susut dan terbenam kebersihannya (dengan sebab kekotoran maksiat).",
+        "footnotes": null
+      }
+    },
+    "93:11": {
+      "arabic": "وَأَمَّا بِنِعْمَةِ رَبِّكَ فَحَدِّثْ",
+      "en": {
+        "text": "and proclaim the favors of your Lord[1].",
+        "footnotes": "[1] i.e., be grateful to Allah by proclaiming the favors He has given you."
+      },
+      "ms": {
+        "text": "Adapun nikmat Tuhanmu, maka hendaklah engkau sebut-sebutkan (dan zahirkan) sebagai bersyukur kepadaNya.",
+        "footnotes": null
+      }
+    },
+    "93:3": {
+      "arabic": "مَا وَدَّعَكَ رَبُّكَ وَمَا قَلَىٰ",
+      "en": {
+        "text": "your Lord has neither forsaken you [O Prophet] nor hated you;",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "(Bahawa) Tuhanmu (wahai Muhammad) tidak meninggalkanmu, dan Ia tidak benci (kepadamu, sebagaimana yang dituduh oleh kaum musyrik).",
+        "footnotes": null
+      }
+    },
+    "93:4": {
+      "arabic": "وَلَلْـَٔاخِرَةُ خَيْرٌ لَّكَ مِنَ ٱلْأُولَىٰ",
+      "en": {
+        "text": "the Hereafter is better for you than the present life;",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "Dan sesungguhnya kesudahan keaadaanmu adalah lebih baik bagimu daripada permulaannya.",
+        "footnotes": null
+      }
+    },
+    "93:5": {
+      "arabic": "وَلَسَوْفَ يُعْطِيكَ رَبُّكَ فَتَرْضَىٰٓ",
+      "en": {
+        "text": "and your Lord will certainly give you so much that you will be well pleased.",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "Dan sesungguhnya Tuhanmu akan memberikanmu (kejayaan dan kebahagiaan di dunia dan di akhirat) sehingga engkau reda - berpuas hati.",
+        "footnotes": null
+      }
+    },
+    "94:5": {
+      "arabic": "فَإِنَّ مَعَ ٱلْعُسْرِ يُسْرًا",
+      "en": {
+        "text": "For indeed, with hardship comes ease[1],",
+        "footnotes": "[1] In Arabic grammar, if a definite noun is repeated, it is referring to the same thing. However, if an indefinite noun is repeated, it is referring to two different things. So here in this and the coming verse they refer to one hardship (a definite noun) and two eases (an indefinite noun), which manifests Allah's favors upon His servants even in times of hardships."
+      },
+      "ms": {
+        "text": "Oleh itu, maka (tetapkanlah kepercayaanmu) bahawa sesungguhnya tiap-tiap kesukaran disertai kemudahan,",
+        "footnotes": null
+      }
+    },
+    "94:6": {
+      "arabic": "إِنَّ مَعَ ٱلْعُسْرِ يُسْرًا",
+      "en": {
+        "text": "indeed, with hardship comes ease.",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "(Sekali lagi ditegaskan): bahawa sesungguhnya tiap-tiap kesukaran disertai kemudahan.",
+        "footnotes": null
+      }
+    },
+    "94:7": {
+      "arabic": "فَإِذَا فَرَغْتَ فَٱنصَبْ",
+      "en": {
+        "text": "So whenever you are free[1], strive in worship,",
+        "footnotes": "[1] Of your duties."
+      },
+      "ms": {
+        "text": "Kemudian apabila engkau telah selesai (daripada sesuatu amal soleh), maka bersungguh-sungguhlah engkau berusaha (mengerjakan amal soleh yang lain),",
+        "footnotes": null
+      }
+    },
+    "95:4": {
+      "arabic": "لَقَدْ خَلَقْنَا ٱلْإِنسَٰنَ فِىٓ أَحْسَنِ تَقْوِيمٍ",
+      "en": {
+        "text": "Surely We have created man in the best form[1],",
+        "footnotes": "[1] i.e., in upright and balanced form and nature."
+      },
+      "ms": {
+        "text": "Sesungguhnya Kami telah menciptakan manusia dalam bentuk yang sebaik-baiknya (dan berkelengkapan sesuai dengan keadaannya).",
+        "footnotes": null
+      }
+    },
+    "9:105": {
+      "arabic": "وَقُلِ ٱعْمَلُوا۟ فَسَيَرَى ٱللَّهُ عَمَلَكُمْ وَرَسُولُهُۥ وَٱلْمُؤْمِنُونَ وَسَتُرَدُّونَ إِلَىٰ عَٰلِمِ ٱلْغَيْبِ وَٱلشَّهَٰدَةِ فَيُنَبِّئُكُم بِمَا كُنتُمْ تَعْمَلُونَ",
+      "en": {
+        "text": "And say, “Do as you will; Allah will see your deeds, and so will His Messenger and the believers, then you will be brought back to the Knower of the unseen and the seen, and He will inform you of what you used to do.”",
+        "footnotes": ""
+      },
+      "ms": {
+        "text": "Dan katakanlah (wahai Muhammad): Beramallah kamu (akan segala yang diperintahkan), maka Allah dan RasulNya serta orang-orang yang beriman akan melihat apa yang kamu kerjakan; dan kamu akan dikembalikan kepada (Allah) Yang Mengetahui perkara-perkara yang ghaib dan yang nyata, kemudian Ia menerangkan kepada kamu apa yang kamu telah kerjakan”.",
+        "footnotes": null
+      }
+    }
+  },
+  "translations": {
+    "en": {
+      "key": "english_rwwad",
+      "name": "Rowwad Translation Center",
+      "version": "1.0.20",
+      "date": "2026-10-21",
+      "url": "https://quranenc.com/en/browse/english_rwwad",
+      "api": "https://quranenc.com/api/v1/translation/aya/english_rwwad/{surah}/{ayah}",
+      "publisher": "QuranEnc.com",
+      "termsUrl": "https://quranenc.com/en/home#terms_modal",
+      "description": "Translated by the team of the Rowwad Translation Center, in cooperation with the Rabwah Dawah Association, the Islamic Content Service Association in Languages, and the IslamHouse.com website.",
+      "last_update": 1792534351
+    },
+    "ms": {
+      "key": "malay_basumayyah",
+      "name": "Abdullah Basumayyah",
+      "version": "1.0.0",
+      "date": "2021-01-27",
+      "url": "https://quranenc.com/en/browse/malay_basumayyah",
+      "api": "https://quranenc.com/api/v1/translation/aya/malay_basumayyah/{surah}/{ayah}",
+      "publisher": "QuranEnc.com",
+      "termsUrl": "https://quranenc.com/en/home#terms_modal",
+      "description": "Translated by Abdullah Basumayyah"
+    }
+  },
+  "translationTerms": [
+    "No modification, addition, or deletion of the content.",
+    "Clearly referring to the publisher and the source (QuranEnc.com).",
+    "Mentioning the version number when re-publishing the translation.",
+    "Keeping the transcript information inside the document.",
+    "Notifying the source (QuranEnc.com) of any note on the translation.",
+    "Updating the translation according to the latest version issued from the source (QuranEnc.com).",
+    "Inappropriate advertisements must not be included when displaying translations of the meanings of the Noble Quran."
+  ]
+}
