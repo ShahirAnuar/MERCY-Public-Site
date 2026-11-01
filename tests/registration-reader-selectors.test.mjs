@@ -26,7 +26,7 @@ function docFor(html){
 }
 function contextFor(html,fetch){
  const document=docFor(html),storage=new Map,events={},location={href:'https://mercyseries.com/reader/?session_id=cs_test_should_not_be_visible&safe=yes',search:''};let replaced='';
- const c={document,URL,URLSearchParams,location,history:{replaceState(a,b,url){replaced=url}},navigator:{},localStorage:{getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,String(v)),removeItem:k=>storage.delete(k)},crypto:{randomUUID:()=> '11111111-1111-1111-1111-111111111111'},fetch,atob:s=>Buffer.from(s,'base64').toString('binary'),setTimeout:()=>1,clearTimeout(){},setInterval:()=>1,clearInterval(){},window:{addEventListener(k,fn){events[k]=fn;},matchMedia:()=>({matches:false,addEventListener(){}})}};
+ const c={document,URL,URLSearchParams,location,history:{replaceState(a,b,url){replaced=url}},navigator:{},localStorage:{getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,String(v)),removeItem:k=>storage.delete(k)},crypto:{randomUUID:()=> '11111111-1111-1111-1111-111111111111'},fetch,atob:s=>Buffer.from(s,'base64').toString('binary'),setTimeout:()=>1,clearTimeout(){},setInterval:()=>1,clearInterval(){},window:{location,addEventListener(k,fn){events[k]=fn;},matchMedia:()=>({matches:false,addEventListener(){}})}};
  return {c,document,storage,replaced:()=>replaced};
 }
 const settle=()=>new Promise(resolve=>setImmediate(resolve));
