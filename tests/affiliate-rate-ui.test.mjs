@@ -2,11 +2,11 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import vm from 'node:vm';
 const affiliate=readFileSync('affiliate-program/index.html','utf8');
-assert.match(affiliate,/RM9\.52/,'Full-price affiliate estimate must use the new allocation');
+assert.match(affiliate,/RM15\.00/,'Full-price affiliate estimate must use the new allocation');
 assert.doesNotMatch(affiliate,/Publisher receives RM7|Up to RM7\.52|receives RM7/);
 const rows=[...affiliate.matchAll(/<tr data-discount="(\d+)">([\s\S]*?)<\/tr>/g)];
 assert.equal(rows.length,8,'All discount levels should be present');
-for(const [,discount,html] of rows){const cells=[...html.matchAll(/<td>(.*?)<\/td>/g)].map(x=>x[1]);const cents=cells.slice(1).map(x=>Math.round(Number(x.replace('RM',''))*100));const [paid,fee,aff,pub]=cents;assert.equal(paid,1600-Number(discount)*100);assert.equal(fee,Math.round(paid*.03)+100);assert.equal(aff+pub,paid-fee);assert(aff>pub);assert(pub<=500)}
+for(const [,discount,html] of rows){const cells=[...html.matchAll(/<td>(.*?)<\/td>/g)].map(x=>x[1]);const cents=cells.slice(1).map(x=>Math.round(Number(x.replace('RM',''))*100));const [paid,fee,aff,pub]=cents;assert.equal(paid,2500-Number(discount)*100);assert.equal(fee,Math.round(paid*.03)+100);assert.equal(aff+pub,paid-fee);assert(aff>pub);assert.deepEqual([aff,pub],[[1500,825],[1400,828],[1300,831],[1200,834],[1100,837],[1000,840],[900,843],[824,822]][Number(discount)])}
 const dashboard=readFileSync('affiliate-program/dashboard/index.html','utf8');
 assert.match(dashboard,/id="payout-form"/);assert.match(dashboard,/\/api\/affiliate\/payout\/preferences/);assert.match(dashboard,/\/api\/affiliate\/payout\/request/);assert.match(dashboard,/scheduleConfirmed/);
 const support=readFileSync('support/index.html','utf8');assert.match(support,/id="chat-form"/);assert.match(support,/\/api\/support\/chat/);assert.doesNotMatch(support,/tavus/i);
