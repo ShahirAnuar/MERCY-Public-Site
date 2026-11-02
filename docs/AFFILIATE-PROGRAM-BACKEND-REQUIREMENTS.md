@@ -7,7 +7,8 @@ The live RM25 offer supersedes the historical RM16 implementation notes below.
 - List price: RM25.00; product `prod_VXRT8IIXbvXctI`; price `price_1UXIfyD2ecAHnk939HV0sDX1`.
 - Payment Link: https://buy.stripe.com/fZu7sK12Obhue1WeRegA80e (`plink_1UXIgZD2ecAHnk93MkrVWaqr`). Promotion codes remain enabled; the reader redirect and affiliate client reference are preserved.
 - Standard full-price commission: RM15.00. A coupon reduces this target by its face value. The publisher bears the actual processing fee from the remainder; reduce the publisher allocation further if necessary so the affiliate receives more, in whole sen.
-- With the illustrative 3% + RM1 fee: no coupon = RM25 paid / RM1.75 fee / RM15 affiliate / RM8.25 publisher; RM7 coupon = RM18 paid / RM1.54 fee / RM8.24 affiliate / RM8.22 publisher.
+- Coupon levels: RM1–RM15, one verified reusable Stripe promotion per affiliate and level. Preserve existing RM1–RM7 codes when extending accounts; incomplete old bundles remain usable while the missing levels are provisioned.
+- With the illustrative 3% + RM1 fee: no coupon = RM25 paid / RM1.75 fee / RM15 affiliate / RM8.25 publisher; RM7 coupon = RM18 paid / RM1.54 fee / RM8.24 affiliate / RM8.22 publisher; RM15 coupon = RM10 paid / RM1.30 fee / RM4.36 affiliate / RM4.34 publisher.
 - Current policy ID: `AFFILIATE_RM15_2500_V3`. Historical RM16 purchases and their accrued commissions retain `AFFILIATE_FIRST_500_V2`; never apply the new schedule to historical balances.
 - Verified special-benefit affiliates keep 100% of eligible clean profit with RM0 publisher allocation and actual fee/tax reconciliation. Existing owner gift coupons still give 100% off.
 - Production coupons, reader fulfilment, gifts and payouts run on the MERCY Malaysia Orders and Reviews Sites backend. The separate `affiliate-service/` directory is historical and is not the current production checkout/ledger.

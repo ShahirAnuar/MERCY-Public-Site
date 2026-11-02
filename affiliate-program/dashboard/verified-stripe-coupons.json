@@ -1,5 +1,5 @@
 {
-  "verifiedAt": "2026-10-31",
+  "verifiedAt": "2026-11-02",
   "source": "Stripe live promotion codes",
   "accounts": [
     {
@@ -45,6 +45,54 @@
           "affiliateId": "AFF-DDE33B64C781",
           "discountAmountCents": 700,
           "couponCode": "MERCYDDE33B64C781R7",
+          "active": true
+        },
+        {
+          "affiliateId": "AFF-DDE33B64C781",
+          "discountAmountCents": 800,
+          "couponCode": "MERCYDDE33B64C781R8",
+          "active": true
+        },
+        {
+          "affiliateId": "AFF-DDE33B64C781",
+          "discountAmountCents": 900,
+          "couponCode": "MERCYDDE33B64C781R9",
+          "active": true
+        },
+        {
+          "affiliateId": "AFF-DDE33B64C781",
+          "discountAmountCents": 1000,
+          "couponCode": "MERCYDDE33B64C781R10",
+          "active": true
+        },
+        {
+          "affiliateId": "AFF-DDE33B64C781",
+          "discountAmountCents": 1100,
+          "couponCode": "MERCYDDE33B64C781R11",
+          "active": true
+        },
+        {
+          "affiliateId": "AFF-DDE33B64C781",
+          "discountAmountCents": 1200,
+          "couponCode": "MERCYDDE33B64C781R12",
+          "active": true
+        },
+        {
+          "affiliateId": "AFF-DDE33B64C781",
+          "discountAmountCents": 1300,
+          "couponCode": "MERCYDDE33B64C781R13",
+          "active": true
+        },
+        {
+          "affiliateId": "AFF-DDE33B64C781",
+          "discountAmountCents": 1400,
+          "couponCode": "MERCYDDE33B64C781R14",
+          "active": true
+        },
+        {
+          "affiliateId": "AFF-DDE33B64C781",
+          "discountAmountCents": 1500,
+          "couponCode": "MERCYDDE33B64C781R15",
           "active": true
         }
       ]
