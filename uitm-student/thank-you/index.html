@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#071f48">
+<title>UiTM Student Purchase Complete | MERCY</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+:root{--navy:#071f48;--gold:#e9c575;--cream:#fff9eb;--ink:#172944}*{box-sizing:border-box}body{margin:0;background:linear-gradient(160deg,#071f48,#0c326d);color:var(--cream);font:17px/1.6 system-ui,sans-serif;min-height:100vh;display:grid;place-items:center;padding:1.2rem}.card{width:min(760px,100%);background:#fff;color:var(--ink);border:2px solid var(--gold);border-radius:24px;padding:clamp(1.4rem,5vw,3rem);box-shadow:0 24px 70px #0006}h1,h2{font-family:Georgia,serif;color:#071f48}h1{font-size:clamp(2rem,5vw,3.4rem);margin:.2rem 0 1rem}.eyebrow{color:#8a6218;font-weight:850;letter-spacing:.13em;text-transform:uppercase;font-size:.76rem}.button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:.75rem 1.15rem;border-radius:999px;background:var(--navy);color:white;text-decoration:none;font-weight:800;margin:.3rem .4rem .3rem 0}.button.secondary{background:white;color:var(--navy);border:1px solid var(--navy)}.bonus{border-left:4px solid var(--gold);padding:.9rem 1rem;background:#fff8e7;margin:1.2rem 0}.small{font-size:.9rem;color:#5c6470}
+</style>
+</head>
+<body>
+<main class="card">
+<p class="eyebrow">UiTM Faculty of Pharmacy · Student purchase</p>
+<h1>Your RM20 student copy is confirmed.</h1>
+<p>Use the same purchase email for your app delivery and included benefits.</p>
+<div class="bonus"><strong>Your purchase also includes:</strong><ul><li>Access to the UiTM event <em>The Digital Age and The Inevitable Rise of The Polymaths</em>.</li><li>Entitlement to the first batch of the app-book <em>Morality: The Vocation of Consciousness &amp; The AI Dilemma</em>.</li></ul></div>
+<h2>Affiliate opportunity</h2>
+<p>You are also invited to become a MERCY affiliate and earn while spreading polymath education. The normal public price remains RM25. Your personal coupons can reduce the price; a RM5 coupon makes it RM20, while larger coupons make it lower.</p>
+<p><a class="button" id="open-app" href="/reader/">Open The Guide App</a><a class="button secondary" href="/affiliate-program/?programme=uitm_pharmacy#registration">Join the affiliate programme</a></p>
+<p class="small">UiTM eligibility is subject to verification. Affiliate commissions, coupon ownership and special clean-profit rates are subject to the published programme terms.</p>
+</main>
+<script>
+(()=>{const id=new URLSearchParams(location.search).get('session_id');if(id&&/^cs_[A-Za-z0-9_]+$/.test(id))document.getElementById('open-app').href='/reader/?session_id='+encodeURIComponent(id)})();
+</script>
+</body>
+</html>
