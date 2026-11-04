@@ -3,6 +3,12 @@ import { copy } from './copy.mjs?v=20261104-purchase';
 import { mountCompanionBook } from './book.mjs?v=20261104-purchase';
 
 const backend = 'https://mercy-malaysia-orders-reviews.shahiranuar.chatgpt.site';
+const inviteHash = new URLSearchParams(location.hash.slice(1)).get('vip');
+if (/^[a-f0-9]{64}$/.test(inviteHash || '')) {
+  localStorage.setItem('mercy-ypkdt-invite', inviteHash);
+  history.replaceState(null, '', location.pathname + location.search);
+}
+const vipInvite = localStorage.getItem('mercy-ypkdt-invite');
 const sessionPath = '/api/guide/international/session';
 const $ = id => document.getElementById(id);
 const sessionId = crypto.randomUUID().replaceAll('-', '');
@@ -103,7 +109,7 @@ async function request(path, options = {}, token = credential) {
   const response = await fetch(backend + path, {
     ...options,
     cache: 'no-store',
-    headers: { ...options.headers, ...(token ? { authorization: 'Bearer ' + token } : {}) }
+    headers: { ...options.headers, ...(vipInvite && path.startsWith('/api/guide/international/') ? { 'x-mercy-vip-invite': vipInvite } : {}), ...(token ? { authorization: 'Bearer ' + token } : {}) }
   });
   if (!response.ok) {
     const data = await response.json().catch(() => ({}));
@@ -137,6 +143,11 @@ function stopReading({ release = false, keepSignIn = true } = {}) {
 }
 
 function readingError(error) {
+  if (error.code === 'account_limit') {
+    stopReading();
+    $('reading-status').textContent = 'Ketiga-tiga tempat akaun Google YPKDT telah digunakan.';
+    return;
+  }
   if (error.code === 'purchase_required') {
     stopReading();
     $('purchase-claim').hidden = false;
