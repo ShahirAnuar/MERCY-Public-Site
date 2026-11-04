@@ -6,6 +6,9 @@
   <meta name="theme-color" content="#102b4d">
   <meta name="description" content="Install the international MERCY companion and explore 86 story threads through six lenses.">
   <title>The Guide App International | MERCY</title>
+  <link rel="stylesheet" href="/assets/reading-audio.css">
+  <link rel="stylesheet" href="/assets/mercy-verses.css">
+  <link rel="stylesheet" href="./book.css?v=20261104-purchase">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="/reader/icon-192.png">
   <link rel="apple-touch-icon" href="/reader/icon-192.png">
@@ -48,11 +51,12 @@
 <body>
   <main>
     <header>
+      <img class="guide-cover" src="/buy/the-guide-cover.jpg" alt="" width="180">
       <p class="eyebrow">MERCY</p>
       <h1 data-copy="title">The Guide App International</h1>
       <p data-copy="intro">Explore 86 MERCY story threads through six lenses, with questions and activities for families and classes.</p>
       <div class="actions">
-        <button class="primary" type="button" id="install" data-copy="install">Install app</button>
+        <button class="primary" type="button" id="install" data-copy="install" hidden>Install app</button>
         <a id="free-guide" href="/learn/?reading-guide=1" data-copy="webGuide">Open the free reading guide</a>
       </div>
       <p id="install-help" class="muted" role="status" hidden></p>
@@ -68,30 +72,75 @@
     <section class="panel" aria-labelledby="access-heading">
       <h2 id="access-heading" data-copy="access">Family and classroom access</h2>
       <p data-copy="sharing">Use the same Google account in The Guide on each device. Up to seven reading sessions can be active at a time. Keep an internet connection while reading.</p>
+      <div id="purchase-instructions">
+        <p data-copy="purchaseInfo">The Guide App International is included with an Amazon purchase of MERCY in Kindle, paperback or hardcover.</p>
+        <p data-copy="receiptInfo">To request an activation code, email your Amazon order confirmation. Include the edition, order number and Google email address you plan to use. Redact payment and delivery details.</p>
+        <p><a href="mailto:shahir@mercyseries.com?subject=MERCY%20International%20activation" data-copy="requestCode">Email purchase confirmation</a></p>
+      </div>
       <div class="actions">
         <div id="google-sign-in"></div>
         <button class="primary" id="retry" type="button" data-copy="retry" hidden>Try again</button>
         <button id="finish" type="button" data-copy="finish" hidden>Finish reading</button>
       </div>
       <p id="reading-status" role="status"></p>
+      <div id="purchase-claim" hidden>
+        <form id="claim-form">
+          <label><span data-copy="codeLabel">Activation code</span><input id="claim-code" name="code" autocomplete="off" spellcheck="false" autocapitalize="none" maxlength="120" required></label>
+          <button class="primary" id="claim-submit" type="submit" data-copy="claim">Activate</button>
+        </form>
+        <button id="change-account" type="button" data-copy="changeAccount">Use another Google account</button>
+      </div>
       <noscript><p>Enable JavaScript to use the app, or open the free reading guide above.</p></noscript>
     </section>
-    <section class="panel" id="reader" aria-labelledby="thread-title" hidden>
-      <nav class="paging" aria-label="Story thread navigation" data-label="navigation">
+    <section id="reader" class="book-reader" aria-label="MERCY companion reader" hidden>
+      <div class="book-header">
+        <span class="brand">THE GUIDE APP INTERNATIONAL</span>
+        <details id="book-menu" class="book-menu">
+          <summary data-copy="menu">Menu</summary>
+          <div class="book-menu-panel">
+            <label><span data-copy="language">Language</span><select id="book-language"></select></label>
+            <label><span data-copy="thread">Story thread</span><select id="thread-index"></select></label>
+            <button id="book-install" type="button" data-copy="install">Install app</button>
+            <p id="book-install-help" role="status" hidden></p>
+            <button id="book-finish" type="button" data-copy="finish">Finish reading</button>
+          </div>
+        </details>
+        <details id="book-more" class="book-menu book-more">
+          <summary data-copy="more">More</summary>
+          <div class="book-menu-panel"><div id="reader-audio" translate="no"></div></div>
+        </details>
+      </div>
+      <div id="book-stage" class="book-stage">
+        <div id="book-pages" class="book-pages"></div>
+      </div>
+      <div id="book-toolbar" class="book-toolbar" role="group" data-label="navigation" aria-label="Story thread navigation">
         <button type="button" id="previous" data-copy="previous">Previous</button>
-        <label><span data-copy="thread">Story thread</span><select id="thread-index"></select></label>
+        <output id="page-count"></output>
         <button type="button" id="next" data-copy="next">Next</button>
-      </nav>
-      <article>
-        <h2 id="thread-title" tabindex="-1"></h2>
-        <p id="thread-note"></p>
-        <p class="verse" id="thread-verse"></p>
-        <h3 data-copy="lenses">Six lenses</h3>
-        <div id="lens-list"></div>
-      </article>
+        <div class="zoom-controls">
+          <button type="button" id="zoom-out" aria-label="Zoom out" data-label="zoomOut">−</button>
+          <button type="button" id="zoom-reset" aria-label="Reset zoom" data-label="zoomReset">100%</button>
+          <button type="button" id="zoom-in" aria-label="Zoom in" data-label="zoomIn">+</button>
+        </div>
+      </div>
     </section>
+    <dialog id="thread-dialog" aria-labelledby="thread-title">
+      <div class="thread-card">
+        <button id="thread-close" type="button" aria-label="Close discussion thread" data-label="close">×</button>
+        <p id="thread-kicker" class="thread-kicker"></p>
+        <h2 id="thread-title"></h2>
+        <p id="thread-note"></p>
+        <p id="thread-verse" class="thread-verse"></p>
+        <div id="thread-audio" translate="no"></div>
+        <h3 data-copy="lenses">Six lenses</h3>
+        <div id="lens-buttons" class="lens-buttons" role="group" data-label="lenses" aria-label="Six lenses"></div>
+        <div id="lens-list" class="lens-panel" aria-live="polite"></div>
+      </div>
+    </dialog>
     <footer class="muted" data-copy="footer">A companion to the MERCY book.</footer>
   </main>
-  <script type="module" src="./app.mjs"></script>
+  <script src="/assets/reading-audio.js?v=20261104-international"></script>
+  <script src="/assets/mercy-verses.js"></script>
+  <script type="module" src="./app.mjs?v=20261104-purchase"></script>
 </body>
 </html>

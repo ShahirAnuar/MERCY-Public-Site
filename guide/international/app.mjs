@@ -1,10 +1,10 @@
 import { initialiseInternationalCountry } from './locale.mjs';
-import { copy } from './copy.mjs';
+import { copy } from './copy.mjs?v=20261104-purchase';
+import { mountCompanionBook } from './book.mjs?v=20261104-purchase';
 
 const backend = 'https://mercy-malaysia-orders-reviews.shahiranuar.chatgpt.site';
 const sessionPath = '/api/guide/international/session';
 const $ = id => document.getElementById(id);
-const lenses = ['science', 'history', 'psychology', 'ethics', 'faith', 'art'];
 const sessionId = crypto.randomUUID().replaceAll('-', '');
 const preferences = {
   get(key) { try { return localStorage.getItem('mercyInternational.' + key); } catch { return null; } },
@@ -30,7 +30,14 @@ let installKey = '';
 let installPrompt;
 let googleReady = false;
 let googleLoading;
-let threads = [];
+const book = mountCompanionBook({
+  copy,
+  getLanguage: () => language,
+  onPosition(position) {
+    currentThread = position;
+    preferences.set('thread', position);
+  }
+});
 
 function status(key = '', canRetry = false) {
   statusKey = key;
@@ -40,8 +47,10 @@ function status(key = '', canRetry = false) {
 
 function showInstallHelp(key) {
   installKey = key;
-  $('install-help').hidden = !key;
-  $('install-help').textContent = copy[language][key] || '';
+  for (const id of ['install-help', 'book-install-help']) {
+    $(id).hidden = !key;
+    $(id).textContent = copy[language][key] || '';
+  }
 }
 
 function label(element, key) {
@@ -52,6 +61,7 @@ function setLanguage(next) {
   const changed = next !== language;
   language = next;
   $('international-language').value = next;
+  $('book-language').value = next;
   preferences.set('language', next);
   document.documentElement.lang = next;
   document.documentElement.dir = next === 'ar' ? 'rtl' : 'ltr';
@@ -70,7 +80,7 @@ initialiseInternationalCountry($('international-country'), {
   onChange(model) {
     const preferred = locale ? language : preferences.get('language');
     locale = model;
-    $('international-language').replaceChildren(...model.languages.map(code => {
+    for (const id of ['international-language', 'book-language']) $(id).replaceChildren(...model.languages.map(code => {
       const option = new Option(model.labels[code], code);
       option.lang = code;
       return option;
@@ -78,59 +88,16 @@ initialiseInternationalCountry($('international-country'), {
     setLanguage(model.languages.includes(preferred) ? preferred : 'en');
   }
 });
-$('international-language').addEventListener('change', event => setLanguage(event.target.value));
-
-function showThread(number) {
-  const index = threads.findIndex(thread => thread.number === number);
-  if (index < 0) return;
-  const thread = threads[index];
-  currentThread = number;
-  preferences.set('thread', number);
-  $('thread-index').value = number;
-  $('previous').disabled = index === 0;
-  $('next').disabled = index === threads.length - 1;
-  $('thread-title').textContent = thread.title;
-  $('thread-note').textContent = thread.note;
-  $('thread-verse').textContent = thread.verse ? copy[language].verse + ' ' + thread.verse : '';
-  $('thread-verse').hidden = !thread.verse;
-  $('lens-list').replaceChildren(...lenses.map(lens => {
-    const article = document.createElement('article');
-    const heading = document.createElement('h3');
-    heading.textContent = copy[language][lens];
-    const answer = document.createElement('p');
-    answer.textContent = thread.lenses[lens].answer;
-    const practice = document.createElement('p');
-    const prompt = document.createElement('strong');
-    prompt.textContent = copy[language].practice + '. ';
-    practice.append(prompt, thread.lenses[lens].practice);
-    article.append(heading, answer, practice);
-    return article;
-  }));
-}
+for (const id of ['international-language', 'book-language']) $(id).addEventListener('change', event => setLanguage(event.target.value));
 
 function showReader(entries) {
   if (!Array.isArray(entries) || entries.length !== 86) throw new Error('Guide content unavailable');
-  threads = entries;
-  const numbers = new Intl.NumberFormat(language);
-  $('thread-index').replaceChildren(...threads.map(thread => new Option(numbers.format(thread.number) + ' · ' + thread.title, thread.number)));
-  showThread(validThread(currentThread) ? currentThread : 1);
-  $('reader').hidden = false;
+  book.show(entries, validThread(currentThread) ? currentThread : 1);
 }
 
 function hideReader() {
-  threads = [];
-  $('reader').hidden = true;
-  for (const id of ['thread-index', 'thread-title', 'thread-note', 'thread-verse', 'lens-list']) $(id).replaceChildren();
+  book.hide();
 }
-
-function moveThread(offset) {
-  const index = threads.findIndex(thread => thread.number === currentThread);
-  if (threads[index + offset]) showThread(threads[index + offset].number);
-}
-
-$('previous').addEventListener('click', () => moveThread(-1));
-$('next').addEventListener('click', () => moveThread(1));
-$('thread-index').addEventListener('change', event => showThread(Number(event.target.value)));
 
 async function request(path, options = {}, token = credential) {
   const response = await fetch(backend + path, {
@@ -138,7 +105,10 @@ async function request(path, options = {}, token = credential) {
     cache: 'no-store',
     headers: { ...options.headers, ...(token ? { authorization: 'Bearer ' + token } : {}) }
   });
-  if (!response.ok) throw Object.assign(new Error('Guide request failed'), { status: response.status });
+  if (!response.ok) {
+    const data = await response.json().catch(() => ({}));
+    throw Object.assign(new Error('Guide request failed'), { status: response.status, code: data.code });
+  }
   return response.json();
 }
 
@@ -161,10 +131,18 @@ function stopReading({ release = false, keepSignIn = true } = {}) {
   if (!keepSignIn) credential = undefined;
   hideReader();
   $('finish').hidden = true;
+  $('install').hidden = true;
+  $('purchase-claim').hidden = true;
   $('google-sign-in').hidden = Boolean(credential);
 }
 
 function readingError(error) {
+  if (error.code === 'purchase_required') {
+    stopReading();
+    $('purchase-claim').hidden = false;
+    status('purchaseRequired');
+    return;
+  }
   const expired = error.status === 401 || error.status === 403;
   stopReading({ release: !expired, keepSignIn: !expired });
   const reason = expired ? 'expired'
@@ -189,6 +167,7 @@ async function openReading() {
   if (!credential || busy) return;
   busy = true;
   $('google-sign-in').hidden = true;
+  $('purchase-claim').hidden = true;
   $('retry').hidden = true;
   status('loading');
   const token = credential;
@@ -205,6 +184,7 @@ async function openReading() {
       lease = true;
       heartbeat = setInterval(renew, 30_000);
       $('finish').hidden = false;
+      $('install').hidden = false;
     }
     let entries;
     let requested;
@@ -261,9 +241,35 @@ function configureGoogle() {
 }
 
 $('retry').addEventListener('click', () => credential ? openReading() : configureGoogle());
-$('finish').addEventListener('click', () => {
+function finishReading() {
   stopReading({ release: true, keepSignIn: false });
   status('signIn');
+}
+
+for (const id of ['finish', 'book-finish', 'change-account']) $(id).addEventListener('click', finishReading);
+$('claim-form').addEventListener('submit', async event => {
+  event.preventDefault();
+  const code = $('claim-code').value.trim();
+  if (!credential || !code || $('claim-submit').disabled) return;
+  const token = credential;
+  $('claim-submit').disabled = true;
+  status('claiming');
+  try {
+    await request('/api/guide/international/claim', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ code })
+    }, token);
+    if (credential !== token) return;
+    $('claim-code').value = '';
+    await openReading();
+  } catch (error) {
+    if (credential !== token) return;
+    if (error.status === 401) readingError(error);
+    else status(error.status >= 400 && error.status < 500 ? 'claimRejected' : 'claimUnavailable');
+  } finally {
+    $('claim-submit').disabled = false;
+  }
 });
 window.addEventListener('pagehide', () => stopReading({ release: true, keepSignIn: false }));
 window.addEventListener('pageshow', event => { if (event.persisted && googleReady) status('signIn'); });
@@ -281,7 +287,8 @@ window.addEventListener('appinstalled', () => {
   installPrompt = undefined;
   showInstallHelp('installed');
 });
-$('install').addEventListener('click', async () => {
+async function installApp() {
+  if (!lease) return;
   if (matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
     showInstallHelp('installed');
     return;
@@ -296,5 +303,6 @@ $('install').addEventListener('click', async () => {
     const choice = await prompt.prompt();
     if (choice.outcome === 'accepted') showInstallHelp('installed');
   } catch { showInstallHelp('installHelp'); }
-});
+}
+for (const id of ['install', 'book-install']) $(id).addEventListener('click', installApp);
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js', { scope: './' }).catch(() => {});
