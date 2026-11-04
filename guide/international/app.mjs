@@ -22,6 +22,8 @@ let locale;
 let credential;
 let heartbeat;
 let lease = false;
+let generation = 0;
+let releasePending;
 let busy = false;
 let statusKey = '';
 let installKey = '';
@@ -153,8 +155,9 @@ function stopReading({ release = false, keepSignIn = true } = {}) {
   clearInterval(heartbeat);
   heartbeat = undefined;
   const token = credential;
-  if (release && lease && token) session('release', token).catch(() => {});
+  if (release && lease && token) releasePending = session('release', token).catch(() => {});
   lease = false;
+  generation++;
   if (!keepSignIn) credential = undefined;
   hideReader();
   $('finish').hidden = true;
@@ -172,12 +175,13 @@ function readingError(error) {
 }
 
 async function renew() {
-  if (!lease || busy) return;
+  if (!lease) return;
+  const activeGeneration = generation;
   const token = credential;
   try {
     await session('heartbeat', token);
   } catch (error) {
-    if (lease && token === credential) readingError(error);
+    if (lease && activeGeneration === generation) readingError(error);
   }
 }
 
@@ -188,10 +192,13 @@ async function openReading() {
   $('retry').hidden = true;
   status('loading');
   const token = credential;
+  const activeGeneration = generation;
   try {
     if (!lease) {
+      await releasePending;
+      if (activeGeneration !== generation) return;
       await session('acquire', token);
-      if (token !== credential) {
+      if (activeGeneration !== generation) {
         session('release', token).catch(() => {});
         return;
       }
@@ -206,12 +213,12 @@ async function openReading() {
       entries = await request('/api/guide/international/threads?lang=' + requested, {
         headers: { 'x-mercy-family': sessionId }
       }, token);
-      if (!lease || token !== credential) return;
+      if (!lease || activeGeneration !== generation) return;
     } while (language !== requested);
     showReader(entries.threads);
     status();
   } catch (error) {
-    if (token === credential) readingError(error);
+    if (activeGeneration === generation) readingError(error);
   } finally {
     busy = false;
   }
