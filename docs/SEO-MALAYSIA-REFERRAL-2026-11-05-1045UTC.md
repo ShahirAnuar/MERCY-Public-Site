@@ -23,4 +23,10 @@ Latest public policy copy now states ordinary applicants must first buy a MERCY 
 No authenticated order/registration report retrieved in this pass; paid units, receipts, refunds, fees, net contribution, registration counts and referral conversion are unavailable for this audit. No seven-day lift calculation or traffic/sales claim.
 
 ## Deployment
-Implementation commit: the commit containing this record. Pages run and live readback will be appended after publication.
+Published implementation commit 6d3c18ae788f7cdaed0c8bae1ecca8c693dfd8cd. GitHub Pages run 42013344203 completed successfully at 2026-11-05T10:46:24Z.
+Live verification at 2026-11-05T10:46:32 UTC (18:46 Malaysia):
+- /buy/: HTTP 200, helper reference present, valid JSON-LD, one H1; SHA256 9e3b798374705b154ff134cc7c93966b6b5f7ad260cd1ede4312b0617e4fe6c7.
+- /affiliate-program/: HTTP 200, helper reference present, valid JSON-LD, one H1; SHA256 8ab446e189bd3b9400288ce8f42ae68c5ea238c74bf20636e5868b8d0cf11faf.
+- /assets/purchase-referral-navigation.js: HTTP 200; SHA256 4ab2c1fb2505717f8edeeae5df43481cf989c7ae8d11f9c49c66486b2d079da2.
+An initial read during Pages deployment returned the preceding sales update and asset 404; the post-success read above confirms publication. No failed deployment inferred from that intermediate read.
+Confirmed both pages' existing scripts and forms are byte-preserved; exactly one new script reference per page. Functional routing checked in an isolated Node VM; no real checkout or registration submitted. The record-only follow-up commit does not alter public assets.
