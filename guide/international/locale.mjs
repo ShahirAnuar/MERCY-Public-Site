@@ -22,13 +22,37 @@ export function internationalLocaleModel(country, availableLanguages = ['en', 'a
   const localLanguages = Object.keys(regionsByLanguage).filter(
     language => availableLanguages.includes(language) && regionsByLanguage[language].includes(selected)
   );
-  const languages = ['en', ...localLanguages];
+  // Keep one international app with two choices. Regions with an existing
+  // Malay translation use it; elsewhere the international second language is
+  // Arabic. Never advertise a translation the content service does not have.
+  const secondaryLanguage = localLanguages[0] || (availableLanguages.includes('ar') ? 'ar' : null);
+  const languages = ['en', ...(secondaryLanguage ? [secondaryLanguage] : [])];
   return {
     country: selected,
-    secondaryLanguage: localLanguages[0] || null,
+    secondaryLanguage,
     languages,
     labels: Object.fromEntries(languages.map(language => [language, names[language]]))
   };
+}
+
+export function preferredInternationalLanguage(search, stored, languages, browserLanguages = []) {
+  const requested = new URLSearchParams(search).get('lang');
+  if (languages.includes(requested)) return requested;
+  if (languages.includes(stored)) return stored;
+  for (const tag of browserLanguages) {
+    try {
+      const language = new Intl.Locale(tag).language;
+      if (languages.includes(language)) return language;
+    } catch {}
+  }
+  return 'en';
+}
+
+export function internationalEditionCountry(search, stored) {
+  const params=new URLSearchParams(search),edition=params.get('edition')||params.get('vip');
+  if(edition==='ypkdt')return 'MY';
+  if(edition==='parentingu')return 'GB';
+  return ['MY','GB'].includes(stored)?stored:null;
 }
 
 export function internationalLocaleOptions(country) {
@@ -46,7 +70,7 @@ export function internationalLocaleOptions(country) {
 
 export function initialiseInternationalCountry(
   select = document.getElementById('international-country'),
-  { storageKey = 'mercyInternationalCountry', availableLanguages, onChange } = {}
+  { storageKey = 'mercyInternationalCountry', availableLanguages, countryOverride, onChange } = {}
 ) {
   const url = new URL(location.href);
   const supplied = normaliseInternationalCountry(url.searchParams.get('country'));
@@ -65,7 +89,7 @@ export function initialiseInternationalCountry(
     }
   }
 
-  let model = internationalLocaleModel(supplied || stored || inferred, availableLanguages);
+  let model = internationalLocaleModel(normaliseInternationalCountry(countryOverride) || supplied || stored || inferred, availableLanguages);
 
   function remember(country) {
     try { localStorage.setItem(storageKey, country); } catch {}

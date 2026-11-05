@@ -1,6 +1,6 @@
-import { initialiseInternationalCountry } from './locale.mjs';
-import { copy } from './copy.mjs?v=20261104-purchase';
-import { mountCompanionBook } from './book.mjs?v=20261104-purchase';
+import { initialiseInternationalCountry, preferredInternationalLanguage, internationalLocaleModel, internationalEditionCountry } from './locale.mjs?v=20261105-bilingual-audio';
+import { copy } from './copy.mjs?v=20261105-bilingual-audio';
+import { mountCompanionBook } from './book.mjs?v=20261105-bilingual-audio';
 
 const backend = 'https://mercy-malaysia-orders-reviews.shahiranuar.chatgpt.site';
 const inviteHash = new URLSearchParams(location.hash.slice(1)).get('vip');
@@ -64,11 +64,15 @@ function label(element, key) {
 }
 
 function setLanguage(next) {
+  if (!locale?.languages.includes(next) || !copy[next]) return;
   const changed = next !== language;
   language = next;
   $('international-language').value = next;
   $('book-language').value = next;
   preferences.set('language', next);
+  const currentUrl = new URL(location.href);
+  currentUrl.searchParams.set('lang', next);
+  history.replaceState(history.state, '', currentUrl);
   document.documentElement.lang = next;
   document.documentElement.dir = next === 'ar' ? 'rtl' : 'ltr';
   document.title = copy[next].title + ' | MERCY';
@@ -76,15 +80,15 @@ function setLanguage(next) {
   for (const element of document.querySelectorAll('[data-label]')) element.setAttribute('aria-label', copy[next][element.dataset.label]);
   $('reading-status').textContent = copy[next][statusKey] || '';
   showInstallHelp(installKey);
+  window.dispatchEvent(new Event('mercy-language-change'));
   if (changed && lease) {
     hideReader();
     openReading();
   }
 }
 
-initialiseInternationalCountry($('international-country'), {
-  onChange(model) {
-    const preferred = locale ? language : preferences.get('language');
+function applyInternationalLocale(model) {
+    const preferred = locale ? language : preferredInternationalLanguage(location.search, preferences.get('language'), model.languages, navigator.languages || [navigator.language]);
     locale = model;
     for (const id of ['international-language', 'book-language']) $(id).replaceChildren(...model.languages.map(code => {
       const option = new Option(model.labels[code], code);
@@ -92,7 +96,10 @@ initialiseInternationalCountry($('international-country'), {
       return option;
     }));
     setLanguage(model.languages.includes(preferred) ? preferred : 'en');
-  }
+}
+initialiseInternationalCountry($('international-country'), {
+  countryOverride:internationalEditionCountry(location.search,vipInvite?preferences.get('editionCountry'):null),
+  onChange:applyInternationalLocale
 });
 for (const id of ['international-language', 'book-language']) $(id).addEventListener('change', event => setLanguage(event.target.value));
 
@@ -118,13 +125,22 @@ async function request(path, options = {}, token = credential) {
   return response.json();
 }
 
-function session(operation, token = credential) {
-  return request(sessionPath, {
+async function session(operation, token = credential) {
+  const result=await request(sessionPath, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({ sessionId, operation }),
     keepalive: operation === 'release'
   }, token);
+  if(operation==='acquire'&&['ypkdt','parentingu'].includes(result.edition)){
+    const country=result.edition==='ypkdt'?'MY':'GB';
+    preferences.set('editionCountry',country);
+    $('international-country').value=country;
+    $('international-country').disabled=true;
+    const currentUrl=new URL(location.href);currentUrl.searchParams.set('country',country);history.replaceState(history.state,'',currentUrl);
+    applyInternationalLocale(internationalLocaleModel(country));
+  }
+  return result;
 }
 
 function stopReading({ release = false, keepSignIn = true } = {}) {
@@ -145,7 +161,7 @@ function stopReading({ release = false, keepSignIn = true } = {}) {
 function readingError(error) {
   if (error.code === 'account_limit') {
     stopReading();
-    $('reading-status').textContent = 'Ketiga-tiga tempat akaun Google YPKDT telah digunakan.';
+    $('reading-status').textContent = ({en:'All Google account places for this invited edition are in use.',ms:'Semua tempat akaun Google bagi edisi jemputan ini telah digunakan.',ar:'جميع أماكن حسابات Google لهذه النسخة المخصصة مشغولة.'})[language];
     return;
   }
   if (error.code === 'purchase_required') {

@@ -149,7 +149,7 @@
     }
     async function begin() {
       if (destroyed || !supported || !voices.length) return;
-      cancel(); pauseOtherSessions(); active = api;
+      window.MercyVerses?.stop(); cancel(); pauseOtherSessions(); active = api;
       const token = ++run; mode = 'loading'; setStatus('loading'); buttons();
       try {
         const text = await (typeof options.getText === 'function' ? options.getText() : '');
@@ -171,9 +171,9 @@
       else { mode = 'paused'; clearTimer(); synth.pause(); setStatus('paused'); }
       buttons();
     }
-    const onAudioPlay = () => { instances.forEach(instance => { instance.stop(); if (instance !== api) instance.audio.pause(); }); };
+    const onAudioPlay = () => { window.MercyVerses?.stop(); instances.forEach(instance => { instance.stop(); if (instance !== api) instance.audio.pause(); }); };
     const onAudioError = () => setStatus('audioFailed');
-    const onContext = () => { cancel(); refresh(); };
+    const onContext = () => { cancel(); audio.pause(); refresh(); };
     const onLanguage = () => refresh();
     const onSetting = () => { if (['loading', 'reading', 'paused'].includes(mode)) cancel(); };
     const onPageHide = () => { cancel(); audio.pause(); };
@@ -192,5 +192,5 @@
     refresh();
     return api;
   }
-  window.MercyAudio = { mount, stop() { instances.forEach(instance => instance.stop()); } };
+  window.MercyAudio = { mount, stop() { instances.forEach(instance => { instance.stop(); instance.audio.pause(); }); } };
 })();

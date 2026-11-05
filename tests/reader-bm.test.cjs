@@ -58,3 +58,10 @@ const downloadSource=script.match(/async function downloadBook\([^\n]+/)?.[0];as
 test('BM text fallback opens directly without downloading the English PDF',async()=>{
  let shown=0,fetches=0;const ctx={readerLanguage:'ms',malayData:{mappingVerified:false},loadMalayTranslation:async()=>ctx.malayData,showMalayText:()=>shown++,status:{},api:'https://api.test',appAccessToken:'private',deviceId:'device',fetch:async()=>{fetches++;throw Error('Unexpected English PDF download')},openBytes:async()=>{}};vm.runInNewContext(downloadSource,ctx);await vm.runInNewContext('downloadBook()',ctx);assert.equal(shown,1);assert.equal(fetches,0);
 });
+
+
+test('a book-opening request follows the latest English choice while Malay loads',async()=>{
+ let resolve,shown=0,opened=0;const deferred=new Promise(done=>resolve=done);
+ const ctx={readerLanguage:'ms',malayData:{mappingVerified:false},loadMalayTranslation:()=>deferred,showMalayText:()=>shown++,status:{},api:'https://api.test',appAccessToken:'private',deviceId:'device',fetch:async()=>({ok:true,arrayBuffer:async()=>new ArrayBuffer(0)}),openBytes:async()=>opened++};
+ vm.runInNewContext(downloadSource,ctx);const pending=vm.runInNewContext('downloadBook()',ctx);ctx.readerLanguage='en';resolve();await pending;assert.equal(shown,0);assert.equal(opened,1);
+});

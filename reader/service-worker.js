@@ -1,5 +1,5 @@
-const CACHE='the-guide-app-v18-family7';
-const APP_SHELL=['/reader/','/reader/index.html','/reader/manifest.webmanifest','/buy/the-guide-cover.jpg','/reader/icon-192.png','/reader/icon-512.png','/assets/reading-audio.js?v=20261101-audio','/assets/reading-audio.css?v=20261101-audio','/assets/mercy-verses.js?v=20261101-verse-links','/assets/mercy-verses.css?v=20261101-verse-links'];
+const CACHE='the-guide-app-v19-bilingual-verse-audio';
+const APP_SHELL=['/reader/','/reader/index.html','/reader/manifest.webmanifest','/buy/the-guide-cover.jpg','/reader/icon-192.png','/reader/icon-512.png','/assets/reading-audio.js?v=20261105-bilingual-audio','/assets/reading-audio.css?v=20261105-bilingual-audio','/assets/mercy-verses.js?v=20261105-bilingual-audio','/assets/mercy-verses.css?v=20261105-bilingual-audio'];
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(APP_SHELL)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',event=>{

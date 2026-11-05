@@ -3,7 +3,8 @@ import { test } from 'node:test';
 import {
   internationalLocaleModel,
   internationalLocaleOptions,
-  initialiseInternationalCountry
+  initialiseInternationalCountry,
+  preferredInternationalLanguage
 } from '../guide/international/locale.mjs';
 
 test('country options advertise only available translations', () => {
@@ -14,8 +15,8 @@ test('country options advertise only available translations', () => {
     assert.deepEqual(internationalLocaleModel(country).languages, ['en', 'ar']);
   }
   for (const country of ['US', 'GB', 'CA', 'JP', 'IN', 'FR', 'global', 'ZZ', null]) {
-    assert.deepEqual(internationalLocaleModel(country).languages, ['en']);
-    assert.equal(internationalLocaleModel(country).secondaryLanguage, null);
+    assert.deepEqual(internationalLocaleModel(country).languages, ['en', 'ar']);
+    assert.equal(internationalLocaleModel(country).secondaryLanguage, 'ar');
   }
   assert.deepEqual(internationalLocaleModel('AE', ['en', 'ms']).languages, ['en']);
   assert.equal(internationalLocaleModel(' MY ').labels.ms, 'Bahasa Melayu');
@@ -100,7 +101,17 @@ test('browser locale can suggest a country and a manual selection updates withou
   assert.equal(app.stored(), 'JO');
   app.choose('global');
   assert.equal(app.stored(), 'global');
-  assert.deepEqual(app.callbacks.at(-1).languages, ['en']);
+  assert.deepEqual(app.callbacks.at(-1).languages, ['en', 'ar']);
+});
+
+test('language selection honours the link, saved choice, then supported browser language', () => {
+  const languages = ['en', 'ar'];
+  assert.equal(preferredInternationalLanguage('?lang=ar', 'en', languages, ['en-US']), 'ar');
+  assert.equal(preferredInternationalLanguage('?lang=fr', 'ar', languages, ['en-US']), 'ar');
+  assert.equal(preferredInternationalLanguage('', null, languages, ['invalid_tag', 'ar-JO']), 'ar');
+  assert.equal(preferredInternationalLanguage('', null, languages, ['ms-MY']), 'en');
+  assert.equal(preferredInternationalLanguage('', null, ['en', 'ms'], ['ms-MY']), 'ms');
+  assert.equal(preferredInternationalLanguage('?lang=ms', 'en', ['en', 'ms'], ['ar-JO']), 'ms');
 });
 
 test('a valid explicit country takes precedence and a global preference survives locale inference', async t => {
@@ -118,4 +129,12 @@ test('a valid explicit country takes precedence and a global preference survives
     app.choose('MY');
     assert.equal(app.callbacks.at(-1).country, 'MY');
   });
+});
+
+test('VIP edition hints keep local YPKDT bilingual and ParentingU international',async()=>{
+ const {internationalEditionCountry}=await import('../guide/international/locale.mjs');
+ assert.equal(internationalEditionCountry('?vip=ypkdt'),'MY');
+ assert.equal(internationalEditionCountry('?edition=parentingu'),'GB');
+ assert.equal(internationalEditionCountry('','MY'),'MY');
+ assert.equal(internationalEditionCountry('','US'),null);
 });
