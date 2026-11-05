@@ -1,10 +1,19 @@
 (() => {
   'use strict';
-  // Carry the incoming public-page query only between purchase and affiliate information.
+  // Keep attribution through the public campaign, book, purchase and affiliate guides.
   // No storage, external requests, checkout changes or dashboard/auth link changes.
   const incoming = new URLSearchParams(location.search);
   if (!incoming.size) return;
-  const paths = new Set(['/buy/', '/buy/index.html', '/affiliate-program/', '/affiliate-program/index.html']);
+  const paths = new Set([
+    '/', '/index.html',
+    '/buy/', '/buy/index.html',
+    '/mercy/', '/mercy/index.html',
+    '/malaysia/', '/malaysia/index.html',
+    '/islamic-childrens-books/', '/islamic-childrens-books/index.html',
+    '/affiliate-program/', '/affiliate-program/index.html',
+    '/affiliate-program/promote/', '/affiliate-program/promote/index.html',
+    '/affiliate-program/amazon-clickbank/', '/affiliate-program/amazon-clickbank/index.html'
+  ]);
   function preserve(link) {
     const raw = link.getAttribute('href');
     if (!raw || raw.startsWith('#')) return;
@@ -32,3 +41,4 @@
     if (link) preserve(link);
   }, true);
 })();
+
