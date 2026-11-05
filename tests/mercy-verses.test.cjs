@@ -7,14 +7,14 @@ const root=path.join(__dirname,'..');
 const source=readFileSync(path.join(root,'assets/mercy-verses.js'),'utf8');
 const data=JSON.parse(readFileSync(path.join(root,'assets/quran-verses.json'),'utf8'));
 class Element {
- constructor(tag){this.tagName=tag.toUpperCase();this.children=[];this.attributes={};this.events={};this._text='';this.isConnected=true;this.classList={add(){},remove(){}};}
+ constructor(tag){this.tagName=tag.toUpperCase();this.children=[];this.attributes={};this.events={};this._text='';this.isConnected=true;this.paused=true;this.readyState=0;this.currentTime=0;this.classList={add(){},remove(){}};}
  set textContent(value){this._text=String(value);this.children=[];}get textContent(){return this._text+this.children.map(x=>x.textContent).join('');}
  setAttribute(k,v){this.attributes[k]=String(v);}getAttribute(k){return this.attributes[k]??null;}removeAttribute(k){delete this.attributes[k];}
  append(...items){for(const item of items){this.children.push(item);item.parentNode=this;}}replaceChildren(...items){this.children=[];this._text='';this.append(...items);}
  insertAdjacentElement(position,node){this.after=node;node.parentNode=this.parentNode||{mock:true};}
- addEventListener(k,f){this.events[k]=f;}removeEventListener(k){delete this.events[k];}remove(){this.removed=true;}
+ addEventListener(k,f){this.events[k]=f;}removeEventListener(k){delete this.events[k];}closest(){return null;}pause(){this.paused=true;}play(){this.paused=false;return Promise.resolve();}load(){}remove(){this.removed=true;this.isConnected=false;}
 }
-function setup(fetchImpl){const listeners={};const window={addEventListener:(name,fn)=>listeners[name]=fn};const document={createElement:tag=>new Element(tag),createTextNode:text=>({textContent:text})};const context={window,document,fetch:fetchImpl,AbortController,setTimeout,clearTimeout};vm.runInNewContext(source,context);return {api:window.MercyVerses,listeners};}
+function setup(fetchImpl){const listeners={},elements=[];const window={addEventListener:(name,fn)=>listeners[name]=fn};const document={currentScript:{src:'https://mercyseries.com/assets/mercy-verses.js'},documentElement:{lang:'en'},createElement(tag){const node=new Element(tag);elements.push(node);return node;},createTextNode:text=>({textContent:text}),querySelectorAll:selector=>elements.filter(node=>selector==='audio'&&node.tagName==='AUDIO'),addEventListener(){}};const context={window,document,fetch:fetchImpl,URL,AbortController,setTimeout,clearTimeout,setInterval,clearInterval};vm.runInNewContext(source,context);return {api:window.MercyVerses,listeners};}
 const tick=()=>new Promise(resolve=>setImmediate(resolve));
 function click(control,extra={}){let prevented=false;control.events.click({preventDefault(){prevented=true;},...extra});return prevented;}
 test('reference parser covers all published references and rejects unsafe or unbounded values',()=>{

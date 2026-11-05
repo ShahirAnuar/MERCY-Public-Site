@@ -173,7 +173,7 @@
     }
     const onAudioPlay = () => { window.MercyVerses?.stop(); instances.forEach(instance => { instance.stop(); if (instance !== api) instance.audio.pause(); }); };
     const onAudioError = () => setStatus('audioFailed');
-    const onContext = () => { cancel(); audio.pause(); refresh(); };
+    const onContext = () => { cancel(); refresh(); };
     const onLanguage = () => refresh();
     const onSetting = () => { if (['loading', 'reading', 'paused'].includes(mode)) cancel(); };
     const onPageHide = () => { cancel(); audio.pause(); };
