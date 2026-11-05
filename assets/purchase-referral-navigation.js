@@ -8,6 +8,7 @@
     '/', '/index.html',
     '/buy/', '/buy/index.html',
     '/mercy/', '/mercy/index.html',
+    '/learn/', '/learn/index.html',
     '/malaysia/', '/malaysia/index.html',
     '/islamic-childrens-books/', '/islamic-childrens-books/index.html',
     '/affiliate-program/', '/affiliate-program/index.html',
