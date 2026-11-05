@@ -12,7 +12,7 @@
 
 ## Backend repair
 
-The deployed v48 source used an RM15 starting commission for RM25 standard app sales, while the public offer and latest approved terms specified RM20. Source commit `956655276f5fb337b680a5c7555560cb9cfb86dc` corrects new sales to `AFFILIATE_RM20_2500_V4`, subtracts the chosen coupon, retains actual-fee checks and approved special clean-profit treatment, and preserves recorded historical policies/paid records. Seven relevant backend test suites passed, including all coupon tiers, historical reconciliation, webhook and payout guards. The build and ESM validation passed; saved Sites version 49 references that exact commit. Production deployment of version 49 succeeded at 10:42 UTC (18:42 Malaysia/Singapore time); public status readback is recorded separately.
+The deployed v48 source used an RM15 starting commission for RM25 standard app sales, while the public offer and latest approved terms specified RM20. Source commit `956655276f5fb337b680a5c7555560cb9cfb86dc` corrects new sales to `AFFILIATE_RM20_2500_V4`, subtracts the chosen coupon, retains actual-fee checks and approved special clean-profit treatment, and preserves recorded historical policies/paid records. Seven relevant backend test suites passed, including all coupon tiers, historical reconciliation, webhook and payout guards. The build and ESM validation passed; saved Sites version 49 references that exact commit. Production deployment of version 49 succeeded at 10:42 UTC (18:42 Malaysia/Singapore time); public `/api/affiliate/status` readback confirmed the RM20 V4 policy, RM25 list price and RM15 maximum coupon.
 
 ## Remaining material limits
 
@@ -26,3 +26,7 @@ The deployed v48 source used an RM15 starting commission for RM25 standard app s
 ## Verification
 
 Checked HTML IDs/anchors, JSON-LD syntax, JavaScript syntax, sitemap XML, and preservation of existing payment and registration scripts. Sharing-kit checks covered exact parameter preservation and 13 invalid/private-link cases. No real payment or fake affiliate registration was submitted. Sales growth, new registrations and net profit require first-party measurement and are not claimed by these changes.
+
+## Publication and international Amazon option
+
+Public-site commit f71433418d695c9ca438191848536795fc22e328 was published through GitHub Pages; the updated buying page and sharing kit were observed live in the browser. A follow-up adds a conditional independent route for existing approved Amazon Associates to generate their own eligible product links through SiteStripe. Amazon owns those accounts, commissions and payout terms; MERCY app registration is still Malaysia-only. The guidance links official Amazon policies, SiteStripe help and exclusions and does not promise title eligibility, a rate or earnings.
