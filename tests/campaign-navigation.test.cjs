@@ -66,7 +66,6 @@ test('a buyer can explore the actual campaign pages and return to buy with their
   let url = 'https://mercyseries.com/buy/?' + sourceQuery;
   url = loadPage(url).follow('/malaysia/');
   url = loadPage(url).follow('/islamic-childrens-books/');
-  url = loadPage(url).follow('/affiliate-program/amazon-clickbank/');
   url = loadPage(url).follow('/affiliate-program/');
   url = loadPage(url).follow('/buy/');
   assert.equal(url, 'https://mercyseries.com/buy/?affiliate=AFF-ORIGINAL01&coupon=LESS5&ref=family&utm_campaign=local-books');

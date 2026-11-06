@@ -30,15 +30,14 @@ function contextFor(html,fetch){
  return {c,document,storage,replaced:()=>replaced};
 }
 const settle=()=>new Promise(resolve=>setImmediate(resolve));
-const affiliateHtml=fs.readFileSync(root+'affiliate-program/index.html','utf8');const affiliateScript=affiliateHtml.match(/<script>([\s\S]*?)<\/script>/)[1];
-let initialized;
-const a=contextFor(affiliateHtml,async url=>({ok:url.endsWith('/status'),json:async()=>({registrationOpen:true,termsVersion:'2026-10-31-v2'})}));
-a.c.google={accounts:{id:{initialize:x=>initialized=x,renderButton(){}}}};vm.runInNewContext(affiliateScript,a.c);await settle();
-assert.equal(a.document.querySelector('#affiliate-form').hidden,false);assert.equal(a.document.querySelector('#registration-fallback').hidden,true);assert.match(a.document.querySelector('#application-status').textContent,/Secure online registration is available/);assert.equal(a.document.head.children.length,1);
-a.document.head.children[0].onload();await initialized.callback({credential:'a.'+Buffer.from(JSON.stringify({email:'buyer@example.test',name:'Buyer'})).toString('base64url')+'.b'});
-assert.equal(a.document.querySelector('#registration-fields').disabled,false);assert.equal(a.document.querySelector('#affiliate-form').elements.email.value,'buyer@example.test');assert.equal(a.document.querySelector('#affiliate-form').elements.email.readOnly,true);
-const b=contextFor(affiliateHtml,async()=>({ok:false}));vm.runInNewContext(affiliateScript,b.c);await settle();assert.equal(b.document.querySelector('#affiliate-form').hidden,true);assert.equal(b.document.querySelector('#registration-fallback').hidden,false);
+const affiliateHtml=fs.readFileSync(root+'affiliate-program/index.html','utf8');
+assert.doesNotMatch(affiliateHtml,/id="affiliate-form"|\/api\/affiliate\/register/,'public signup UI and requests are withdrawn');
+assert.match(affiliateHtml,/Public affiliate enrolment is closed/);
+const privateHtml=fs.readFileSync(root+'community-access/index.html','utf8'),privateDoc=docFor(privateHtml);
+assert.equal(privateDoc.querySelector('#application-fields').disabled,true,'eligibility form starts locked until sign-in');
+for(const selector of ['#benefit-form','#google-signin','#kind','#proof-one','#proof-two','#guardian-name','#adult-confirmed'])assert(privateDoc.querySelector(selector),'private application selector remains present: '+selector);
+assert.doesNotMatch(privateHtml,/value="(?:standard|kkm_staff|uitm_pharmacy)"/);
 const readerHtml=fs.readFileSync(root+'reader/index.html','utf8');const readerScript=readerHtml.match(/<script type="module">([\s\S]*?)<\/script>/)[1];
 const r=contextFor(readerHtml,async url=>({ok:true,json:async()=>url.endsWith('/verify-code')?{accessToken:'opaque-test',devices:1}:{exclusive:true}}));vm.runInNewContext(readerScript,r.c);
 assert.equal(r.replaced(),'/reader/?safe=yes');assert.equal(r.document.querySelector('#checkout-notice').hidden,false);assert.ok(!r.document.querySelector('#checkout-notice').textContent.includes('cs_test'));r.document.querySelector('#reader-serial').value='MERCY-D-000123';r.document.querySelector('#reader-code').value='123456';await vm.runInNewContext('verifyCode()',r.c);assert.equal(r.storage.get('mercyReaderSerial'),'MERCY-D-000123');assert.equal(r.storage.get('mercyEmailAccess'),'opaque-test');
-console.log('Actual HTML selector checks passed: registration API success opens form, Google callback enables fields, registration failure fallback, reader checkout URL redaction and serial fallback. No live requests made.');
+console.log('Actual HTML selector checks passed: publicsignup withdrawn, privateproof formlocked/complete, reader checkout URL redaction and serial fallback. No live requests made.');

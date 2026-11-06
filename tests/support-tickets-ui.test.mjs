@@ -67,5 +67,5 @@ await inflight;
 assert.equal(get('support-tickets').children.length,0,'stale response cannot restore signed-out account data');
 assert.equal(get('my-support-tickets').hidden,true);
 for(const id of ['recover-form','gift-form','feedback-form','chat-form'])assert.ok(html.includes('id="'+id+'"'),'preserves '+id);
-assert.ok(html.includes('/affiliate-program/uitm-pharmacy/'));
+assert.ok(html.includes('/community-access/'));assert.ok(!html.includes('/affiliate-program/uitm-pharmacy/'),'support no longer recruits through the withdrawn UiTM programme');
 console.log('Support UI: private authenticated requests, safe text rendering, original messages, reply revisions, draft/idempotency retries, pagination, sign-out race guards, existing help flows passed.');

@@ -1,5 +1,6 @@
 // MERCY affiliate coupon service — Node.js 22+, built-in HTTP + fetch only.
-// Run on a trusted server with STRIPE_RESTRICTED_KEY stored as a secret.
+// RETIRED 6 November 2026: public affiliate enrolment and legacy coupon issuance are disabled.
+// Use the canonical beneficiary-only service. Keep the webhook signature verifier for historical reversals.
 // This server NEVER uses the buyer's app activation serial as an affiliate ID.
 import { createServer } from 'node:http';
 import {verifyStripeSignature,calculateCommission,resolvePromotionOwner} from './ledger.mjs';
@@ -151,7 +152,9 @@ async function handleWebhook(req,res){
   for await(const chunk of req){size+=chunk.length;if(size>1024*1024)throw Error('Event too large');chunks.push(chunk)}
   const event=verifyStripeSignature(Buffer.concat(chunks),req.headers['stripe-signature'],secret);
   if(['checkout.session.completed','checkout.session.async_payment_succeeded'].includes(event.type)){
-   if(event.data?.object?.payment_status==='paid')await processPaidSession(event.data.object.id);
+   // Never create new commissions through the withdrawn public-affiliate policy.
+   // The canonical MERCY service reconciles current beneficiary/direct purchases.
+   return json(res,200,{received:true,legacyPolicyRetired:true,commissionRecorded:false});
   }else if(event.type==='charge.refunded'){
    await processRefund(event.data?.object||{});
   }
@@ -202,6 +205,7 @@ async function handle(req,res){
  if(req.method==='OPTIONS'){res.statusCode=origin&&!allowedOrigins.has(origin)?403:204;return res.end()}
  if(origin&&!allowedOrigins.has(origin))return json(res,403,{error:'Not an approved MERCY origin'});
  const path=new URL(req.url,'http://localhost').pathname;
+ if(path.startsWith('/api/affiliate/'))return json(res,410,{error:'This legacy public affiliate service has been retired. Only approved orphan, orphanage and OKU participants may use the current initiative service.',code:'legacy_affiliate_service_retired',applicationUrl:'https://mercyseries.com/community-access/',dashboardUrl:'https://mercyseries.com/affiliate-program/dashboard/'});
  if(path==='/api/stripe/webhook')return handleWebhook(req,res);
  if(path==='/healthz')return json(res,apiKey?200:503,{service:'mercy-affiliate-coupons',configured:Boolean(apiKey)});
  if(!path.startsWith('/api/affiliate/coupons')&&path!=='/api/affiliate/dashboard')return json(res,404,{error:'Not found'});

@@ -1,14 +1,7 @@
-import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
-import vm from 'node:vm';
-const affiliate=readFileSync('affiliate-program/index.html','utf8');
-assert.match(affiliate,/RM15\.00/,'Full-price affiliate estimate must use the new allocation');
-assert.doesNotMatch(affiliate,/Publisher receives RM7|Up to RM7\.52|receives RM7/);
-const rows=[...affiliate.matchAll(/<tr data-discount="(\d+)">([\s\S]*?)<\/tr>/g)];
-assert.equal(rows.length,16,'All discount levels should be present');
-for(const [,discount,html] of rows){const cells=[...html.matchAll(/<td>(.*?)<\/td>/g)].map(x=>x[1]);const cents=cells.slice(1).map(x=>Math.round(Number(x.replace('RM',''))*100));const [paid,fee,aff,pub]=cents;assert.equal(paid,2500-Number(discount)*100);assert.equal(fee,Math.round(paid*.03)+100);assert.equal(aff+pub,paid-fee);assert(aff>pub);assert.deepEqual([aff,pub],[[1500,825],[1400,828],[1300,831],[1200,834],[1100,837],[1000,840],[900,843],[824,822],[775,774],[727,725],[678,677],[630,628],[581,580],[533,531],[484,483],[436,434]][Number(discount)])}
-const dashboard=readFileSync('affiliate-program/dashboard/index.html','utf8');
-assert.match(dashboard,/id="payout-form"/);assert.match(dashboard,/\/api\/affiliate\/payout\/preferences/);assert.match(dashboard,/\/api\/affiliate\/payout\/request/);assert.match(dashboard,/scheduleConfirmed/);
-const support=readFileSync('support/index.html','utf8');assert.match(support,/id="chat-form"/);assert.match(support,/\/api\/support\/chat/);assert.doesNotMatch(support,/tavus/i);
-for(const path of ['affiliate-program/index.html','affiliate-program/dashboard/index.html','support/index.html']){const html=readFileSync(path,'utf8');for(const script of html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g))if(script[1].trim())new vm.Script(script[1]);const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(x=>x[1]);assert.equal(new Set(ids).size,ids.length,path+' duplicate ids');}
-console.log('Affiliate rate table, payout/chat contracts and script checks passed');
+import assert from 'node:assert/strict';import fs from 'node:fs';import vm from 'node:vm';
+const html=fs.readFileSync('affiliate-program/index.html','utf8');assert.match(html,/Public affiliate enrolment is closed/);assert.match(html,/For The Ones Left Behind/);assert.match(html,/For Those Who Needs a Helping Hand/);assert.doesNotMatch(html,/id="affiliate-form"|\/api\/affiliate\/register|value="standard"|Affiliate earns RM20/);assert.match(html,/50% of verified net profit/);assert.match(html,/allocation is not evidence of a completed donation/i);assert.match(html,/five-business-day/);
+const select={value:'0',listeners:{},addEventListener(k,fn){this.listeners[k]=fn}},result={textContent:''},listeners={},context={document:{getElementById:id=>id==='discount'?select:result,documentElement:{lang:'en'}},window:{addEventListener(k,fn){listeners[k]=fn}}};vm.runInNewContext(fs.readFileSync('assets/initiative-overview.js','utf8'),context);
+for(let discount=0;discount<=15;discount++){select.value=String(discount);select.listeners.change();const amounts=[...result.textContent.matchAll(/RM([\d.]+)/g)].map(x=>Math.round(Number(x[1])*100));const paid=2500-discount*100,fee=Math.round(paid*.03)+100;assert.deepEqual(amounts,[paid,fee,paid-fee,0]);assert.match(result.textContent,/before applicable tax/)}
+context.document.documentElement.lang='ms';listeners['mercy-language-change']();assert.match(result.textContent,/Peserta menerima RM8\.70/);assert.match(result.textContent,/sebelum cukai/);
+for(const file of ['affiliate-program/index.html','community-access/index.html','affiliate-program/terms/index.html','affiliate-program/privacy/index.html']){const text=fs.readFileSync(file,'utf8');const ids=[...text.matchAll(/\bid="([^"]+)"/g)].map(x=>x[1]);assert.equal(new Set(ids).size,ids.length,file+' duplicate IDs');for(const script of text.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/g)){if(script[1].includes('application/ld+json'))JSON.parse(script[2]);else if(script[2].trim())new vm.Script(script[2])}}
+console.log('Beneficiary calculator: all16 discounts,3%+RM1 illustration,100% net to participant,RM0 publisher, tax caveat, BM switch and direct charity allocation disclosures passed.');
