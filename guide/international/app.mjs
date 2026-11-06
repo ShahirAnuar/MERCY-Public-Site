@@ -1,6 +1,6 @@
 import { initialiseInternationalCountry, preferredInternationalLanguage, internationalLocaleModel, internationalEditionCountry } from './locale.mjs?v=20261105-bilingual-audio';
 import { copy } from './copy.mjs?v=20261105-bilingual-audio';
-import { mountCompanionBook } from './book.mjs?v=20261105-bilingual-audio';
+import { mountCompanionBook } from './book.mjs?v=20261106-guide-tts';
 
 const backend = 'https://mercy-malaysia-orders-reviews.shahiranuar.chatgpt.site';
 const inviteHash = new URLSearchParams(location.hash.slice(1)).get('vip');

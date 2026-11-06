@@ -12,7 +12,7 @@
 
   <title>The Guide App</title>
   <meta name="description" content="The Guide App: a protected, full-screen interactive reading experience.">
-  <link rel="stylesheet" href="/assets/reading-audio.css?v=20261105-bilingual-audio">
+  <link rel="stylesheet" href="/assets/reading-audio.css?v=20261106-guide-tts">
   <link rel="stylesheet" href="/assets/mercy-verses.css?v=20261105-bilingual-audio">
   <style>
     :root{color-scheme:dark;--navy:#071f48;--gold:#e8c46a;--cream:#fff6df}
@@ -83,7 +83,7 @@
   <dialog id="access-dialog" class="access-dialog" aria-labelledby="access-title"><div class="access-card"><button class="access-close" type="button" aria-label="Close access dialog">×</button><h2 id="access-title">Unlock your app copy</h2><p id="access-copy">Enter the private serial from your app email or, if you are a registered affiliate, your affiliate dashboard. Affiliate family copies are tied to the Gmail account registered to the affiliate and are designed for family use by up to seven concurrent users under that same Gmail account. Standard purchased copies keep their normal access rules.</p><label>Private serial<input id="reader-serial" autocomplete="off" autocapitalize="characters" placeholder="MERCY-D-000001"></label><button id="request-code" type="button">Email me a sign-in code</button><div id="code-panel" hidden><label>6-digit code<input id="reader-code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="123456"></label><button id="verify-code" type="button">Unlock this device</button></div><p class="auth-status" id="access-status" role="status" aria-live="polite">Enter the serial from your app email or affiliate dashboard.</p><p><a href="/support/#recover" style="color:#174d8e">Missing your serial? Email my app details again</a></p><p><a href="/support/?topic=installation" style="color:#174d8e">Installation or sign-in help</a></p></div></dialog>
   <dialog id="thread-dialog" aria-labelledby="thread-title"><div class="thread-card"><button class="thread-close" type="button" aria-label="Close discussion thread">×</button><p id="thread-kicker">Story thread</p><h2 id="thread-title"></h2><p id="thread-note"></p><div class="thread-verse" id="thread-verse"></div><div id="thread-audio" class="reader-audio-host" translate="no"></div><section class="lens-explorer"><h3>Explore through six lenses</h3><div class="lens-buttons"></div><p class="lens-panel" hidden></p><p><a href="/learn/answers/" style="color:#174d8e">Open the free discussion guide</a></p><p>All 86 threads and all six-lens answers are free, in English and Bahasa Melayu.</p></section></div></dialog>
   <dialog id="malay-text-dialog" class="access-dialog" aria-labelledby="malay-text-title"><div class="access-card bm-text-card"><button class="bm-text-close access-close" type="button" aria-label="Close BM text">×</button><p id="bm-license-banner" class="bm-license-banner" hidden></p><h2 id="malay-text-title">Bahasa Melayu reading text</h2><label class="bm-listen-picker">Pilih halaman untuk dibacakan<select id="malay-read-page"></select></label><div id="malay-audio" class="reader-audio-host" translate="no"></div><div id="malay-text-content"></div></div></dialog>
-  <script src="/assets/reading-audio.js?v=20261105-bilingual-audio-r2"></script>
+  <script src="/assets/reading-audio.js?v=20261106-guide-tts"></script>
   <script src="/assets/mercy-verses.js?v=20261105-bilingual-audio"></script>
   <script type="module">
     // A checkout-session URL is not proof of payment. Delivery follows the verified webhook.
@@ -209,14 +209,14 @@
       if(!text)throw Error('No clear story text was found on this illustrated page. Turn to a story page or open a discussion thread.');
       return text;
     }
-    async function currentThreadReadingText(){
+    function currentThreadReadingText(){
       if(!dialog.open||!currentThreadContent)throw Error(readerLanguage==='ms'?'Tunggu sehingga topik dimuatkan.':'Wait for this thread to finish loading.');
       const thread=currentThreadContent,selected=lensButtons.querySelector?.('[aria-pressed="true"]')?.dataset.lens;
       const names=readerLanguage==='ms'?{science:'Sains',history:'Sejarah',psychology:'Psikologi',ethics:'Etika',faith:'Iman',art:'Seni'}:Object.fromEntries(lensNames.map(name=>[name.toLowerCase(),name]));
       const keys=selected?[selected]:lensNames.map(name=>name.toLowerCase());
       return [thread.title,thread.note,...keys.map(key=>names[key]+'. '+publicAnswerText(thread.lenses[key],readerLanguage))].join('\n\n');
     }
-    if(window.MercyAudio){for(const [id,getText,scopeLabel] of [['reader-audio',currentPageReadingText,'Read this page / Baca halaman ini'],['thread-audio',currentThreadReadingText,'Read this thread / Baca topik ini'],['malay-audio',currentPageReadingText,'Teks BM']])audioMounts.push(window.MercyAudio.mount(document.querySelector('#'+id),{getText,getLanguage:()=>readerLanguage,scopeLabel,onCancel:()=>{readerTextEpoch++;stopReaderOcr()}}))}
+    if(window.MercyAudio){for(const [id,getText,scopeLabel] of [['reader-audio',currentPageReadingText,'Read this page / Baca halaman ini'],['thread-audio',currentThreadReadingText,'Read this thread / Baca topik ini'],['malay-audio',currentPageReadingText,'Teks BM']])audioMounts.push(window.MercyAudio.mount(document.querySelector('#'+id),{getText,getLanguage:()=>readerLanguage,scopeLabel,context:id==='thread-audio'?'thread':'page',onCancel:()=>{readerTextEpoch++;stopReaderOcr()}}))}
     document.querySelector('#malay-read-page').addEventListener('change',event=>{notifyReaderContext();document.querySelector('#bm-story-'+event.target.value)?.scrollIntoView?.({block:'start'})});
     window.addEventListener('pagehide',()=>{notifyReaderContext();window.MercyAudio?.stop()});
 

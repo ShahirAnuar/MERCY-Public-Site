@@ -19,3 +19,28 @@ lang='ms';listeners['mercy-language-change']();await new Promise(resolve=>setImm
 assert.equal(fs.readFileSync('learn/lenses-access.js','utf8').includes('accounts.google'),false,'legacy lenses no longer load a sign-in service');
 for(const chapter of [1,2,3]){const html=fs.readFileSync('learn/chapter-'+chapter+'/index.html','utf8');assert.match(html,/MercyLearning\.show\(/);assert.match(html,/MercyLearning\?\.open\(/);assert.doesNotMatch(html,/MercyLearnBM\?\.show/)}
 console.log('All public lens answers: no credential access, six-answer display, caching, language refresh and stale response protection passed');
+
+// Exercise the actual chapter audio getter while a user changes the thread.
+{
+ let audioOptions,chapterLanguage='en',finishFetch;
+ const chapterPanel=new Element(),section=new Element(),dialog=new Element(),heading=new Element(),note=new Element();dialog.open=true;
+ const button=new Element('button'),hub=new Element('a'),controls=new Element(),freeNote=new Element();
+ controls.querySelector=selector=>selector==='button'?button:hub;
+ section.querySelector=selector=>selector==='.learning-open-controls'?controls:selector==='.learning-open-note'?freeNote:null;
+ section.insertBefore=node=>section.append(node);
+ const descendants=node=>node.children.flatMap(child=>[child,...descendants(child)]);
+ chapterPanel.querySelectorAll=()=>descendants(chapterPanel).filter(node=>node.tagName==='h3'||node.tagName==='p'&&node.textContent.includes(' answer '));
+ const selectors={'#lens-example':chapterPanel,'#thread-dialog .lens-explorer':section,'#thread-dialog':dialog,'#thread-dialog-title':heading,'#thread-dialog-note':note};
+ const chapterContext={window:{MercyLanguage:{getLanguage:()=>chapterLanguage},MercyAudio:{stop(){},mount(host,options){audioOptions=options;return {stop(){}}}},addEventListener(){}},document:{readyState:'complete',documentElement:{lang:'en'},createElement:tag=>new Element(tag),querySelector:selector=>selectors[selector]||null,querySelectorAll:()=>[]},fetch:()=>new Promise(resolve=>finishFetch=resolve)};
+ vm.runInNewContext(fs.readFileSync('assets/learn-language.js','utf8'),chapterContext);
+ const learning=chapterContext.window.MercyLearning,pending=learning.open(1,chapterPanel,[]);
+ assert.throws(()=>audioOptions.getText(),/Opening the answers/,'old headings cannot be narrated while answers are pending');
+ finishFetch({ok:true,json:async()=>payload('en')});await pending;
+ assert.match(audioOptions.getText(),/en answer science 1/);assert.equal(audioOptions.context,'thread');
+ const switching=learning.open(2,chapterPanel,[]);
+ assert.throws(()=>audioOptions.getText(),/Opening the answers/);await switching;
+ assert.match(audioOptions.getText(),/en answer art 2/);assert.doesNotMatch(audioOptions.getText(),/answer science 1/);
+ chapterLanguage='ms';const failed=learning.open(3,chapterPanel,[]);finishFetch({ok:false});await failed;
+ assert.throws(()=>audioOptions.getText(),/Jawapan belum dapat dimuatkan/,'failed answers cannot narrate old content');
+ dialog.open=false;assert.equal(audioOptions.getText(),'','closed modal has no narration target');
+}

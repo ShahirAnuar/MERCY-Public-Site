@@ -84,3 +84,57 @@ test('cancellation releases pending text resources while pause retains them',asy
   const own=s.mount({getText:async()=> 'Read this sentence.',getLanguage:()=> 'en',onCancel:()=>{cancellations++}}); await own.read();
   const beforePause=cancellations; await click(find(own.element,n=>n.tagName==='button'&&n.textContent==='Pause')); assert.equal(cancellations,beforePause);
 });
+test('loaded Guide text starts within the user gesture, with thread-specific accessible controls',()=>{
+  const s=setup(),app=s.mount({getText:()=> 'Current discussion and explanation.',context:'thread',getLanguage:()=> 'en'});
+  const start=find(app.element,n=>n.tagName==='button'&&n.textContent==='Read this thread');
+  start.dispatch('click');
+  assert.equal(s.spoken.length,1,'already-loaded text must not defer speech until after the click handler');
+  assert.equal(find(app.element,n=>n.tagName==='summary').textContent,'Listen to this thread');
+  assert.match(start.attributes['aria-describedby'],/status.*help/);
+  assert.equal(find(app.element,n=>n.className==='mercy-audio-status').attributes['aria-atomic'],'true');
+});
+test('late speech start/end events while paused cannot restart a chunk or advance until Resume',async()=>{
+  const s=setup(),app=s.mount({getText:()=> 'First sentence. Second sentence.',getLanguage:()=> 'en'});
+  await app.read(); const first=s.spoken[0],pause=find(app.element,n=>n.tagName==='button'&&n.textContent==='Pause');
+  await click(pause); first.onstart();
+  assert.equal(pause.textContent,'Resume'); assert.equal(s.timers.size,0);
+  first.onend(); assert.equal(s.spoken.length,1); assert.equal(pause.textContent,'Resume');
+  await click(pause); assert.equal(s.spoken.length,2); assert.equal(s.spoken[1].text,'Second sentence.');
+  first.onend(); assert.equal(s.spoken.length,2,'duplicate completion is ignored');
+  app.stop(); s.spoken[1].onstart(); s.spoken[1].onend(); assert.equal(s.spoken.length,2); assert.equal(s.timers.size,0);
+});
+test('late device voices enable the selected language and a missing voice remains actionable',()=>{
+  const s=setup([]),app=s.mount({getLanguage:()=> 'ms',context:'thread'});
+  const status=find(app.element,n=>n.className==='mercy-audio-status'),start=find(app.element,n=>n.tagName==='button'&&n.textContent==='Baca topik ini');
+  assert.match(status.textContent,/Memuatkan suara/); assert.equal(start.disabled,true);
+  s.voices.push({name:'English only',lang:'en-US',voiceURI:'en-US'}); s.window.speechSynthesis.dispatch('voiceschanged');
+  assert.match(status.textContent,/Tiada suara Bahasa Melayu/); assert.equal(start.disabled,true);
+  s.voices.push({name:'Malay',lang:'ms_MY',voiceURI:'ms'}); s.window.speechSynthesis.dispatch('voiceschanged');
+  assert.equal(start.disabled,false); assert.match(status.textContent,/Sedia/); assert.equal(s.timers.size,0);
+  app.destroy(); assert.equal(s.timers.size,0);
+});
+test('a voice provider failure does not crash the guide and reopening can recover',()=>{
+  const s=setup(); s.window.speechSynthesis.getVoices=()=>{throw Error('device unavailable')};
+  const app=s.mount({getLanguage:()=> 'en'}),status=find(app.element,n=>n.className==='mercy-audio-status');
+  assert.match(status.textContent,/could not start/);
+  s.window.speechSynthesis.getVoices=()=>s.voices; app.open();
+  assert.equal(find(app.element,n=>n.tagName==='button'&&n.textContent==='Read aloud').disabled,false); assert.match(status.textContent,/Ready/);
+});
+test('speech permission, language and network errors give localized recovery actions',async()=>{
+  const s=setup([{name:'Malay',lang:'ms-MY',voiceURI:'ms'}]),app=s.mount({getLanguage:()=> 'ms',getText:()=> 'Teks panduan ini.'}),status=find(app.element,n=>n.className==='mercy-audio-status');
+  for(const [error,message] of [['not-allowed',/Tekan butang baca/],['language-unavailable',/Tiada suara Bahasa Melayu/],['network',/Semak sambungan internet/]]){
+    await app.read(); s.spoken.at(-1).onerror({error}); assert.match(status.textContent,message); assert.equal(s.timers.size,0);
+  }
+});
+test('Arabic narration uses Arabic voices, punctuation and RTL, and speed changes stop the old session',async()=>{
+  const s=setup([{name:'Arabic',lang:'ar-SA',voiceURI:'ar'}]),app=s.mount({getLanguage:()=> 'ar',getText:()=> 'هل نقرأ؟ نعم، نقرأ معًا.',context:'thread'});
+  await app.read(); assert.equal(app.element.dir,'rtl'); assert.equal(s.spoken[0].text,'هل نقرأ؟'); assert.equal(s.spoken[0].voice.lang,'ar-SA');
+  s.spoken[0].onend(); assert.equal(s.spoken[1].text,'نعم، نقرأ معًا.');
+  const speed=find(app.element,n=>n.tagName==='select'&&n.children.some(x=>x.value==='1.5'));
+  speed.value='1.5';speed.dispatch('change'); const previous=s.spoken.length;s.spoken.at(-1).onend(); assert.equal(s.spoken.length,previous);
+  await app.read(); assert.equal(s.spoken.at(-1).rate,1.5);
+});
+test('an empty Guide selection never starts speech',async()=>{
+  const s=setup(),app=s.mount({getText:()=> '',getLanguage:()=> 'en',context:'thread'}); await app.read();
+  assert.equal(s.spoken.length,0); assert.match(find(app.element,n=>n.className==='mercy-audio-status').textContent,/Open a book page or thread/);
+});

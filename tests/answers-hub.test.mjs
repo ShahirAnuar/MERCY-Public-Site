@@ -12,5 +12,6 @@ article.children[3].children[2].click();assert.match(spoken,/en title 44/);asser
 lang='ms';events['mercy-language-change']();await new Promise(resolve=>setImmediate(resolve));assert.equal(nodes['all-answers'].children.length,1);assert.equal(nodes['all-answers'].children[0].children[1].textContent,'ms title 44');assert.equal(nodes['answer-status'].textContent,'1 tema · 6 jawapan');
 nodes['all-answers'].children[0].children[3].children[2].click();assert.match(spoken,/ms title 44/);assert.equal(audioOptions.getLanguage(),'ms');
 nodes['clear-search'].click();assert.equal(nodes['all-answers'].children.length,86);nodes['answer-chapter'].value='2';nodes['answer-chapter'].change();assert.equal(nodes['all-answers'].children.length,25);assert.equal(nodes['all-answers'].children[0].id,'thread-24');
+nodes['answer-search'].value='no matching thread exists';nodes['answer-search'].input();assert.equal(nodes['all-answers'].children.length,1);assert.equal(audioOptions.getText(),'','zero results cannot fall back to narrating unrelated thread 1');assert.equal(audioOptions.context,'thread');
 assert.doesNotMatch(fs.readFileSync('assets/answers-hub.js','utf8'),/localStorage|authorization|x-mercy-access|innerHTML/);
 console.log('Public answer hub: 86 threads, 516 visible answers, exact number search, chapter filters and BM refresh passed');

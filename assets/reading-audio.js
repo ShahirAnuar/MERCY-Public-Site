@@ -10,6 +10,7 @@
   const labels = {
     ar: {
       summary: 'استمع أثناء القراءة', surah: 'سورة القلم', recitation: 'تشغيل التلاوة', loop: 'تكرار السورة',
+      threadSummary: 'استمع إلى هذا الموضوع', threadAloud: 'اقرأ هذا الموضوع', threadIntroduction: 'استمع إلى الموضوع وإجابات المنظور المختار. بدء القراءة يوقف التلاوة مؤقتًا.',
       aloud: 'اقرأ بصوت عالٍ', pause: 'إيقاف مؤقت', resume: 'استئناف', stop: 'إيقاف', voice: 'الصوت', speed: 'السرعة',
       introduction: 'اختر التلاوة أو استمع إلى النص الحالي. تشغيل أحدهما يوقف الآخر مؤقتًا.',
       voices: 'جارٍ تحميل الأصوات المتاحة…', unavailable: 'لا يتوفر صوت عربي على هذا الجهاز. أضف صوتًا عربيًا في إعدادات النطق ثم افتح هذه القائمة مجددًا.',
@@ -17,10 +18,12 @@
       ready: 'النص الحالي جاهز للقراءة.', loading: 'جارٍ إعداد النص…', reading: 'جارٍ القراءة بصوت عالٍ…', paused: 'توقفت القراءة مؤقتًا.',
       empty: 'افتح صفحة أو موضوعًا أولاً، ثم اختر القراءة بصوت عالٍ.', contentFailed: 'تعذر إعداد النص الحالي. افتح صفحة أو موضوعًا آخر وحاول مجددًا.', failed: 'تعذر بدء القراءة. تحقّق من إعدادات النطق وحاول مجددًا.',
       audioFailed: 'تعذر تحميل التلاوة. تحقّق من الاتصال وحاول مجددًا.', done: 'انتهت القراءة.', stopped: 'توقفت القراءة.',
+      blocked: 'اضغط على زر القراءة مجددًا للسماح بالصوت في هذا المتصفح.', network: 'تعذر الاتصال بالصوت المختار. تحقّق من الاتصال أو اختر صوتًا آخر.',
       help: 'الأصوات المتاحة تعتمد على جهازك. أضف صوتًا عربيًا في إعدادات الجهاز للقراءة بالعربية.', defaultVoice: 'الصوت الافتراضي', of: 'من'
     },
     en: {
       summary: 'Listen while reading', surah: 'Surah Al-Qalam · The Pen', recitation: 'Play the recitation', loop: 'Repeat surah',
+      threadSummary: 'Listen to this thread', threadAloud: 'Read this thread', threadIntroduction: 'Listen to this thread and the selected lens answers. Starting read aloud pauses the recitation.',
       aloud: 'Read aloud', pause: 'Pause', resume: 'Resume', stop: 'Stop', voice: 'Voice', speed: 'Speed',
       introduction: 'Choose the surah or listen to the current reading. Starting one pauses the other.',
       voices: 'Loading device voices…', unavailable: 'No English voice is available on this device. Add an English voice in your device speech settings, then reopen these controls.',
@@ -28,10 +31,12 @@
       ready: 'Ready to read the current text.', loading: 'Preparing the current text…', reading: 'Reading aloud…', paused: 'Read aloud paused.',
       empty: 'Open a book page or thread first, then choose Read aloud.', contentFailed: 'The current text could not be prepared. Open a readable page or thread and try again.', failed: 'Read aloud could not start. Check your device speech settings, then try again.',
       audioFailed: 'The recitation could not load. Check your connection and try again.', done: 'Reading finished.', stopped: 'Read aloud stopped.',
+      blocked: 'Press the read button again to allow speech in this browser.', network: 'The selected voice could not connect. Check your connection or choose another voice.',
       help: 'Voices depend on your device. An English or Malay voice must be installed for the selected language.', defaultVoice: 'Default voice', of: 'of'
     },
     ms: {
       summary: 'Dengar sambil membaca', surah: 'Surah Al-Qalam · Pena', recitation: 'Mainkan bacaan surah', loop: 'Ulang surah',
+      threadSummary: 'Dengar topik ini', threadAloud: 'Baca topik ini', threadIntroduction: 'Dengar topik ini dan jawapan lensa yang dipilih. Memulakan bacaan suara akan menjeda bacaan surah.',
       aloud: 'Baca dengan suara', pause: 'Jeda', resume: 'Sambung', stop: 'Henti', voice: 'Suara', speed: 'Kelajuan',
       introduction: 'Pilih bacaan surah atau dengar teks semasa. Memulakan satu akan menjeda yang lain.',
       voices: 'Memuatkan suara peranti…', unavailable: 'Tiada suara Bahasa Melayu tersedia pada peranti ini. Tambah suara Bahasa Melayu dalam tetapan pertuturan peranti, kemudian buka semula kawalan ini.',
@@ -39,21 +44,22 @@
       ready: 'Sedia untuk membaca teks semasa.', loading: 'Menyediakan teks semasa…', reading: 'Sedang membaca…', paused: 'Bacaan bersuara dijeda.',
       empty: 'Buka halaman buku atau tema dahulu, kemudian pilih Baca dengan suara.', contentFailed: 'Teks semasa tidak dapat disediakan. Buka halaman atau tema yang boleh dibaca dan cuba lagi.', failed: 'Bacaan bersuara tidak dapat dimulakan. Semak tetapan pertuturan peranti, kemudian cuba lagi.',
       audioFailed: 'Bacaan surah tidak dapat dimuatkan. Semak sambungan internet dan cuba lagi.', done: 'Bacaan selesai.', stopped: 'Bacaan bersuara dihentikan.',
+      blocked: 'Tekan butang baca sekali lagi untuk membenarkan suara dalam pelayar ini.', network: 'Suara yang dipilih tidak dapat disambungkan. Semak sambungan internet atau pilih suara lain.',
       help: 'Suara bergantung pada peranti anda. Suara bahasa Inggeris atau Bahasa Melayu perlu dipasang untuk bahasa yang dipilih.', defaultVoice: 'Suara lalai', of: 'daripada'
     }
   };
 
   // Short utterances avoid the long-utterance stalls found in several speech engines.
   function chunksFor(text) {
-    const normalized = String(text || '').replace(/\u00ad/g, '').replace(/[\t ]+/g, ' ').replace(/\n{3,}/g, '\n\n').trim();
+    const normalized = String(text || '').replace(/\u00ad/g, '').replace(/\r\n?/g, '\n').replace(/[\t \u00a0]+/g, ' ').replace(/\n{3,}/g, '\n\n').trim();
     if (!normalized) return [];
     const result = [];
     for (const paragraph of normalized.split(/\n+/)) {
-      for (const sentence of paragraph.match(/[^.!?。！？]+[.!?。！？]*|[.!?。！？]+/g) || []) {
+      for (const sentence of paragraph.match(/[^.!?。！？؟]+[.!?。！？؟]*|[.!?。！？؟]+/g) || []) {
         let remaining = sentence.trim();
         while (remaining.length > 180) {
           let at = remaining.lastIndexOf(' ', 180);
-          if (at < 40) at = 180;
+          if (at < 40) { at = 180; if (/[\uD800-\uDBFF]/.test(remaining[at - 1])) --at; }
           result.push(remaining.slice(0, at).trim());
           remaining = remaining.slice(at).trim();
         }
@@ -91,10 +97,11 @@
     const speedLabel = make('label'), speedText = make('span'), speed = make('select');
     for (const value of [0.75, 1, 1.25, 1.5]) { const option = make('option', '', value + '×'); option.value = String(value); option.selected = value === 1; speed.append(option); }
     speedLabel.append(speedText, speed); settings.append(voiceLabel, speedLabel);
-    const status = make('p', 'mercy-audio-status'); status.setAttribute('role', 'status'); status.setAttribute('aria-live', 'polite');
-    const help = make('p', 'mercy-audio-help');
+    const status = make('p', 'mercy-audio-status'); status.id = id + '-status'; status.setAttribute('role', 'status'); status.setAttribute('aria-live', 'polite'); status.setAttribute('aria-atomic', 'true');
+    const help = make('p', 'mercy-audio-help'); help.id = id + '-help';
+    start.setAttribute('aria-describedby', status.id + ' ' + help.id); voice.setAttribute('aria-describedby', help.id);
     ttsSection.append(controls, settings, status, help); content.append(intro, recitationSection, ttsSection); root.append(summary, content); container.append(root);
-    let language = '', texts = labels.en, voices = [], run = 0, current = null, timer = null, mode = 'idle', index = 0, chunks = [], destroyed = false, statusKey = 'ready';
+    let language = '', texts = labels.en, voices = [], run = 0, current = null, timer = null, voiceTimer = null, voiceWaited = false, mode = 'idle', index = 0, chunks = [], destroyed = false, statusKey = 'ready';
     const lang = () => { const requested = options.getLanguage?.(); return Object.hasOwn(voiceLocales, requested) ? requested : 'en'; };
     const clearTimer = () => { if (timer !== null) { window.clearTimeout(timer); timer = null; } };
     const setStatus = key => { statusKey = key; status.textContent = texts[key] || key; };
@@ -102,7 +109,7 @@
     function cancel(reason = 'stopped') {
       ++run; clearTimer();
       if (typeof options.onCancel === 'function') { try { options.onCancel(); } catch {} }
-      if (active === api) { if (supported) synth.cancel(); active = null; }
+      if (active === api) { active = null; if (supported) { try { synth.cancel(); } catch {} } }
       current = null; chunks = []; index = 0; mode = 'idle';
       if (!destroyed) { setStatus(reason); buttons(); }
     }
@@ -115,44 +122,51 @@
       timer = window.setTimeout(() => { if (!destroyed && run === token && mode === 'reading') cancel('failed'); }, 45000);
     }
     function next(token) {
-      if (destroyed || run !== token || active !== api) return;
+      if (destroyed || run !== token || active !== api || mode === 'paused') return;
       if (index >= chunks.length) { cancel('done'); return; }
       if (!voices.length) { cancel('unavailable'); return; }
       const utterance = new window.SpeechSynthesisUtterance(chunks[index]);
       current = utterance; utterance.lang = voiceLocales[language]; utterance.rate = Number(speed.value) || 1;
       utterance.voice = voices.find(candidate => candidate.voiceURI === voice.value) || voices[0];
-      utterance.onstart = () => { if (run !== token) return; mode = 'reading'; setStatus('reading'); buttons(); watchdog(token); };
-      utterance.onend = () => { if (run !== token || active !== api) return; clearTimer(); current = null; ++index; next(token); };
-      utterance.onerror = event => { if (run !== token || active !== api) return; cancel('failed'); };
+      utterance.onstart = () => { if (run !== token || current !== utterance || mode === 'paused') return; setStatus('reading'); buttons(); watchdog(token); };
+      utterance.onend = () => { if (run !== token || active !== api || current !== utterance) return; clearTimer(); current = null; ++index; next(token); };
+      utterance.onerror = event => { if (run !== token || active !== api || current !== utterance) return; cancel(event.error === 'not-allowed' ? 'blocked' : ['voice-unavailable', 'language-unavailable'].includes(event.error) ? 'unavailable' : event.error === 'network' ? 'network' : 'failed'); };
       mode = 'reading'; setStatus('reading'); buttons(); watchdog(token);
       try { synth.speak(utterance); } catch { cancel('failed'); }
     }
     function loadVoices() {
       if (destroyed || !supported) return;
       const selected = voice.value;
-      voices = synth.getVoices().filter(candidate => String(candidate.lang).toLowerCase().split(/[-_]/)[0] === language);
+      let available;
+      try { available = synth.getVoices(); } catch { voices = []; voice.replaceChildren(); if (mode !== 'idle') cancel('failed'); else setStatus('failed'); buttons(); return; }
+      voices = available.filter(candidate => String(candidate.lang).toLowerCase().split(/[-_]/)[0] === language);
       voice.replaceChildren();
       for (const candidate of voices) { const option = make('option', '', candidate.name + ' · ' + candidate.lang); option.value = candidate.voiceURI; voice.append(option); }
       if (voices.some(candidate => candidate.voiceURI === selected)) voice.value = selected;
       else { const preferred = voices.find(candidate => String(candidate.lang).toLowerCase() === voiceLocales[language].toLowerCase()) || voices.find(candidate => candidate.default) || voices[0]; if (preferred) voice.value = preferred.voiceURI; }
-      if (mode === 'idle') setStatus(voices.length ? 'ready' : 'unavailable'); buttons();
+      if (!available.length && !voiceWaited && voiceTimer === null) voiceTimer = window.setTimeout(() => { voiceTimer = null; voiceWaited = true; loadVoices(); }, 3000);
+      if (available.length && voiceTimer !== null) { window.clearTimeout(voiceTimer); voiceTimer = null; }
+      if (mode === 'idle' && (['ready', 'voices', 'unavailable', 'failed'].includes(statusKey) || !voices.length)) setStatus(voices.length ? 'ready' : !available.length && !voiceWaited ? 'voices' : 'unavailable');
+      buttons();
     }
     function refresh() {
       if (destroyed) return;
       const nextLanguage = lang();
       if (language && nextLanguage !== language) cancel();
-      language = nextLanguage; texts = labels[language]; root.lang = language;
-      summary.textContent = texts.summary; intro.textContent = texts.introduction; surah.textContent = texts.surah; audio.setAttribute('aria-label', texts.recitation); loopText.textContent = texts.loop;
-      start.textContent = texts.aloud; stop.textContent = texts.stop; voiceText.textContent = texts.voice; speedText.textContent = texts.speed; help.textContent = texts.help;
-      if (options.scopeLabel) start.setAttribute('aria-label', texts.aloud + ' · ' + options.scopeLabel);
-      loadVoices(); if (!supported) setStatus('unsupported'); else if (mode !== 'idle') setStatus(statusKey); buttons();
+      language = nextLanguage; texts = labels[language]; root.lang = language; root.dir = language === 'ar' ? 'rtl' : 'ltr';
+      summary.textContent = options.context === 'thread' ? texts.threadSummary : texts.summary; intro.textContent = options.context === 'thread' ? texts.threadIntroduction : texts.introduction; surah.textContent = texts.surah; audio.setAttribute('aria-label', texts.recitation); loopText.textContent = texts.loop;
+      start.textContent = options.context === 'thread' ? texts.threadAloud : texts.aloud; stop.textContent = texts.stop; voiceText.textContent = texts.voice; speedText.textContent = texts.speed; help.textContent = texts.help;
+      if (options.scopeLabel) start.setAttribute('aria-label', start.textContent + ' · ' + options.scopeLabel);
+      loadVoices(); if (!supported) setStatus('unsupported'); else setStatus(statusKey); buttons();
     }
     async function begin() {
       if (destroyed || !supported || !voices.length) return;
       window.MercyVerses?.stop(); cancel(); pauseOtherSessions(); active = api;
       const token = ++run; mode = 'loading'; setStatus('loading'); buttons();
       try {
-        const text = await (typeof options.getText === 'function' ? options.getText() : '');
+        // Already-loaded guide text starts in the click handler; only prepared PDF text needs an asynchronous wait.
+        const prepared = typeof options.getText === 'function' ? options.getText() : '';
+        const text = prepared && typeof prepared.then === 'function' ? await prepared : prepared;
         if (destroyed || run !== token || active !== api) return;
         chunks = chunksFor(text); index = 0;
         if (!chunks.length) { cancel('empty'); return; }
@@ -166,9 +180,11 @@
       }
     }
     function pauseOrResume() {
-      if (active !== api || !current) return;
-      if (mode === 'paused') { mode = 'reading'; synth.resume(); setStatus('reading'); watchdog(run); }
-      else { mode = 'paused'; clearTimer(); synth.pause(); setStatus('paused'); }
+      if (active !== api || !['reading', 'paused'].includes(mode)) return;
+      try {
+        if (mode === 'paused') { mode = 'reading'; synth.resume(); if (!current) next(run); else { setStatus('reading'); watchdog(run); } }
+        else { mode = 'paused'; clearTimer(); synth.pause(); setStatus('paused'); }
+      } catch { cancel('failed'); }
       buttons();
     }
     const onAudioPlay = () => { window.MercyVerses?.stop(); instances.forEach(instance => { instance.stop(); if (instance !== api) instance.audio.pause(); }); };
@@ -179,6 +195,7 @@
     const onPageHide = () => { cancel(); audio.pause(); };
     const api = { audio, element: root, read: begin, start: begin, open() { root.open = true; refresh(); }, stop: () => cancel(), refresh, destroy() {
       if (destroyed) return; cancel(); audio.pause(); destroyed = true; audio.removeAttribute('src'); audio.load();
+      if (voiceTimer !== null) window.clearTimeout(voiceTimer);
       instances.delete(api); root.remove();
       window.removeEventListener('mercy-language-change', onLanguage); window.removeEventListener('mercy-reading-context-change', onContext); window.removeEventListener('pagehide', onPageHide);
       if (supported) synth.removeEventListener('voiceschanged', loadVoices);

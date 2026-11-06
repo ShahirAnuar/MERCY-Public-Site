@@ -149,7 +149,7 @@ export function mountCompanionBook({copy, getLanguage, onPosition}) {
   }
 
   function currentPageText() {
-    return threads[index] ? [threads[index].title, threads[index].note].join('\n\n') : '';
+    return visibleThreads().flatMap(thread => [thread.title, thread.note]).join('\n\n');
   }
 
   function currentThreadText() {
@@ -264,8 +264,8 @@ export function mountCompanionBook({copy, getLanguage, onPosition}) {
 
   if (window.MercyAudio) {
     audioMounts.push(
-      window.MercyAudio.mount($('reader-audio'), { getLanguage, getText: currentPageText }),
-      window.MercyAudio.mount($('thread-audio'), { getLanguage, getText: currentThreadText })
+      window.MercyAudio.mount($('reader-audio'), { getLanguage, getText: currentPageText, context: 'thread' }),
+      window.MercyAudio.mount($('thread-audio'), { getLanguage, getText: currentThreadText, context: 'thread' })
     );
   }
 

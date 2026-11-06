@@ -1,7 +1,7 @@
 (()=>{'use strict';
 const api='https://mercy-malaysia-orders-reviews.shahiranuar.chatgpt.site';
 const $=id=>document.getElementById(id),form=$('benefit-form'),fields=$('application-fields');
-const labels={oku_access:'Free OKU app access',oku_affiliate:'For Those Who Needs a Helping Hand',orphan:'For The Ones Left Behind · Orphan',orphanage:'For The Ones Left Behind · Orphanage'};
+const labels={oku_access:'Free OKU app access',oku_affiliate:'For Those In Need of a Helping Hand',orphan:'For The Ones Left Behind · Orphan',orphanage:'For The Ones Left Behind · Orphanage'};
 const statusLabels={pending:'Awaiting owner review',pending_review:'Awaiting owner review',approved:'Approved',rejected:'Rejected — you may correct and resubmit',revoked:'Benefit revoked',expired:'Evidence expired — renewal needed',processing:'Processing approval'};
 let credential='',busy=false,accountEpoch=0;
 const sameAccount=(epoch,token)=>epoch===accountEpoch&&token===credential&&Boolean(token);

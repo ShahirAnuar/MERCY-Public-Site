@@ -3,7 +3,7 @@
 Current owner policy supersedes the retired public, KKM/pensioner and UiTM affiliate offers. Only privately verified orphans, orphanages and OKU participants may receive free programme access and sell.
 
 - Orphans/orphanages: For The Ones Left Behind (Bagi Yang Ditinggalkan).
-- OKU: For Those Who Needs a Helping Hand (Bagi Yang Memerlukan).
+- OKU: For Those In Need of a Helping Hand (Bagi Yang Memerlukan).
 - Eligible attributed app sales: up to RM15 discount and 100% of actual net profit to the participant.
 - Direct website app sales: 50% of verified net profit reserved for orphanages, rounded up to the next sen. A reserve is not a completed donation.
 - Standard fee illustration: 3% + RM1; actual Stripe costs and confirmed applicable tax determine net profit.
