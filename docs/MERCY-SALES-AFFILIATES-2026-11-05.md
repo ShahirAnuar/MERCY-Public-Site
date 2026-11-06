@@ -59,3 +59,10 @@ Public-site commit f71433418d695c9ca438191848536795fc22e328 was published throug
 - GitHub Pages run 42115671130 completed successfully. Live readback at 2026-11-05T21:48:15Z: HTTP 200, exact edited HTML match, new edition link present; self-canonical retained. No real payment, registration or activation was submitted.
 - Previously tested referral helper reused; no new tracking, pricing, rights, commissions or payment configuration. No changes to buy/ or affiliate-program/ source.
 - Reuse timestamped country coverage and provider limits above; no retailer-wide availability or commercial lift inferred. Private app-sales evidence is kept separate from Amazon book sales and is not published here.
+
+## Global machine-readable scope checkpoint — 6 November, 18:45 Singapore/Malaysia time
+
+- Inspected remote main 8f10f6c2be0f31585a74cb67b53130f170113935 and its diff. The newer commit adds an author-profile and polymathy-assessment section to llms.txt alongside changes to dedicated author pages. Preserved these newer changes rather than reversing another task's source work.
+- Exact unresolved campaign-scope mismatch: llms.txt now promotes a professional profile and portfolio assessment, while the MERCY global campaign specifies Shahir as book attribution, not a separate person/profile SEO target.
+- Proposed, not deployed: replace only the section from `## Author profile and polymathy assessment` up to (but excluding) `## The 86-thread, six-lens method` with the following text: `## Author attribution\nMERCY is by Shahir Anuar Shahrani. For its synopsis, public six-lens reading guide and edition information, use https://mercyseries.com/mercy/ .` Dedicated author pages and other newer changes would remain untouched. Resolve source ownership before changing that recently edited section.
+- Public llms.txt live-body verification was unavailable through the web reader; the mismatch above is verified against current repository source and commit diff, not claimed as a verified deployed response. No commercial, ranking or AI-citation effect inferred. No buy/, affiliate-program/, policy, payment, authentication or tracking changes.
