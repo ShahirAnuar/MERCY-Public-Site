@@ -1,0 +1,6 @@
+# Owner-authorised closure correction — 6 November 2026
+Base: d76071ef38dc13cd498e7fdf86647c16da4d751c. Read current source and latest sales/health and Malaysia GEO checkpoints. Owner “Do it” authorises the previously proposed source corrections across ownership boundaries.
+
+Replaced public registration/KKM/UiTM/old sharing and community-access promotional content with the 6 November private-only policy; removed public registration scripts/forms, updated home/buy recruitment links, visible buying FAQ plus matching JSON-LD, and llms.txt. Kept dashboard and purchased reader links, purchase handling, valid referral navigation and all underlying account/transaction records. Seven actual-page referral-navigation tests pass. Existing pricing/payment/read scripts were not edited.
+
+Backend paired correction closes status and public register POST, and blocks new KKM/UiTM benefit submissions/approvals. Its separate source contains the implementation/test checkpoint. This bounded correction does not establish a new private orphan onboarding workflow or a direct-sale orphanage fund ledger; no completed donation is asserted. Historical balances and records remain intact. Backend deployment and public Pages publication must be verified separately; a repository commit alone is not a live check.
