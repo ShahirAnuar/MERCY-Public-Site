@@ -109,3 +109,30 @@ This section supersedes the 6 November 23:51 public-copy mismatch status above; 
 - Read remote main 564526ba311075aaf321a8f8790a74fff7d9eff2, its diff, current learn/index.html, this conversion checkpoint and the latest community initiative checkpoint. The newer change adds only author attribution to the reading guide's WebPage structured data; preserved it without a duplicate public-source edit.
 - Live /learn/?reading-guide=1 at 2026-11-07T11:52:11Z returned HTTP 200 and exactly matched current repository source. JSON-LD parsed and identifies Shahir Anuar Shahrani as author, with about pointing to /mercy/#book. Expected self-canonical, one H1, public 86-thread/six-lens description, /mercy/#editions link, international companion route and existing referral helper remain present. This is technical page verification, not indexing, ranking, citation or sales evidence.
 - Reused the prior dated all-market rollup and 18:53 payment observation rather than repeat retailer/payment fetches or quota-limited reports. No new first-party Amazon paid-unit or registration report available. No public page, checkout, pricing, participant earnings/access, rights, tracking or payment/payout setting changed in this check. The existing llms.txt profile-scope proposal remains separate and unresolved.
+
+## Amazon purchase priority and action queue — 7 November, 22:47 Singapore/Malaysia time
+
+The owner's 7 November Amazon purchase priority supersedes app-sales and affiliate-recruitment marketing priorities for this role. The 6 November private-initiative policy and source ownership remain binding. This role owns public-page source outside buy/ and affiliate-program/; Market SEO supplies listing/query evidence, and GEO supplies observed-answer evidence/proposals. No duplicate campaigns or automations.
+
+### Evidence and all-market coverage
+
+- Read current remote main 0a5739a808746325bbcf56fa9fad110f4f42b8f6, current Canadian source f2eee07d9ae15cdd350fbe64d1d7c4d70cb4b8c9, this checkpoint, the initiative checkpoint and the current durable market evidence file (updated through 19:54).
+- Reused recorded matching English Kindle paid offers for US, UK, DE, FR, ES, IT, JP, BR, MX, AU, CA, NL and IN. Most source acquisitions are 6 November; NL/IN acquisition freshness is unknown. No configured country-rights or completed-order proof. PL/SE/IE print evidence is historical; Belgium's latest successful print evidence is 5 November and needs renewed live verification. Retrieval failures do not prove stock unavailable. No translation or universal-format claim.
+- Canada guide live readback at 2026-11-07T14:46:40Z: HTTP 200, self-canonical and exact match to current source. Its paperback Amazon CTA, edition-chooser route and deferred referral helper remain intact. The direct Canadian Kindle CTA remains proposed, not published.
+- Exact Canadian Kindle URL https://www.amazon.ca/dp/B0HGVJ4RTN checked in this pass: Parallel extract_4f5a319988eca1016af8814358f109a2 returned matching MERCY / Shahir Anuar Shahrani / English Kindle / ASIN B0HGVJ4RTN / ISBN 9786299274001, a literal $5.69 paid offer and Buy now with 1-Click control. Actual source acquisition is 2026-11-06T00:00:00Z, not this check time. The extract also contains a page-loading error. Customer-specific eligibility, configured rights and completed checkout remain unverified. Print format swatches are not dedicated print checks.
+- Latest bounded Search Console query at 21:43 for 5–6 November returned no rows without forced refresh. Amazon paid units, receipts, net contribution and instrumented Amazon-bound clicks are unavailable; do not substitute Stripe app payments or infer zero. No seven-day Amazon conversion comparison is currently possible.
+
+### Action queue
+
+| Affected URL / audience / locale | Evidence and baseline | Owner / proposed action | Status / verification / review |
+|---|---|---|---|
+| /mercy/canada/ — adult parents, educators and librarians; en-CA; English Kindle purchase intent | Source and live HTML checked 7 Nov 22:46; paperback Amazon CTA plus central chooser, no direct Canadian Kindle CTA. Retailer identity/paid offer in 6 Nov acquisition; configured rights unverified. Amazon paid-unit and click baseline unavailable. | Global site SEO; after rights/publication verification and sufficiently fresh customer-offer evidence, add the exact proposed link below beside the paperback CTA, preserving existing links/parameters. Market SEO supplies retailer evidence. | PROPOSED, NOT DEPLOYED. Rights evidence is the unresolved gate; no new direct retailer promotion in this pass. Reassess 8 Nov only when new evidence exists. |
+| /mercy/canada/ and existing public referral helper — adult buyers; en-CA | Chooser/link and helper fixes deployed 7 Nov; current live HTML exactly matches source. Deterministic source routing checks and exact-commit Pages success recorded above. Browser execution, Amazon-bound clicks and paid sales lift unmeasured. | Global site SEO; retain useful deployed change; review suitable seven-day evidence when available rather than rewrite hourly. | DEPLOYED and HTML VERIFIED. Seven-day review 14 Nov. Recovery: remove only the added chooser link, availability note and helper reference from d2ffc7eb4430753253eb30a6ba829834b1f746aa if a concrete regression is found; preserve subsequent edits. Helper allowlist additions from 2fa0c49228a6b093ceeb816a45ea8affd54d3cae remain a separately scoped change. |
+
+Exact copy-ready Canadian Kindle link, gated as above and NOT PUBLISHED:
+
+```html
+<a class="button secondary" href="https://www.amazon.ca/dp/B0HGVJ4RTN">View MERCY English Kindle edition at Amazon Canada</a>
+```
+
+No new condition-specific page or health/diagnosis copy. Audience interests involving autism, ADHD, neurodivergence, giftedness or twice-exceptionality remain research hypotheses until validated; no individual profiling, clinical suitability or genius claim. Future public guide descriptions must identify the 86 threads as an editorial discussion map, distinct from the full book and companion app. Existing paid access, participant attribution, checkout and commercial settings preserved.
