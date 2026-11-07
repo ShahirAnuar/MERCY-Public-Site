@@ -9,6 +9,8 @@
     '/buy/', '/buy/index.html',
     '/mercy/', '/mercy/index.html',
     '/learn/', '/learn/index.html',
+    '/mercy/canada/', '/mercy/canada/index.html',
+    '/guide/international/', '/guide/international/index.html',
     '/malaysia/', '/malaysia/index.html',
     '/islamic-childrens-books/', '/islamic-childrens-books/index.html',
     '/affiliate-program/', '/affiliate-program/index.html',
