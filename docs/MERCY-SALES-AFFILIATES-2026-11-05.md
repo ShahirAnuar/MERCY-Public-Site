@@ -323,3 +323,26 @@ Existing copy-ready replacement:
 Do not add an external link to retailer content without checking permitted placement. Existing synopsis/open guide already distinguish the book and editorial guide, so no competing owned-page rewrite justified. No new market promotion, book diagnosis, intelligence hierarchy, genius/treatment/outcome promise or inferred rights/translation/availability claim.
 
 Chapter3 sitemap finding stays closed; hardcover llms correction and approved evidence-linked biography preserved. Canada/Japan direct Kindle proposals and IBS choice remain gated; companion Amazon eligibility not extended to bookstore purchases. Canadian14 Nov and Brazil/hardcover15 Nov reviews retained, other queued reviews9 Nov. Reuse9:48 Search Console and existing Ubersuggest reports until their next review; paid Amazon/bookstore units/receipts/conversion remain unavailable, not zero. No new AI-answer sample, fabricated indexing submission, sales-lift inference or public-page/financial/access/referral/coupon/schedule/unrelated-project change.
+
+
+## Daily search-performance review — 9 November, 00:53 Singapore/Malaysia time
+
+Read remote main dd6e7418df29adb385078cc94e812ed685343fca, current authoritative conversion checkpoint blob5f465c1638dea2af5c6f32b334d07f564d248958, unchanged initiative checkpoint e3206da430afb860cc8f4c138a191721924f6ea9 and market checkpoint version24 (modified2026-11-08T15:42:49Z). Internal all-market rollup reused with acquisition dates retained: US/UK/DE/FR/ES/IT/JP/BR/MX/AU/CA/NL/IN historical matching English Kindle evidence; current title rights/customer eligibility/checkout/paid sales unverified. Most acquisitions6 November, AU/MX7 November, NL freshness unresolved. PL/SE/IE print historical; BE/NL9 November market retry queue retained. IBS edition/delivery gate, blocked Readings/OpenTrolley and stale October YES24/bol evidence unchanged; no duplicate market retailer checks.
+
+Validated Windsor Search Console fields before read-only retrieval for account sc-domain:mercyseries.com. Requested2026-10-25 through2026-11-07 with date/page/clicks/impressions, force_refresh=false; no paid refresh or settings change. Retrieval around2026-11-08T16:52Z returned47 page/date rows. Provider acquisition/cache time, completeness and data finality not returned.
+
+Computed from all returned rows in code:
+
+| Requested period | Returned rows / distinct dates | Sum of returned page-row impressions / clicks | Interpretation |
+|---|---|---|---|
+|25–31 October |31 rows /7 dates |178 /4 |Observed page-row sums, not independently deduplicated property totals. |
+|1–7 November |16 rows /6 dates |53 /1 |No7 November row. Missing date/page rows are not verified zeros. No percentage growth/decline or whole-window CTR comparison from unequal observed coverage. |
+|Exact https://mercyseries.com/mercy/ over25 Oct–7 Nov |9 rows /9 dates |24 /0 |Returned synopsis-page evidence only. No query/country/device breakdown, local book demand, paid order or current ranking inferred. |
+
+Newly returned6 November rows: home1 impression/0 clicks and about-author3 impressions/0 clicks. Earlier8 November09:48 retrieval had no6 November row; this later retrieval supersedes that absence only for those returned rows. The shifted14-day window differs from the previous24 Oct–6 Nov request, so do not compare its aggregate totals directly. No7 November row does not establish a zero day. Data predates most7–8 November fixes and cannot establish their effect.
+
+Action queue: Site and search performance owns https://mercyseries.com/mercy/ and synopsis/open-guide purchase path; audience adult book buyers, locale unsegmented English research baseline. Decision NO PUBLIC CHANGE: sparse/incomplete search evidence does not justify a rewrite, new condition/country page, altered biography routing or another CTA variant. Retain current deployed source, documented before/after checks and seven-day Canadian14 Nov/Brazil-hardcover15 Nov reviews. Reuse this dated performance retrieval until next bounded review10 November, unless material new evidence warrants investigation; no hourly metric polls.
+
+AU/UK/US retailer publisher-module correction remains PROPOSED ONLY, not submitted/deployed, with current exact-module recheck and retailer approval required.9 November review does not waive that boundary. Canada/Japan direct Kindle and IBS bookstore choice remain gated. Chapter3 sitemap issue stays closed; hardcover llms correction and full approved biography classification/evidence preserved. No source-wide biography scan or external answer/indexing claim in this metrics rotation; biography review remains separately queued. No account/retailer/financial/access/attribution/referral/coupon, AgentMarkup, schedule, paused campaign or unrelated-project changes.
+
+Amazon/bookstore paid units and attributable receipts, verified retailer-bound clicks, conversions and meaningful seven-day commercial comparisons remain unavailable, never assumed zero. Search impressions/clicks are not paid orders; Stripe app sales remain separate. No measured sales lift or market penetration claim.
