@@ -1,7 +1,7 @@
 {
   "name": "The Guide App",
   "short_name": "Guide App",
-  "description": "The protected, full-screen interactive reading app for The Guide.",
+  "description": "The full-screen interactive reading app for The Guide, using your registered account allowance.",
   "start_url": "/reader/",
   "scope": "/reader/",
   "display": "fullscreen",

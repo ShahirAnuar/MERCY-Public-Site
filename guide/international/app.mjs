@@ -1,6 +1,8 @@
 import { initialiseInternationalCountry, preferredInternationalLanguage, internationalLocaleModel, internationalEditionCountry } from './locale.mjs?v=20261105-bilingual-audio';
-import { copy } from './copy.mjs?v=20261105-bilingual-audio';
+import { copy } from './copy.mjs?v=2026-11-08-unlocked-v1';
 import { mountCompanionBook } from './book.mjs?v=20261106-guide-tts';
+
+await window.GuideAppPolicy.ready;
 
 const backend = 'https://mercy-malaysia-orders-reviews.shahiranuar.chatgpt.site';
 const inviteHash = new URLSearchParams(location.hash.slice(1)).get('vip');
@@ -173,7 +175,6 @@ function readingError(error) {
   const expired = error.status === 401 || error.status === 403;
   stopReading({ release: !expired, keepSignIn: !expired });
   const reason = expired ? 'expired'
-    : error.status === 429 ? 'full'
     : error.status === 409 ? 'sessionExpired'
     : navigator.onLine ? 'unavailable' : 'offline';
   status(reason, !expired);
@@ -274,36 +275,13 @@ function finishReading() {
 }
 
 for (const id of ['finish', 'book-finish', 'change-account']) $(id).addEventListener('click', finishReading);
-$('claim-form').addEventListener('submit', async event => {
-  event.preventDefault();
-  const code = $('claim-code').value.trim();
-  if (!credential || !code || $('claim-submit').disabled) return;
-  const token = credential;
-  $('claim-submit').disabled = true;
-  status('claiming');
-  try {
-    await request('/api/guide/international/claim', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ code })
-    }, token);
-    if (credential !== token) return;
-    $('claim-code').value = '';
-    await openReading();
-  } catch (error) {
-    if (credential !== token) return;
-    if (error.status === 401) readingError(error);
-    else status(error.status >= 400 && error.status < 500 ? 'claimRejected' : 'claimUnavailable');
-  } finally {
-    $('claim-submit').disabled = false;
-  }
-});
 window.addEventListener('pagehide', () => stopReading({ release: true, keepSignIn: false }));
 window.addEventListener('pageshow', event => { if (event.persisted && googleReady) status('signIn'); });
 window.addEventListener('offline', () => {
   if (credential) { stopReading(); status('offline', true); }
 });
 document.addEventListener('visibilitychange', () => { if (!document.hidden) renew(); });
+window.addEventListener('guide-update-required', () => stopReading({ keepSignIn: true }));
 configureGoogle();
 
 window.addEventListener('beforeinstallprompt', event => {
@@ -332,4 +310,5 @@ async function installApp() {
   } catch { showInstallHelp('installHelp'); }
 }
 for (const id of ['install', 'book-install']) $(id).addEventListener('click', installApp);
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js', { scope: './' }).catch(() => {});
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js', { scope: './', updateViaCache: 'none' }).then(reg => reg.update()).catch(() => {});
+
