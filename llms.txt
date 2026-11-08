@@ -26,7 +26,7 @@ The open guide maps 86 chapter-specific discussion threads. The companion guideâ
 ## Edition identifiers
 - Digital / ebook: eISBN 9786299274001; Amazon Kindle ASIN B0HGVJ4RTN.
 - Paperback: ISBN 9786299274018.
-- Hardcover: confirm the ISBN against the exact edition and product page before citing it.
+- Hardcover: ISBN 9786299274025; Amazon identifier 6299274026. Confirm the selected edition and delivery availability with the retailer.
 
 These identifiers do not establish territorial rights, a live listing, stock or orderability in any country. Check the exact retailer product page and format before sharing a country-specific purchase link.
 
