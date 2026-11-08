@@ -8,12 +8,13 @@ self.addEventListener('activate', event => event.waitUntil((async () => {
   await Promise.all(names.filter(name => name.startsWith(GUIDE_CACHE_PREFIX)).map(name => caches.delete(name)));
   await self.clients.claim();
   const windows = await self.clients.matchAll({type:'window',includeUncontrolled:true});
-  await Promise.all(windows.map(client => {
+  for (const client of windows) {
     const url = new URL(client.url);
-    if (url.origin !== self.location.origin || !url.pathname.startsWith(GUIDE_SCOPE) || url.searchParams.get('guide_version') === VERSION) return;
+    if (url.origin !== self.location.origin || !url.pathname.startsWith(GUIDE_SCOPE) || url.searchParams.get('guide_version') === VERSION) continue;
     url.searchParams.set('guide_version', VERSION);
-    return client.navigate(url.href).catch(() => {});
-  }));
+    // Navigation fetches wait for activation. Start the refresh without making activation wait for that navigation.
+    client.navigate(url.href).catch(() => {});
+  }
 })()));
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
