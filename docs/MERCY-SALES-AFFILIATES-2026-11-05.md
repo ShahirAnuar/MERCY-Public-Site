@@ -460,3 +460,20 @@ Recovered remote HEAD7bc539366d7401dabcfca5fd74efa2c32f63c345, conversion checkp
 https://mercyseries.com/mercy/ returnedHTTP200/no redirect at2026-11-09T06:46:35Z. Live HTML exactly matches source055bef4e6a13586958bc305e875536cefe84bef6. Self-canonical, English, mobile viewport, oneH1 and no robots restriction returned. Existing #editions chooser, open-guide link, English-edition Brazil label, Kindle/paperback/hardcover identifiers and Amazon-only companion eligibility retained. Review of visible synopsis confirms adult family reader fit, learning-difference/self-worth context and no diagnosis/treatment promise. This checks delivered HTML/link destinations, not interactive mobile layout, current retailer eligibility, search indexing, AI citations or a paid order.
 
 Decision: NO PUBLIC CHANGE. Site and search performance retains existing synopsis/open-guide/chooser for adult exact-title and Islamic-family-story intent; local demand and paid-unit/attributable-click baseline unavailable. Canada/Japan direct Kindle and IBS edition/delivery proposals remain gated; single AU/UK/US/CA retailer-copy proposal remains not submitted/deployed. Retain10 Nov evidence/performance/biography review, Canada14 Nov, Brazil/hardcover15 Nov and Australia16 Nov deployment reviews. Chapter3 sitemap closure, hardcover llms correction and approved biography preserved. No new deployment, account/financial/access/rights/pricing/referral/coupon/AgentMarkup/schedule/paused-campaign or unrelated-project change. Recovery paths remain those of the original fixes; paid outcomes unavailable, not zero.
+
+
+## Due Search Console review / no public change — 10 November, 00:46 Singapore/Malaysia time
+
+Recovered remote HEADb75cf1c54bf0cc36cbfb4c51fcb1bc451cfbb2ae, this checkpointc8a7aa8e164eec9bf7838a64c9ea50031dfd2394, unchanged initiativee3206da430afb860cc8f4c138a191721924f6ea9 and market version38 (modified9 Nov08:32:49Z). Reused all13-store historical English Kindle rollup with original acquisition dates; current rights/eligibility/checkout/paid outcomes unverified. Markets owns the due retailer rotation; Site did not repeat its listing sweep. Canada/Japan CTA and IBS edition/delivery gates unchanged.
+
+Windsor Search Console accountsc-domain:mercyseries.com; validated date/page/clicks/impressions fields before requesting25 October–7 November, force_refresh=false. Returned49 page/date rows, calculated in code across the entire requested range:
+
+| Requested period / scope | Returned rows / distinct dates | Sum of returned page-row impressions / clicks |
+|---|---|---|
+|25–31 October |31 /7 |178 /4 |
+|1–7 November |18 /7 |61 /1 |
+|Exact https://mercyseries.com/mercy/ across25 Oct–7 Nov |9 /9 |24 /0 |
+
+Compared with9 Nov00:53 extraction, two7 November rows now returned: homepage2 impressions/0 clicks; about-author6/0. This is delayed additional coverage, not a measured growth result. These are sums of page/date rows, not deduplicated property totals; absent page rows are not zero. Provider acquisition/cache period, completeness and finality remain unknown. No query/country/device demand, ranking, AI citation, attributable retailer click or paid-sale inference. Most dates precede recent fixes; no change-impact claim or percentage/CTR trend asserted.
+
+Site decision: NO PUBLIC CHANGE justified by this extraction. Retain synopsis/open guide/explicit country-format choices and useful fixes through original14/15/16 Nov reviews. Next bounded performance refresh11 Nov or material reporting change; reuse this result meanwhile, no hourly metric polling. Scoped biography review remains separately due10 Nov; no new biography check claimed in this entry. Existing retailer-copy proposal remains not submitted/deployed. Chapter3 closure, hardcover llms fix, approved biography, private policy and all referral/coupon/financial/access/rights/pricing/AgentMarkup/schedule/unrelated-project protections preserved. Paid Amazon/bookstore units/receipts/conversion unavailable, not zero. Documentation-only change; original recovery paths retained.
