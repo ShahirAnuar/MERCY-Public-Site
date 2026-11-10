@@ -513,3 +513,20 @@ Recovered remote HEAD6ae1686ff0f20bedb0407616b9da21cb357b3556, this checkpoint89
 https://mercyseries.com/mercy/ returnedHTTP200/no redirects at2026-11-10T06:52:05Z, exact delivered HTML matching unchanged remote source055bef4e6a13586958bc305e875536cefe84bef6. Self-canonical, English, mobile viewport, oneH1, no returned robots restriction and zero missing image-alt attributes. Parsed Book graph matches visible title/author, English language and ebook9786299274001/paperback9786299274018/hardcover9786299274025. Existing #editions target, open-guide and Amazon-only companion links retained; Brazil Kindle label explicitly identifies the English edition. Visible reader-fit copy separates storytelling from diagnosis/treatment. These are delivered-HTML/link/schema checks, not interactive mobile, indexing/citation, retailer eligibility or sales verification.
 
 Site decision: NO PUBLIC CHANGE for adult exact-title/Islamic-family-story buyers. Existing synopsis and choices remain useful; Canada/Japan direct Kindle proposals stay gated on current-title rights/eligibility. IBS edition/delivery and single AU/UK/US/CA retailer-copy proposals remain not submitted/deployed. Retain dated reviews11 November for bounded evidence/health/performance/biography, Canada14 November, Brazil/hardcover15 November and Australia16 November. Paid units/receipts/attributable-click baseline remains unavailable, not zero. No new public deployment, account/financial/rights/pricing/access/referral/coupon/AgentMarkup/schedule/paused-campaign or unrelated-project change; documentation-only record, existing recovery paths preserved.
+
+
+## Due performance baseline review / no public change — 11 November, 00:44 Singapore/Malaysia time
+
+Recovered remote HEAD03a3bcbd09a6eea3a4c21baae7efb9260cca1cc9, this checkpoint1a7af6867fe42e67e59c5359324a501049ae4ba7, initiativee3206da430afb860cc8f4c138a191721924f6ea9 and marketv52 (modified2026-11-10T06:58:23Z). Internal rollup reuses13-store historical English Kindle identities/original acquisitions; completed10 November rotation does not establish current offers/rights/customer eligibility. Print/bookstores separate; no duplicate retail calls.
+
+Validated date/page/clicks/impressions fields, then requested Windsor Search Console sc-domain:mercyseries.com for25 October–7 November, force_refresh=false. All49 returned rows were included in code calculations:
+
+| Period / scope | Returned rows / dates | Returned page-row impressions / clicks |
+|---|---|---|
+|25–31 October |31 /7 |178 /4 |
+|1–7 November |18 /7 |61 /1 |
+|Exact https://mercyseries.com/mercy/ across requested range |9 /9 |24 /0 |
+
+Same baseline as10 November00:46; no new reporting coverage established. Page-row sums are not deduplicated property totals, absent rows are not zero, provider acquisition/cache/completeness/finality unknown. These fixed periods do not establish recent-fix impact, current demand, ranking/CTR growth, AI citation, attributable retailer clicks or paid orders. Next bounded performance review12 November or material reporting change; reuse meanwhile without hourly polling. Biography/source-health review remains separate and no new biography check is claimed here; preserve newer owner-source changes.
+
+Site: NO PUBLIC CHANGE. Retain existing synopsis/open guide and explicit choices; Canada/Japan CTA rights/eligibility gates, IBS edition/delivery and single retailer-copy proposals unchanged/not submitted. Malaysia BM optional language-clarity proposal remains in marketv52 for17 November or actual locale-query/click evidence, not a measured-demand justification for an hourly rewrite. Original14/15/16 November deployment reviews and source closures retained. No public deployment/indexing submission or commercial/access/rights/pricing/financial/referral/coupon/AgentMarkup/schedule/paused-campaign/unrelated-project change. Paid units/receipts remain unavailable, not zero; documentation-only record, recovery paths unchanged.
