@@ -1,6 +1,6 @@
 import { initialiseInternationalCountry, preferredInternationalLanguage, internationalLocaleModel, internationalEditionCountry } from './locale.mjs?v=20261105-bilingual-audio';
-import { copy } from './copy.mjs?v=2026-11-08-unlocked-v1';
-import { mountCompanionBook } from './book.mjs?v=20261106-guide-tts';
+import { copy } from './copy.mjs?v=2026-11-11-full-book-v1';
+import { mountCompanionBook } from './book.mjs?v=2026-11-11-full-book-v1';
 
 await window.GuideAppPolicy.ready;
 
@@ -41,6 +41,11 @@ let googleLoading;
 const book = mountCompanionBook({
   copy,
   getLanguage: () => language,
+  getAccess: () => ({credential,invite:vipInvite}),
+  onError: readingError,
+  onFinish: finishReading,
+  onInstall: () => installApp(),
+  onLanguage: next => setLanguage(next,{reload:false}),
   onPosition(position) {
     currentThread = position;
     preferences.set('thread', position);
@@ -65,7 +70,7 @@ function label(element, key) {
   element.textContent = copy[language][key];
 }
 
-function setLanguage(next) {
+function setLanguage(next,{reload=true}={}) {
   if (!locale?.languages.includes(next) || !copy[next]) return;
   const changed = next !== language;
   language = next;
@@ -83,7 +88,7 @@ function setLanguage(next) {
   $('reading-status').textContent = copy[next][statusKey] || '';
   showInstallHelp(installKey);
   window.dispatchEvent(new Event('mercy-language-change'));
-  if (changed && lease) {
+  if (changed && lease && reload) {
     hideReader();
     openReading();
   }
@@ -311,4 +316,5 @@ async function installApp() {
 }
 for (const id of ['install', 'book-install']) $(id).addEventListener('click', installApp);
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js', { scope: './', updateViaCache: 'none' }).then(reg => reg.update()).catch(() => {});
+
 

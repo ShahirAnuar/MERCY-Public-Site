@@ -1,7 +1,7 @@
 (function () {
   'use strict';
   if (window.GuideAppPolicy) return;
-  const VERSION = '2026-11-08-unlocked-v1';
+  const VERSION = '2026-11-11-full-book-v1';
   const BACKEND = new URL(document.currentScript?.dataset?.guideApi || 'https://mercy-malaysia-orders-reviews.shahiranuar.chatgpt.site', location.href).origin;
   const POLICY_URL = BACKEND + '/api/reader/app-policy';
   const nativeFetch = window.fetch.bind(window);
@@ -47,7 +47,7 @@
   }
   function isGuideRequest(input) {
     const url = new URL(typeof input === 'string' || input instanceof URL ? input : input.url, location.href);
-    return url.origin === BACKEND && (url.pathname === '/api/book' || url.pathname === '/api/lenses/config' || /^\/api\/(?:reader|guide\/international|access)\//.test(url.pathname) || /^\/initiative\/[^/]+\/(?:book|translation|threads|session)$/.test(url.pathname));
+    return url.origin === BACKEND && (url.pathname === '/api/book' || url.pathname === '/api/lenses/config' || /^\/api\/(?:reader|guide\/international|access)\//.test(url.pathname) || /^\/(?:initiative\/[^/]+|mfca\/vip[1-5])\/(?:book|translation|threads|session|data\.json)$/.test(url.pathname));
   }
   async function check() {
     if (checking) return checking;
@@ -91,7 +91,7 @@
     try {
       if ('serviceWorker' in navigator) {
         const registrations = await navigator.serviceWorker.getRegistrations();
-        await Promise.all(registrations.filter(reg => /^\/(?:reader\/|guide\/international\/|initiative\/[^/]+\/)/.test(new URL(reg.scope).pathname)).map(async reg => {
+        await Promise.all(registrations.filter(reg => /^\/(?:reader\/|guide\/international\/|initiative\/[^/]+\/|mfca\/vip[1-5]\/)/.test(new URL(reg.scope).pathname)).map(async reg => {
           await reg.update();
           reg.waiting?.postMessage({ type: 'GUIDE_SKIP_WAITING' });
         }));
@@ -131,3 +131,4 @@
   document.addEventListener('visibilitychange', refreshPolicy);
   setInterval(refreshPolicy, 60_000);
 })();
+

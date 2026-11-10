@@ -1,4 +1,4 @@
-const VERSION = '2026-11-08-unlocked-v1';
+const VERSION = '2026-11-11-full-book-v1';
 const GUIDE_SCOPE = '/reader/';
 const GUIDE_CACHE_PREFIX = 'the-guide-app-';
 self.addEventListener('install', event => event.waitUntil(self.skipWaiting()));
@@ -24,4 +24,5 @@ self.addEventListener('fetch', event => {
     return new Response('<!doctype html><html lang="en"><meta name="viewport" content="width=device-width,initial-scale=1"><title>The Guide update required</title><body style="background:#07182f;color:#fff8e8;font:1.1rem/1.6 system-ui;padding:2rem"><h1>Update The Guide before reading</h1><p>Reconnect to the internet and reopen the app to install the latest update. Your account allowance and reading position are kept.</p><button onclick="location.reload()">Try again</button></body></html>',{status:503,headers:{'content-type':'text/html;charset=UTF-8','cache-control':'no-store'}});
   }));
 });
+
 

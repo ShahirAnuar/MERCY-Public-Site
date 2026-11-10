@@ -56,3 +56,8 @@
 @media(max-width:520px){.book-reader button{padding:.36rem .5rem}.book-toolbar{gap:.25rem}}
 @media(prefers-reduced-motion:reduce){.turning-leaf,#thread-dialog[open]{animation:none}.book-header,.book-toolbar{transition:none}}
 @media(max-width:600px){.book-menu-panel{position:fixed;top:calc(max(.45rem,env(safe-area-inset-top)) + 52px);inset-inline-end:.55rem}}
+
+
+/* The complete reader provides its own controls. */
+#reader > .book-header,#reader > .book-stage,#reader > .book-toolbar{display:none}
+#full-guide-frame{display:block;border:0;width:100%;height:100%;height:100dvh;background:#020b1d}

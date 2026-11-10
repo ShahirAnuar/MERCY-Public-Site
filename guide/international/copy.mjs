@@ -12,7 +12,7 @@ export const copy = {
     requestCode: "Email purchase confirmation",
     changeAccount: "Use another Google account",
     title: 'The Guide App International',
-    intro: 'Explore 86 MERCY story threads through six lenses, with questions and activities for families and classes.',
+    intro: 'Read the complete illustrated MERCY book, with all 86 discussion threads, six lenses, and activities for families and classes.',
     install: 'Install app',
     webGuide: 'Open the free reading guide',
     preferences: 'Country and language',
@@ -28,7 +28,7 @@ export const copy = {
     next: 'Next',
     thread: 'Story thread',
     lenses: 'Six lenses',
-    footer: 'A companion to the MERCY book.',
+    footer: 'The complete MERCY book and six-lens reading guide.',
     verse: 'Qur’an',
     practice: 'Try it',
     loading: 'Opening the reading guide…',
@@ -55,7 +55,7 @@ export const copy = {
     requestCode: "E-mel pengesahan pembelian",
     changeAccount: "Gunakan akaun Google lain",
     title: 'Aplikasi The Guide Antarabangsa',
-    intro: 'Terokai 86 topik cerita MERCY melalui enam lensa, dengan soalan dan aktiviti untuk keluarga dan kelas.',
+    intro: 'Baca buku MERCY bergambar yang lengkap, bersama 86 topik perbincangan, enam lensa serta aktiviti untuk keluarga dan kelas.',
     install: 'Pasang aplikasi',
     webGuide: 'Buka panduan bacaan percuma',
     preferences: 'Negara dan bahasa',
@@ -71,7 +71,7 @@ export const copy = {
     next: 'Seterusnya',
     thread: 'Topik cerita',
     lenses: 'Enam lensa',
-    footer: 'Panduan pendamping buku MERCY.',
+    footer: 'Buku MERCY lengkap bersama panduan bacaan enam lensa.',
     verse: 'Al-Quran',
     practice: 'Cubalah',
     loading: 'Membuka panduan bacaan…',
@@ -98,7 +98,7 @@ export const copy = {
     requestCode: "أرسل تأكيد الشراء بالبريد الإلكتروني",
     changeAccount: "استخدم حساب Google آخر",
     title: 'تطبيق الدليل الدولي',
-    intro: 'استكشف ٨٦ موضوعًا من قصة MERCY من خلال ست عدسات، مع أسئلة وأنشطة للعائلات والفصول الدراسية.',
+    intro: 'اقرأ كتاب MERCY المصور كاملاً، مع خيوط المناقشة الستة والثمانين والعدسات الست وأنشطة للعائلات والصفوف.',
     install: 'تثبيت التطبيق',
     webGuide: 'افتح دليل القراءة المجاني',
     preferences: 'البلد واللغة',
@@ -114,7 +114,7 @@ export const copy = {
     next: 'التالي',
     thread: 'موضوع القصة',
     lenses: 'ست عدسات',
-    footer: 'دليل مرافق لكتاب MERCY.',
+    footer: 'كتاب MERCY الكامل ودليل القراءة بالعدسات الست.',
     verse: 'القرآن',
     practice: 'جرّب',
     loading: 'جارٍ فتح دليل القراءة…',
@@ -129,4 +129,5 @@ export const copy = {
     science: 'العلوم', history: 'التاريخ', psychology: 'علم النفس', ethics: 'الأخلاق', faith: 'الإيمان', art: 'الفن'
   }
 };
+
 
