@@ -569,3 +569,24 @@ https://mercyseries.com/mercy/ returnedHTTP200/no redirects at2026-11-11T06:52:1
 Site decision for existing adult exact-title/Islamic-family-story buyer cluster: NO PUBLIC CHANGE. German language-clarity proposal from marketv55 is optional, unmeasured and already dated18 November; current English labels remain useful, so no translation insertion or new regional page justified. Canada/Japan direct Kindle, IBS edition/delivery/page-count and single retailer-copy proposals remain gated. Retain14/15/16/17/18 November reviews; reuse today's guide check and performance baseline until12 November. This synopsis check may likewise be reused until12 November or concrete regression.
 
 Paid units/receipts/attributable clicks unavailable, not zero; no growth/citation/sales effect inferred. Documentation-only record; original recovery paths preserved. No public deployment/indexing submission, retailer account, financial/access/rights/pricing/referral/coupon/AgentMarkup/tracking/schedule/paused-campaign or unrelated-project changes. Private policy, approved biography/migrated evidence links and newer owner app work preserved.
+
+
+## Due performance baseline review / no public change — 12 November, 00:48 Singapore/Malaysia time
+
+Recovered remote HEAD 94ea59bc0d8b92951ea0d8310d7e62de8e5a220f, this checkpoint cf850e42f6f443966c75b176905dd646f9cbf055, initiative e3206da430afb860cc8f4c138a191721924f6ea9, market v55 (modified 2026-11-11T01:25:30Z) and the existing 11 November GEO report. Internal all-market coverage rollup reuses the 13 historical matching English Kindle identities US/UK/DE/FR/ES/IT/JP/BR/MX/AU/CA/NL/IN with original acquisition dates. Current offers, rights and customer eligibility remain unverified; print and bookstores remain separate. Markets owns the next bounded retailer rotation; no duplicate Site retailer check or allowance bypass.
+
+Validated date/page/clicks/impressions fields, then requested Windsor Search Console sc-domain:mercyseries.com for 25 October–10 November with force_refresh=false. All 53 returned page rows were included in calculations. Four additional rows extend reporting to 8–9 November: about-author on 8 November (5 impressions/0 clicks), homepage on 9 November (4/1), about-author on 9 November (3/1), and exact /mercy/ on 9 November (2/0). No 10 November row was returned; absence is not zero.
+
+| Period / scope | Returned rows / distinct dates | Returned page-row impressions / clicks |
+|---|---|---|
+| 25–31 October | 31 / 7 | 178 / 4 |
+| 1–7 November | 18 / 7 | 61 / 1 |
+| 28 October–3 November | 27 / 7 | 106 / 5 |
+| 4–10 November | 12 / 6 | 35 / 2 |
+| Exact https://mercyseries.com/mercy/ across requested range | 10 / 10 | 26 / 0 |
+
+The fixed October/November baselines remain unchanged; the rolling periods have unequal returned date coverage. These are page-row sums, not deduplicated property totals. Provider acquisition/cache period, completeness and finality are unknown. Delayed reporting coverage does not establish recent-fix impact, locale demand, ranking/CTR growth, AI citations, attributable retailer clicks or paid orders. No query/country/device inference. Next bounded performance review 13 November or a material reporting change; reuse without hourly polling.
+
+Action queue: Site owns the existing synopsis/open-guide purchase path for adult exact-title and Islamic-family-story buyers. NO PUBLIC CHANGE justified by this baseline. Reuse the 11 November delivered-HTML checks until a due bounded health check or concrete regression; no new live-page check is claimed here. Canada/Japan direct Kindle rights/eligibility gates, IBS edition/delivery/page-count checks and the single AU/UK/US/CA retailer-copy proposal remain open and not submitted/deployed. Retain original Canada 14 November, Brazil/hardcover 15 November, Australia 16 November, optional BM 17 November, German/portfolio 18 November reviews; the portfolio migration, chapter-3 sitemap and hardcover source corrections remain closed. Existing English labels do not justify an hourly rewrite from unmeasured locale suggestions.
+
+Paid units, receipts and attributable purchase clicks remain unavailable, not zero. Documentation-only record; no public deployment, indexing submission, retailer/account, financial, access, rights, pricing, referral/coupon/attribution, AgentMarkup, tracking, schedule, paused-campaign or unrelated-project changes. Preserve the private initiative policy, approved biography, migrated portfolio evidence links, Amazon-only companion eligibility and newer owner app work. Existing recovery paths retained.
