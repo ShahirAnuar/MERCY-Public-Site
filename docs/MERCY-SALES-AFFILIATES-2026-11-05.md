@@ -787,7 +787,7 @@ Action queue: Site owns this existing guide for adult families, educators and li
 Documentation only; no public deployment/indexing submission, retailer/account, financial/access/rights/pricing/referral/coupon/attribution, AgentMarkup/tracking/schedule/paused-campaign or unrelated-project changes. Private policy, approved biography/migrated links, Amazon-only companion eligibility and newer owner app work preserved. Fresh performance and genuine new AI citations unavailable; no measured impact claim.
 
 
-## Owner-requested manual Site execution — 17 November 2026, 13:10–13:13 Asia/Kuala_Lumpur
+## Owner-requested manual Site execution — 17 November 2026, started13:10:03 Asia/Kuala_Lumpur
 
 Read the current saved Site automation instructions through private lookup; existing task6ab65f153e0c8191bd20eacb3455bf6a enabled/hourly, no schedule/status/prompt mutation. Read remote HEAD87eacbcc0ca2515b52c15266b0747b79ffc20be5, conversion2587be1f0a1fd5146d4ea02afd64d80c98c42268, initiative e3206da430afb860cc8f4c138a191721924f6ea9 and marketv94 (modified2026-11-16T21:50:44Z,1777lines). Original market acquisitions retained. All-market rollup: thirteen historical matching English Kindle identities US/UK/DE/FR/ES/IT/JP/BR/MX/AU/CA/NL/IN; six DE/FR/ES/IT/BR/MX reviewed16 November/due18 November, remaining seven reviewed17 November/due19 November. Print PL/SE/IE/BE and YES24 separate/due18 November; bookstore edition/access/delivery gates retained/due19 November. These are not thirteen fresh current offers; Singapore is not a Kindle store.
 
