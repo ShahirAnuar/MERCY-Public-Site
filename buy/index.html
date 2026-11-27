@@ -225,7 +225,7 @@
       function blockParticipantCheckout(message){digitalBuy.removeAttribute('href');digitalBuy.classList.add('disabled');digitalBuy.setAttribute('aria-disabled','true');digitalBuy.setAttribute('tabindex','-1');digitalBuy.textContent='Participant checkout unavailable';checkoutStatus.textContent=message;}
       async function prepareCheckout(){
         const requested=Boolean(affiliateCode||couponCode);
-        if(!requested)return blockParticipantCheckout('Direct purchase is closed. Open the link shared by an approved participant to buy The Guide App. / Pembelian terus ditutup. Buka pautan daripada peserta yang diluluskan.');
+        if(!requested)return blockParticipantCheckout('Direct purchase is closed. If a participant shared a sales link with you, open that exact link to buy The Guide App. / Pembelian terus ditutup. Untuk membeli, buka pautan jualan yang dikongsi oleh peserta yang diluluskan.');
         digitalBuy.removeAttribute('href');digitalBuy.classList.add('disabled');digitalBuy.setAttribute('aria-disabled','true');digitalBuy.setAttribute('tabindex','-1');
         if(params.getAll('affiliate').length>1||params.getAll('coupon').length>1||affiliateCode&&!affiliatePattern.test(affiliateCode)||couponCode&&!couponPattern.test(couponCode))return blockParticipantCheckout('The participant or coupon details are invalid. No participant discount or attribution has been applied.');
         checkoutStatus.textContent='Verifying current participant eligibility and coupon ownership…';
