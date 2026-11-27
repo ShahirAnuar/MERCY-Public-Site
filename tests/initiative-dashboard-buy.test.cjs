@@ -48,10 +48,18 @@ function buy(search,fetcher=async()=>({ok:true,json:async()=>({})})){
  return {get,calls,flush:()=>new Promise(resolve=>setImmediate(resolve))};
 }
 const verified=(extra={})=>({ok:true,eligible:true,affiliateId:id,discountAmountCents:500,checkoutUrl:'https://buy.stripe.com/example?client_reference_id='+id+'&prefilled_promo_code=VALID-CODE',...extra});
-test('direct purchases stay open while malformed, revoked and offline participant routes fail closed',async()=>{
- const direct=buy('');assert.equal(direct.get('digital-buy').href,'https://buy.stripe.com/14A3cu7rcbhu8HC10ogA80g');assert.equal(direct.calls.length,0);assert.match(direct.get('referral-checkout-status').textContent,/50%/);
- const bad=buy('?affiliate=not-a-participant');await bad.flush();assert.equal(bad.get('digital-buy').href,undefined);assert.equal(bad.calls.length,0);assert.equal(bad.get('direct-purchase-fallback').hidden,false);
- for(const fetcher of [async()=>({ok:false,json:async()=>({error:'withdrawn'})}),async()=>{throw Error('offline');}]){const h=buy('?affiliate='+id+'&coupon=VALID-CODE',fetcher);await h.flush();assert.equal(h.get('digital-buy').href,undefined);assert.equal(h.get('digital-buy').getAttribute('aria-disabled'),'true');assert.equal(h.get('direct-purchase-fallback').hidden,false);}
+test('direct, old-referral, malformed, revoked and offline routes never open a direct checkout',async()=>{
+ for(const search of ['', '?ref=ref_0123456789abcdef0123456789abcdef', '?affiliate=not-a-participant']){
+  const h=buy(search);await h.flush();assert.equal(h.get('digital-buy').href,undefined);assert.equal(h.calls.length,0);
+  assert.equal(h.get('digital-buy').getAttribute('aria-disabled'),'true');
+ }
+ for(const fetcher of [async()=>({ok:false,json:async()=>({error:'withdrawn'})}),async()=>{throw Error('offline');}]){
+  const h=buy('?affiliate='+id+'&coupon=VALID-CODE',fetcher);await h.flush();
+  assert.equal(h.get('digital-buy').href,undefined);assert.equal(h.get('digital-buy').getAttribute('aria-disabled'),'true');
+ }
+ const html=read('buy/index.html');
+ assert.doesNotMatch(html,/<stripe-buy-button|direct-purchase-fallback|directCheckout|href="https:\/\/buy\.stripe\.com/);
+ assert.match(html,/Already purchased\? Open the app/);
 });
 test('checkout is enabled only after matching current eligibility and owned coupon are verified',async()=>{
  let release;const h=buy('?affiliate='+id+'&coupon=VALID-CODE',async()=>new Promise(resolve=>release=resolve));assert.equal(h.get('digital-buy').href,undefined);release({ok:true,json:async()=>verified()});await h.flush();assert.equal(h.get('digital-price').textContent,'RM20.00');assert.equal(new URL(h.get('digital-buy').href).searchParams.get('client_reference_id'),id);assert.match(h.calls[0].url,/\/api\/affiliate\/attribution\?/);assert.equal(h.calls[0].options.credentials,'omit');
